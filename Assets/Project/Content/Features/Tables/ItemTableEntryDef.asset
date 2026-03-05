@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6b9ee499ad341f4b1f7c7233d321f74, type: 3}
+  m_Name: ItemTableEntryDef
+  m_EditorClassIdentifier: Assembly-CSharp::Project.Src.com.ab.Domain.ItemTable.ItemTableEntryDef
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Def:
+    ItemTableSystem:
+      DropTable: {fileID: 11400000, guid: 918836f408d04074488979c5d199783e, type: 2}
+      Harvest: {fileID: 11400000, guid: 5fed0314f5008fd4a8b919c50bcbd0d0, type: 2}
+      Collect: {fileID: 11400000, guid: b494a251f53f6b549a7c7e7cba2756ae, type: 2}
+      Equipment: {fileID: 11400000, guid: 5ff8e06cead3d7245b2079442b9b271f, type: 2}
+      Craft: {fileID: 11400000, guid: fc4e2ecfa50c171428e29267b9da0cc7, type: 2}
+      InventoryCards: {fileID: 11400000, guid: 4f6a0adcf9bdcb1468bf69eb35054e34, type: 2}
+      InventoryMaterial: {fileID: 11400000, guid: 7ae4a85e65cbe794690138e6c5fa411c, type: 2}
+      InventoryItem: {fileID: 11400000, guid: 96be6a0452ef76945bacee2219de4c93, type: 2}

@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adda9a1aee1346a4ab7c5da63516ac1e, type: 3}
+  m_Name: InventoryItemDef
+  m_EditorClassIdentifier: Assembly-CSharp::Project.Src.com.ab.Domain.ItemTable.InventoryItemSo
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 4760053921382720471, guid: 65a2e844556eb54479f44335c0c8a529, type: 3}
+    - {fileID: 4760053921382720471, guid: 5f5e8d8420c8abf4da46adc5448223d3, type: 3}
+    - {fileID: 4760053921382720471, guid: baeb9e62c47c49647b07c384524a6da7, type: 3}
+    - {fileID: 4760053921382720471, guid: 0e61d73aca8671644b223891c3069ba3, type: 3}
+    - {fileID: 4760053921382720471, guid: 04491355febae0c4684c3beae3637876, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Items
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Project.Src.com.ab.Domain.ItemTable.ItemDefID,
+        Assembly-CSharp],[Project.Src.com.ab.Domain.ItemTable.InventoryItemSo+Entry,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Project.Src.com.ab.Domain.ItemTable.ItemDefID,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1000
+    - Name: $v
+      Entry: 7
+      Data: Project.Src.com.ab.Domain.ItemTable.InventoryItemSo+Entry, Assembly-CSharp
+    - Name: Prefab
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1001
+    - Name: $v
+      Entry: 7
+      Data: Project.Src.com.ab.Domain.ItemTable.InventoryItemSo+Entry, Assembly-CSharp
+    - Name: Prefab
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1002
+    - Name: $v
+      Entry: 7
+      Data: Project.Src.com.ab.Domain.ItemTable.InventoryItemSo+Entry, Assembly-CSharp
+    - Name: Prefab
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1003
+    - Name: $v
+      Entry: 7
+      Data: Project.Src.com.ab.Domain.ItemTable.InventoryItemSo+Entry, Assembly-CSharp
+    - Name: Prefab
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1004
+    - Name: $v
+      Entry: 7
+      Data: Project.Src.com.ab.Domain.ItemTable.InventoryItemSo+Entry, Assembly-CSharp
+    - Name: Prefab
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

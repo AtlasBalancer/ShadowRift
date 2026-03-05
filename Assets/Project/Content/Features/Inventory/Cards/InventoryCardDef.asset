@@ -1,0 +1,175 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d5baf77b974a029c32144c968d285e, type: 3}
+  m_Name: InventoryCardDef
+  m_EditorClassIdentifier: Assembly-CSharp::Project.Src.com.ab.Domain.ItemTable.InventoryCardSo
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 3905428335102453446, guid: b64d91c8b02fe6a4faf53d992559d7c3, type: 3}
+    - {fileID: 3905428335102453446, guid: 64dd09ff589c2604e810fecdb1c03cf8, type: 3}
+    - {fileID: 3905428335102453446, guid: 6a35741a0a60a4f42b81e35843a3cd79, type: 3}
+    - {fileID: 3905428335102453446, guid: 5ecd771574b2c8a4cae98eb19aabae4d, type: 3}
+    - {fileID: 3905428335102453446, guid: 676956cff66167b4e885a5eaf6838b81, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Items
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Project.Src.com.ab.Domain.ItemTable.ItemDefID,
+        Assembly-CSharp],[Project.Src.com.ab.Domain.ItemTable.InventoryCardSo+Entry,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Project.Src.com.ab.Domain.ItemTable.ItemDefID,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1000
+    - Name: $v
+      Entry: 7
+      Data: Project.Src.com.ab.Domain.ItemTable.InventoryCardSo+Entry, Assembly-CSharp
+    - Name: Title
+      Entry: 1
+      Data: Stone pickaxe
+    - Name: Decription
+      Entry: 1
+      Data: 'Stats: /n/t tool power xxx'
+    - Name: Icon
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1001
+    - Name: $v
+      Entry: 7
+      Data: Project.Src.com.ab.Domain.ItemTable.InventoryCardSo+Entry, Assembly-CSharp
+    - Name: Title
+      Entry: 1
+      Data: Copper pickaxe
+    - Name: Decription
+      Entry: 1
+      Data: 'Stats: /n/t tool power xxx'
+    - Name: Icon
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1002
+    - Name: $v
+      Entry: 7
+      Data: Project.Src.com.ab.Domain.ItemTable.InventoryCardSo+Entry, Assembly-CSharp
+    - Name: Title
+      Entry: 1
+      Data: Iron pickaxe
+    - Name: Decription
+      Entry: 1
+      Data: 'Stats: /n/t tool power xxx'
+    - Name: Icon
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1003
+    - Name: $v
+      Entry: 7
+      Data: Project.Src.com.ab.Domain.ItemTable.InventoryCardSo+Entry, Assembly-CSharp
+    - Name: Title
+      Entry: 1
+      Data: Diamond pickaxe
+    - Name: Decription
+      Entry: 1
+      Data: 'Stats: /n/t tool power xxx'
+    - Name: Icon
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1004
+    - Name: $v
+      Entry: 7
+      Data: Project.Src.com.ab.Domain.ItemTable.InventoryCardSo+Entry, Assembly-CSharp
+    - Name: Title
+      Entry: 1
+      Data: Insaneum pickaxe
+    - Name: Decription
+      Entry: 1
+      Data: 'Stats: /n/t tool power xxx'
+    - Name: Icon
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

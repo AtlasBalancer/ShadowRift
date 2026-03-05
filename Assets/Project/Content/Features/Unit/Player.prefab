@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4798886194637157851
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1562252789516732658, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1562252789516732658, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1987008541
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074251101326707694, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074251101326707694, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074251101326707694, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074251101326707694, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074251101326707694, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074251101326707694, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074251101326707694, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074251101326707694, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074251101326707694, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074251101326707694, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300181785040866162, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8038424526958025858, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7300181785040866162, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3232672485481036237}
+  m_SourcePrefab: {fileID: 100100000, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+--- !u!4 &2535373945978478081 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7040925818440936410, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+  m_PrefabInstance: {fileID: 4798886194637157851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2870593096339226281 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7300181785040866162, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+  m_PrefabInstance: {fileID: 4798886194637157851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3232672485481036237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2870593096339226281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0624a57a22d44e145b8a3646e6757fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::com.ab.complexity.features.player.PlayerMono
+  ToolRoot: {fileID: 2535373945978478081}
+  Animator: {fileID: 4583822400946323576}
+  Harvester: {fileID: 6326622867684710256}
+  ToolEquipment: {fileID: 0}
+--- !u!95 &4583822400946323576 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9008346739093927331, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+  m_PrefabInstance: {fileID: 4798886194637157851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6326622867684710256 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1537342019673416363, guid: e042f68f47009484c97ac536eb15de51, type: 3}
+  m_PrefabInstance: {fileID: 4798886194637157851}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2870593096339226281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f3d3a0df9641bdafa57a8413c379d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Project.Src.com.ab.Domain.Harvest.HarvestCollectorMono

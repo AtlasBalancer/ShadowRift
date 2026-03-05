@@ -1,0 +1,1185 @@
+fileFormatVersion: 2
+guid: 0b08a15e123f56b498bd5ca63333b4fb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1945976695908071067
+    second: SandAtlas_1_0
+  - first:
+      213: -66669456955234475
+    second: SandAtlas_1_1
+  - first:
+      213: 6866565092683179711
+    second: SandAtlas_1_2
+  - first:
+      213: 9152913922391205511
+    second: SandAtlas_1_3
+  - first:
+      213: -8730970130627407640
+    second: SandAtlas_1_4
+  - first:
+      213: 2397027652340901904
+    second: SandAtlas_1_5
+  - first:
+      213: 8519198441326944619
+    second: SandAtlas_1_6
+  - first:
+      213: -5772212227751419128
+    second: SandAtlas_1_7
+  - first:
+      213: 3426039166004906993
+    second: SandAtlas_1_8
+  - first:
+      213: 7804795693644068121
+    second: SandAtlas_1_9
+  - first:
+      213: 6266667682029164067
+    second: SandAtlas_1_10
+  - first:
+      213: -6665016974211681685
+    second: SandAtlas_1_11
+  - first:
+      213: 1539970775267446261
+    second: SandAtlas_1_12
+  - first:
+      213: -3500366307591236628
+    second: SandAtlas_1_13
+  - first:
+      213: 1792968682806553656
+    second: SandAtlas_1_14
+  - first:
+      213: -4525390114178267557
+    second: SandAtlas_1_15
+  - first:
+      213: -2180559929840598440
+    second: SandAtlas_1_16
+  - first:
+      213: 859702722928988032
+    second: SandAtlas_1_17
+  - first:
+      213: 3389877972631658730
+    second: SandAtlas_1_18
+  - first:
+      213: -3736831644251400760
+    second: SandAtlas_1_19
+  - first:
+      213: 3133717767422257126
+    second: SandAtlas_1_20
+  - first:
+      213: 3523315658557486247
+    second: SandAtlas_1_21
+  - first:
+      213: -7412871157515754176
+    second: SandAtlas_1_22
+  - first:
+      213: -1018631773328482743
+    second: SandAtlas_1_23
+  - first:
+      213: 1369936508015477941
+    second: SandAtlas_1_24
+  - first:
+      213: 6086253959209176708
+    second: SandAtlas_1_25
+  - first:
+      213: 2215490676787812343
+    second: SandAtlas_1_26
+  - first:
+      213: 2593141336679440510
+    second: SandAtlas_1_27
+  - first:
+      213: 646542983127658378
+    second: SandAtlas_1_28
+  - first:
+      213: 4447523599669660349
+    second: SandAtlas_1_29
+  - first:
+      213: -5034242423524897099
+    second: SandAtlas_1_30
+  - first:
+      213: -645533769030738898
+    second: SandAtlas_1_31
+  - first:
+      213: 4408338280668650446
+    second: SandAtlas_1_32
+  - first:
+      213: -5600923411641259671
+    second: SandAtlas_1_33
+  - first:
+      213: -3621857230582117455
+    second: SandAtlas_1_34
+  - first:
+      213: 3628843128295149654
+    second: SandAtlas_1_35
+  - first:
+      213: -5313188231138834407
+    second: SandAtlas_1_36
+  - first:
+      213: 4779719137636142119
+    second: SandAtlas_1_37
+  - first:
+      213: 2483172024528826689
+    second: SandAtlas_1_38
+  - first:
+      213: -6341556570992053183
+    second: SandAtlas_1_39
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SandAtlas_1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 676
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 569063b51808ef4e0800000000000000
+      internalID: -1945976695908071067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_1
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 676
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 557a0dc6b74231ff0800000000000000
+      internalID: -66669456955234475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_2
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 676
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb66a783290fa4f50800000000000000
+      internalID: 6866565092683179711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_3
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 676
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 786eadbd7bea50f70800000000000000
+      internalID: 9152913922391205511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_4
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 676
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e05863ccec55d680800000000000000
+      internalID: -8730970130627407640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_5
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 676
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 018619623f3f34120800000000000000
+      internalID: 2397027652340901904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_6
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 676
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b61aa5288d54a3670800000000000000
+      internalID: 8519198441326944619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_7
+      rect:
+        serializedVersion: 2
+        x: 2205
+        y: 676
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 803e5b4bf8bf4efa0800000000000000
+      internalID: -5772212227751419128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 511
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fb4c44387cbb8f20800000000000000
+      internalID: 3426039166004906993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_9
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 511
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9153720f454305c60800000000000000
+      internalID: 7804795693644068121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_10
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 511
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 326d4c8fd0da7f650800000000000000
+      internalID: 6266667682029164067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_11
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 511
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b62f92eef5a1183a0800000000000000
+      internalID: -6665016974211681685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_12
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 511
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fd8c40d2431f5510800000000000000
+      internalID: 1539970775267446261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_13
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 511
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce3574493633c6fc0800000000000000
+      internalID: -3500366307591236628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_14
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 511
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83ca5187487e1e810800000000000000
+      internalID: 1792968682806553656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_15
+      rect:
+        serializedVersion: 2
+        x: 2205
+        y: 511
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b56075eeaa59231c0800000000000000
+      internalID: -4525390114178267557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 346
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85286620c481db1e0800000000000000
+      internalID: -2180559929840598440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_17
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 346
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08f4e9452174eeb00800000000000000
+      internalID: 859702722928988032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_18
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 346
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae0a1a64e044b0f20800000000000000
+      internalID: 3389877972631658730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_19
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 346
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c5d4fa0b6b142cc0800000000000000
+      internalID: -3736831644251400760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_20
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 346
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e7a881d4b33d7b20800000000000000
+      internalID: 3133717767422257126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_21
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 346
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a4f3e39ce455e030800000000000000
+      internalID: 3523315658557486247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_22
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 346
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 045e88215f0302990800000000000000
+      internalID: -7412871157515754176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_23
+      rect:
+        serializedVersion: 2
+        x: 2205
+        y: 346
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94e54d19cc71dd1f0800000000000000
+      internalID: -1018631773328482743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 181
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b40a1deefdf20310800000000000000
+      internalID: 1369936508015477941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_25
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 181
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48e4a73cab7b67450800000000000000
+      internalID: 6086253959209176708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_26
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 181
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f7902948010fbe10800000000000000
+      internalID: 2215490676787812343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_27
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 181
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e70e8218e40bcf320800000000000000
+      internalID: 2593141336679440510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_28
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 181
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f6859ea6bf8f800800000000000000
+      internalID: 646542983127658378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_29
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 181
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dba0a706627c8bd30800000000000000
+      internalID: 4447523599669660349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_30
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 181
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bec8983037c22ab0800000000000000
+      internalID: -5034242423524897099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_31
+      rect:
+        serializedVersion: 2
+        x: 2205
+        y: 181
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2c576e057a9a07f0800000000000000
+      internalID: -645533769030738898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecbd2055f409d2d30800000000000000
+      internalID: 4408338280668650446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_33
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 16
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96924f205d58542b0800000000000000
+      internalID: -5600923411641259671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_34
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 16
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bb09f7c9049cbdc0800000000000000
+      internalID: -3621857230582117455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_35
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 16
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65056a7499d3c5230800000000000000
+      internalID: 3628843128295149654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_36
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 16
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9180f2a4473c346b0800000000000000
+      internalID: -5313188231138834407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_37
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 16
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72c40fc4b39f45240800000000000000
+      internalID: 4779719137636142119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_38
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 16
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1417a36cccff57220800000000000000
+      internalID: 2483172024528826689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandAtlas_1_39
+      rect:
+        serializedVersion: 2
+        x: 2205
+        y: 16
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14479fec5e34ef7a0800000000000000
+      internalID: -6341556570992053183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 440c7bd45d5e7d047a583a21a441eabf
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":300.0,"y":150.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":15.0,"y":15.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      SandAtlas_1_0: -1945976695908071067
+      SandAtlas_1_1: -66669456955234475
+      SandAtlas_1_10: 6266667682029164067
+      SandAtlas_1_11: -6665016974211681685
+      SandAtlas_1_12: 1539970775267446261
+      SandAtlas_1_13: -3500366307591236628
+      SandAtlas_1_14: 1792968682806553656
+      SandAtlas_1_15: -4525390114178267557
+      SandAtlas_1_16: -2180559929840598440
+      SandAtlas_1_17: 859702722928988032
+      SandAtlas_1_18: 3389877972631658730
+      SandAtlas_1_19: -3736831644251400760
+      SandAtlas_1_2: 6866565092683179711
+      SandAtlas_1_20: 3133717767422257126
+      SandAtlas_1_21: 3523315658557486247
+      SandAtlas_1_22: -7412871157515754176
+      SandAtlas_1_23: -1018631773328482743
+      SandAtlas_1_24: 1369936508015477941
+      SandAtlas_1_25: 6086253959209176708
+      SandAtlas_1_26: 2215490676787812343
+      SandAtlas_1_27: 2593141336679440510
+      SandAtlas_1_28: 646542983127658378
+      SandAtlas_1_29: 4447523599669660349
+      SandAtlas_1_3: 9152913922391205511
+      SandAtlas_1_30: -5034242423524897099
+      SandAtlas_1_31: -645533769030738898
+      SandAtlas_1_32: 4408338280668650446
+      SandAtlas_1_33: -5600923411641259671
+      SandAtlas_1_34: -3621857230582117455
+      SandAtlas_1_35: 3628843128295149654
+      SandAtlas_1_36: -5313188231138834407
+      SandAtlas_1_37: 4779719137636142119
+      SandAtlas_1_38: 2483172024528826689
+      SandAtlas_1_39: -6341556570992053183
+      SandAtlas_1_4: -8730970130627407640
+      SandAtlas_1_5: 2397027652340901904
+      SandAtlas_1_6: 8519198441326944619
+      SandAtlas_1_7: -5772212227751419128
+      SandAtlas_1_8: 3426039166004906993
+      SandAtlas_1_9: 7804795693644068121
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

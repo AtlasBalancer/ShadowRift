@@ -1,0 +1,24 @@
+using System;
+using com.ab.complexity.core;
+
+namespace com.ab.domain.craft
+{
+    public class CraftEntryDef : StaticEntryParamDef<CraftEntryDef.Settings>, IStaticRegisterTypeDef, IStaticUpdateDef
+    {
+        [Serializable]
+        public class Settings
+        {
+            public CraftViewSystem.Settings CraftViewSystem;
+        }
+
+        public void RegisterType()
+        {
+            W.RegisterComponentType<CraftCommand>();
+        }
+
+        public void RegisterUpdate()
+        {
+            Sys.AddUpdate(new CraftViewSystem(Def.CraftViewSystem));
+        }
+    }
+}
