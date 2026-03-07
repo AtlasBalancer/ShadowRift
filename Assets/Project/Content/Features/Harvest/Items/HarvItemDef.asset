@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb9fe0395f48aeb4149b63aa37afc2, type: 3}
+  m_Name: HarvItemDef
+  m_EditorClassIdentifier: Assembly-CSharp::Project.Src.com.ab.Domain.Harvest.HarvestDef
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 45ae5906945831c4393bc3aaeaafee7e, type: 2}
+    - {fileID: 1638686777290196873, guid: 7411fdf83c89d8544b281dc0e2d7b120, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Entries
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Project.Src.com.ab.Domain.ItemTable.ItemDef,
+        Assembly-CSharp],[Project.Src.com.ab.Domain.Harvest.HarvestDef+Entry, Assembly-CSharp]],
+        mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[Project.Src.com.ab.Domain.ItemTable.ItemDef,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 2|Project.Src.com.ab.Domain.Harvest.HarvestDef+Entry, Assembly-CSharp
+    - Name: Prefab
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

@@ -5,7 +5,7 @@ namespace Project.Src.com.ab.Domain.Inventory
 {
     public struct InventoryAddItem : IEvent
     {
-        public ItemDefID ID;
+        // public ItemDefID ID;
         public int Amount;
     }
     

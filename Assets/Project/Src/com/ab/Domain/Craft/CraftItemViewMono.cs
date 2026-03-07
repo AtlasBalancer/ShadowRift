@@ -20,7 +20,7 @@ namespace com.ab.domain.craft
     public class CraftItemViewMono : MonoBehaviour
     {
         public CraftID ID;
-        public CraftItemSo.Entry Def;
+        // public CraftItemSo.Entry Def;
 
         public RectTransform PriceContainer;
 
@@ -50,7 +50,7 @@ namespace com.ab.domain.craft
                     Button.interactable = true;
                 });
 
-            Ent.Add(new CraftCommand { Def = Def });
+            // Ent.Add(new CraftCommand { Def = Def });
         }
 
         [Button]

@@ -61,8 +61,8 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         void UpdateAllItems()
         {
-            foreach (var @item in _inventory.ItemLinks)
-                UpdateItem(@item.Key);
+            // foreach (var @item in _inventory.ItemLinks)
+                // UpdateItem(@item.Key);
         }
 
         void UpdateMaterial(ResourceDefID id)
@@ -78,19 +78,19 @@ namespace Project.Src.com.ab.Domain.Inventory
             itemView.UpdateAmount(amount.Value);
         }
 
-        void UpdateItem(ItemDefID id)
-        {
-            InventoryItemMono itemView;
-            if (!View.Items.TryGetValue(id, out itemView))
-            {
-                InventoryItemMono prefab = _itemTable.Def.InventoryItem.Items[id].Prefab;
-                itemView = CreateInventoryItemView(prefab, _inventory.Get(id), View.ItemsRoot);
-                View.Items.Add(id, itemView);
-            }
+        // void UpdateItem(ItemDefID id)
+        // {
+            // InventoryItemMono itemView;
+            // if (!View.Items.TryGetValue(id, out itemView))
+            // {
+                // InventoryItemMono prefab = _itemTable.Def.InventoryItem.Items[id].Prefab;
+                // itemView = CreateInventoryItemView(prefab, _inventory.Get(id), View.ItemsRoot);
+                // View.Items.Add(id, itemView);
+            // }
 
-            var amount = _inventory.Get(id).Amount;
-            itemView.UpdateAmount(amount.Value);
-        }
+            // var amount = _inventory.Get(id).Amount;
+            // itemView.UpdateAmount(amount.Value);
+        // }
 
         InventoryItemMono CreateInventoryItemView(InventoryItemMono prefab, InventoryItemLink link, Transform root)
         {
@@ -113,14 +113,14 @@ namespace Project.Src.com.ab.Domain.Inventory
             {
                 Debug.Log("PRESSED");
 
-                ItemDefID id = ent.Ref<InventoryItem>().ID;
+                // ItemDefID id = ent.Ref<InventoryItem>().ID;
                 int amount = ent.Ref<InventoryAmount>().Value;
                 bool isEquipped = ent.HasAllOfTags<Equipped>();
 
-                if (!_itemTable.Def.InventoryCards.Items.TryGetValue(id, out var cardDef))
-                    throw new ArgumentException($"{nameof(InventoryViewSystem)}:: Can't find {id} in ItemTable");
+                // if (!_itemTable.Def.InventoryCards.Items.TryGetValue(id, out var cardDef))
+                    // throw new ArgumentException($"{nameof(InventoryViewSystem)}:: Can't find {id} in ItemTable");
 
-                View.ShowCard(ent, cardDef.Icon, amount, cardDef.Title, cardDef.Decription, isEquipped);
+                // View.ShowCard(ent, cardDef.Icon, amount, cardDef.Title, cardDef.Decription, isEquipped);
 
                 ent.ApplyTag<ViewPressed>(false);
             }
@@ -135,10 +135,10 @@ namespace Project.Src.com.ab.Domain.Inventory
 
             foreach (var ent in W.Query.Entities<All<InventoryItem>, TagAll<Delete>>())
             {
-                var id = ent.Ref<InventoryItem>().ID;
+                // var id = ent.Ref<InventoryItem>().ID;
 
-                Object.Destroy(View.Items[id]);
-                View.Items.Remove(id);
+                // Object.Destroy(View.Items[id]);
+                // View.Items.Remove(id);
             }
 
             if (!IsActive())
@@ -149,7 +149,7 @@ namespace Project.Src.com.ab.Domain.Inventory
 
             foreach (var @event in _addItemReceiver)
             {
-                UpdateItem(@event.Value.ID);
+                // UpdateItem(@event.Value.ID);
             }
         }
     }

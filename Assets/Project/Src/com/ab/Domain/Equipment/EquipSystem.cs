@@ -33,13 +33,13 @@ namespace Project.Src.com.ab.Domain.Unit.Items
                 W.Query.Entities<TagAll<Equipped>>().DeleteTagForAll<Equipped>();
                 
                 
-                ItemDefID id = ent.Ref<InventoryItem>().ID;
-                Image icon = _itemTable.Def.InventoryCards.Items[id].Icon;
+                // ItemDefID id = ent.Ref<InventoryItem>().ID;
+                // Image icon = _itemTable.Def.InventoryCards.Items[id].Icon;
 
-                _puppet.SetTool(icon);
+                // _puppet.SetTool(icon);
 
-                var toolPrefab = _itemTable.Def.Equipment.Entrys[id].Prefab;
-                _player.SetTool(toolPrefab);
+                // var toolPrefab = _itemTable.Def.Equipment.Entrys[id].Prefab;
+                // _player.SetTool(toolPrefab);
 
                 if (!_player.Ent.HasAllOf<Tool>())
                     _player.Ent.Add<Tool>();

@@ -34,10 +34,10 @@ namespace com.ab.domain.craft
 
             foreach (var item in View.Items)
             {
-                if (!_itemTable.Def.Craft.Entrys.TryGetValue(item.ID, out var craftDef))
+                if (!_itemTable.Def.Craft.Entries.TryGetValue(item.ID, out var craftDef))
                     throw new ArgumentException($"{nameof(CraftViewSystem)}:: Can't find {item.ID} in itemTable.Craft");
 
-                item.Def = craftDef;
+                // item.Def = craftDef;
                 item.Ent = W.Entity.New();
 
                 foreach (var priceDef in craftDef.Price)
@@ -46,7 +46,7 @@ namespace com.ab.domain.craft
                         .Instantiate(_def.PricePrefab, item.PriceContainer);
 
                     priceView.Icon.sprite = priceDef.Icon;
-                    priceView.Amount.SetText(priceDef.Amount.ToString());
+                    // priceView.Amount.SetText(priceDef.Amount.ToString());
                 }
             }
         }
@@ -62,25 +62,25 @@ namespace com.ab.domain.craft
 
                 bool available = true;
 
-                foreach (var price in item.Def.Price)
-                {
-                    bool active = _inventory.HasAndGreaterThan(price.Resource, price.Amount);
-
-                    if (!active)
-                        available = false;
-                }
+                // foreach (var price in item.Def.Price)
+                // {
+                //     bool active = _inventory.HasAndGreaterThan(price.Resource, price.Amount);
+                //
+                //     if (!active)
+                //         available = false;
+                // }
 
                 item.Active(available);
             }
 
             foreach (var ent in W.Query.Entities<All<CraftCommand>>())
             {
-                var def = ent.Ref<CraftCommand>().Def;
+                // var def = ent.Ref<CraftCommand>().Def;
 
-                foreach (var price in def.Price) 
-                    DecreaseResourceFromInventory(price);
+                // foreach (var price in def.Price) 
+                    // DecreaseResourceFromInventory(price);
 
-                W.Events.Send(new InventoryAddItem { ID = def.ItemDefID, Amount = 1 });
+                // W.Events.Send(new InventoryAddItem { ID = def.ItemDefID, Amount = 1 });
                 
                 ent.Delete<CraftCommand>();
             }

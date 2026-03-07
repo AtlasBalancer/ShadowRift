@@ -17,6 +17,6 @@ namespace Project.Src.com.ab.Domain.ItemTable
             public Image Icon;
         }
 
-        public Dictionary<ItemDefID, Entry> Items = new Dictionary<ItemDefID, Entry>();
+        // public Dictionary<ItemDefID, Entry> Items = new Dictionary<ItemDefID, Entry>();
     }
 }

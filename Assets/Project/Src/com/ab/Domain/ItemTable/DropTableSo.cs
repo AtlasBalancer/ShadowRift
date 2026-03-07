@@ -6,6 +6,8 @@ using UnityEngine;
 
 namespace Project.Src.com.ab.Domain.ItemTable
 {
+
+
     public enum DropID
     {
         // Mining 
@@ -37,7 +39,7 @@ namespace Project.Src.com.ab.Domain.ItemTable
         {
             public ResourceDefID ResourceDefID;
             public Vector2Int AmountRange;
-            public Vector2 ChanceRange; 
+            public Vector2 ChanceRange;
         }
     }
 }

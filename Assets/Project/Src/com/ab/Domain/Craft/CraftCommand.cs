@@ -4,6 +4,6 @@ namespace com.ab.domain.craft
 {
     public struct CraftCommand : IComponent
     {
-        public CraftItemSo.Entry Def;
+        // public CraftItemSo.Entry Def;
     }
 }

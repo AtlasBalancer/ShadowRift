@@ -14,7 +14,7 @@ namespace Project.Src.com.ab.Domain.Inventory
         public EquipInventoryPuppetViewMono Puppet;
         
         public Transform ItemsRoot;
-        public Dictionary<ItemDefID, InventoryItemMono> Items = new Dictionary<ItemDefID, InventoryItemMono>();
+        // public Dictionary<ItemDefID, InventoryItemMono> Items = new Dictionary<ItemDefID, InventoryItemMono>();
         
         public Transform MaterialsRoot;
         public Dictionary<ResourceDefID, InventoryItemMono> Materials = new Dictionary<ResourceDefID, InventoryItemMono>();

@@ -23,8 +23,8 @@ namespace Project.Src.com.ab.Domain.Inventory
             foreach (var @event in _addMaterialReceiver) 
                 _inventory.Add(@event.Value.ID, @event.Value.Amount);
 
-            foreach (var @event in _addItemReceiver) 
-                _inventory.Add(@event.Value.ID, @event.Value.Amount);
+            // foreach (var @event in _addItemReceiver) 
+                // _inventory.Add(@event.Value.ID, @event.Value.Amount);
         }
     }
 }

@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+System_Boundary(com, "Common"){
+
+    Component(item, "ItemTable")
+    note right of item 
+    ItemDef based on MaterialID 
+    >> MaterialID MatID;
+    end note
+    
+}
+
+System_Boundary(Domain, "Domain"){
+    Component(harv, "Harvestable module")
+    note right of harv
+    HarvDef 
+    >> MaterialID MatID as Key
+    [ ]
+    ?! Если мне нужно будет несколько 
+    
+    end note
+    Component(placed, "Placed module")
+    Component(invent, "Inventory module")
+}
+
+@enduml

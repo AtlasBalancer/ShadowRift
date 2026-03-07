@@ -23,6 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   Def:
     ItemTableSystem:
+      Items: {fileID: 11400000, guid: 44affff6d919049458d44b069adf088b, type: 2}
       DropTable: {fileID: 11400000, guid: 918836f408d04074488979c5d199783e, type: 2}
       Harvest: {fileID: 11400000, guid: 5fed0314f5008fd4a8b919c50bcbd0d0, type: 2}
       Collect: {fileID: 11400000, guid: b494a251f53f6b549a7c7e7cba2756ae, type: 2}

@@ -26,6 +26,8 @@ namespace Project.Src.com.ab.Domain.ItemTable
         [Serializable]
         public class Settings
         {
+            public ItemsDef Itemses;
+            
             public DropTableSo DropTable;
 
             public HarvestItemSo Harvest;

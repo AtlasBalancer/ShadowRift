@@ -15,6 +15,6 @@ namespace Project.Src.com.ab.Domain.ItemTable
             public InventoryItemMono Prefab;
         }
 
-        public Dictionary<ItemDefID, Entry> Items = new();
+        // public Dictionary<ItemDefID, Entry> Items = new();
     }
 }
