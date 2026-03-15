@@ -1,9 +1,21 @@
-using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
 
 namespace ab.Mono
 {
+    /// <summary>
+    /// URP RenderFeature: renders sprites with the "DepthOnly" shader pass
+    /// front-to-back before the main 2D pass (Unity 6 / Render Graph).
+    ///
+    /// After this prepass, back sprites whose pixels are fully covered by
+    /// front sprites fail the depth test and are skipped by the GPU.
+    ///
+    /// Requirements:
+    ///   - Sprites must use a shader with a "DepthOnly" pass (TileUnlit).
+    ///   - Each layer must have a unique Z position.
+    ///     Front layer: Z = 0, next: Z = 1, back: Z = 2, etc.
+    /// </summary>
     public class SpriteDepthPrepassFeature : ScriptableRendererFeature
     {
         private SpriteDepthPrepassPass _pass;
@@ -22,29 +34,44 @@ namespace ab.Mono
             renderer.EnqueuePass(_pass);
         }
 
+        // ----------------------------------------------------------------
+
         private sealed class SpriteDepthPrepassPass : ScriptableRenderPass
         {
             private static readonly ShaderTagId DepthOnlyTag = new ShaderTagId("DepthOnly");
 
-#pragma warning disable CS0672, CS0618
-            public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+            public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
             {
-                var sortingSettings = new SortingSettings(renderingData.cameraData.camera)
+                var renderingData = frameData.Get<UniversalRenderingData>();
+                var cameraData    = frameData.Get<UniversalCameraData>();
+                var resourceData  = frameData.Get<UniversalResourceData>();
+
+                if (cameraData.isPreviewCamera) return;
+
+                var rendererListDesc = new RendererListDesc(DepthOnlyTag, renderingData.cullResults, cameraData.camera)
                 {
-                    criteria = SortingCriteria.CommonOpaque
+                    sortingCriteria  = SortingCriteria.CommonOpaque,
+                    renderQueueRange = RenderQueueRange.all
                 };
-                var drawSettings   = new DrawingSettings(DepthOnlyTag, sortingSettings) { enableInstancing = true };
-                var filterSettings = new FilteringSettings(RenderQueueRange.all);
 
-                var listParams   = new RendererListParams(renderingData.cullResults, drawSettings, filterSettings);
-                var rendererList = context.CreateRendererList(ref listParams);
+                var rendererList = renderGraph.CreateRendererList(rendererListDesc);
 
-                var cmd = CommandBufferPool.Get("SpriteDepthPrepass");
-                cmd.DrawRendererList(rendererList);
-                context.ExecuteCommandBuffer(cmd);
-                CommandBufferPool.Release(cmd);
+                using var builder = renderGraph.AddRasterRenderPass<PassData>("SpriteDepthPrepass", out var passData);
+
+                passData.RendererList = rendererList;
+
+                builder.UseRendererList(rendererList);
+                builder.SetRenderAttachmentDepth(resourceData.activeDepthTexture, AccessFlags.Write);
+                builder.AllowPassCulling(false);
+
+                builder.SetRenderFunc(static (PassData data, RasterGraphContext ctx) =>
+                    ctx.cmd.DrawRendererList(data.RendererList));
             }
-#pragma warning restore CS0672, CS0618
+        }
+
+        private class PassData
+        {
+            public RendererListHandle RendererList;
         }
     }
 }
