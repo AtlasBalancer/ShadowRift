@@ -26,6 +26,7 @@ namespace ab.Mono
         {
             private static readonly ShaderTagId DepthOnlyTag = new ShaderTagId("DepthOnly");
 
+#pragma warning disable CS0672, CS0618
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
             {
                 var sortingSettings = new SortingSettings(renderingData.cameraData.camera)
@@ -34,8 +35,16 @@ namespace ab.Mono
                 };
                 var drawSettings   = new DrawingSettings(DepthOnlyTag, sortingSettings) { enableInstancing = true };
                 var filterSettings = new FilteringSettings(RenderQueueRange.all);
-                context.DrawRenderers(renderingData.cullResults, ref drawSettings, ref filterSettings);
+
+                var listParams   = new RendererListParams(renderingData.cullResults, drawSettings, filterSettings);
+                var rendererList = context.CreateRendererList(ref listParams);
+
+                var cmd = CommandBufferPool.Get("SpriteDepthPrepass");
+                cmd.DrawRendererList(rendererList);
+                context.ExecuteCommandBuffer(cmd);
+                CommandBufferPool.Release(cmd);
             }
+#pragma warning restore CS0672, CS0618
         }
     }
 }
