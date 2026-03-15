@@ -16,6 +16,7 @@ Shader "Project/Tile/Unlit"
             "Queue"          = "AlphaTest"
         }
 
+        // Main pass — renders sprites with alpha clipping and ZWrite On.
         Pass
         {
             Name "TileUnlit"
@@ -70,10 +71,8 @@ Shader "Project/Tile/Unlit"
                 clip(col.a - _Cutoff);
                 return col;
             }
-
             ENDHLSL
         }
-    }
 
         // Depth-only pass used by SpriteDepthPrepassFeature.
         // Renders front-to-back before the main pass so back sprites
