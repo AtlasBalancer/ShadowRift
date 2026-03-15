@@ -14,11 +14,11 @@ namespace Project.Src.com.ab.Domain.Unit.Items
         PlayerMono _player;
         EquipInventoryPuppetViewMono _puppet;
 
-        ItemTableService _itemTable;
+        DropTableService _dropTable;
 
         public void Init()
         {
-            _itemTable = W.Context<ItemTableService>.Get();
+            _dropTable = W.Context<DropTableService>.Get();
             W.Query.Entities<All<PlayerRef>>().First(out var playerEnt);
 
             _player = playerEnt.Ref<PlayerRef>().Ref;

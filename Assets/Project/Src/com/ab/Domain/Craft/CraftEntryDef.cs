@@ -18,7 +18,7 @@ namespace com.ab.domain.craft
 
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new CraftViewSystem(Def.CraftViewSystem));
+            SysReg.AddUpdate(new CraftViewSystem(Def.CraftViewSystem));
         }
     }
 }

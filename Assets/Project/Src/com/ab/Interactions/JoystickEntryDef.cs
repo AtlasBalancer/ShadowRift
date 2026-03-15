@@ -23,7 +23,7 @@ namespace com.ab.complexity.core
 
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new JoystickToMovementSystem());
+            SysReg.AddUpdate(new JoystickToMovementSystem());
         }
 
         public void CreateEntities()

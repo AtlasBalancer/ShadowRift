@@ -1,30 +1,43 @@
+using System;
+using com.ab.common;
 using com.ab.complexity.core;
 using FFS.Libraries.StaticEcs;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
-    public class InventoryManageSystem : IInitSystem, IUpdateSystem
+    public class InventoryManageSystem : IUpdateSystem
     {
-        InventoryService _inventory;
-        EventReceiver<T, InventoryAddMaterial> _addMaterialReceiver;
-
-        EventReceiver<T, InventoryAddItem> _addItemReceiver;
-
-        public void Init()
+        [Serializable]
+        public class Settings
         {
-            _inventory = W.Context<InventoryService>.Get();
-
-            _addMaterialReceiver = W.Events.RegisterEventReceiver<InventoryAddMaterial>();
-            _addItemReceiver = W.Events.RegisterEventReceiver<InventoryAddItem>();
         }
+
+        Settings _def;
 
         public void Update()
         {
-            foreach (var @event in _addMaterialReceiver) 
-                _inventory.Add(@event.Value.ID, @event.Value.Amount);
+            foreach (var ent in W.Query.Entities<TagAll<InventoryToUpdate>>())
+                ent.ApplyTag<InventoryToUpdate>(false);
 
-            // foreach (var @event in _addItemReceiver) 
-                // _inventory.Add(@event.Value.ID, @event.Value.Amount);
+            foreach (var addEnt in W.Query.Entities<TagAll<InventoryAdd>>())
+            {
+                var id = addEnt.Ref<IDRef>().ID;
+                
+                /*
+                if (!id.TryFindByTag<Inventory>(out var ent))
+                {
+                    ent = W.Entity.New();
+                    ent.Add(new IDRef(id));
+                    ent.Add(new Amount(0));
+                    ent.ApplyTag<Inventory>(true);
+                }
+
+                ent.Ref<Amount>().Increase(addEnt.GetAmount());
+                ent.ApplyTag<InventoryToUpdate>(true);
+
+                addEnt.ApplyTag<InventoryAdd>(false);
+                */
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-using com.ab.complexity.core;
+using com.ab.common;
 using FFS.Libraries.StaticEcs;
 using Project.Src.com.ab.Domain.ItemTable;
 
@@ -6,7 +6,6 @@ namespace Project.Src.com.ab.Domain.Inventory
 {
     public class InventoryItemLink
     {
-        public W.Entity Ent;
         public InventoryAmount Amount;
     }
 
@@ -24,7 +23,6 @@ namespace Project.Src.com.ab.Domain.Inventory
 
     public readonly struct InventoryItem : IComponent
     {
-        public readonly ItemDefID ID;
-        public InventoryItem(ItemDefID id) => ID = id;
+        // public InventoryItem(RuntimeID id) => ID = id;
     }
 }

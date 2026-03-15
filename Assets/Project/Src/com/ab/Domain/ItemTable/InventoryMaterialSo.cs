@@ -12,7 +12,7 @@ namespace Project.Src.com.ab.Domain.ItemTable
         [Serializable]
         public struct Entry
         {
-            public InventoryItemMono Prefab;
+            public InvItemView Prefab;
         }
 
         public Dictionary<ResourceDefID, Entry> Entries = new Dictionary<ResourceDefID, Entry>();

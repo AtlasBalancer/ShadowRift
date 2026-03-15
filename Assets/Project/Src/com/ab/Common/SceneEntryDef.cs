@@ -7,15 +7,21 @@ using Renderer = com.ab.complexity.core.Renderer;
 
 namespace com.ab.common
 {
-    [CreateAssetMenu(fileName = "#Name#SceneEntryDef", menuName = "com.ab/scene")]
+    [CreateAssetMenu(fileName = "#Name#SceneEntryDef", menuName = "com.ab/scene/common")]
     public class SceneEntryDef : ScriptableObject,
-        IStaticRegisterTypeDef, IStaticInitDef, IStaticUpdateDef, IStaticCreateEntityDef
+        IStaticRegisterTypeDef, IStaticInitDef, IStaticUpdateDef, IStaticContextSetDef
     {
         public void RegisterType()
         {
             W.RegisterTagType<ViewActive>();
             W.RegisterTagType<ViewPressed>();
-            W.RegisterTagType<Delete>();
+
+            W.RegisterComponentType<Timer>();
+
+            W.RegisterComponentType<IDRef>();
+            W.RegisterComponentType<EntRef>();
+            W.RegisterComponentType<LinkRef>();
+            W.RegisterComponentType<Destroy>();
             
             W.RegisterComponentType<LogicRender>();
             W.RegisterComponentType<Position>();
@@ -23,25 +29,27 @@ namespace com.ab.common
             W.RegisterComponentType<Velocity>();
             W.RegisterComponentType<Renderer>();
             W.RegisterComponentType<AnimatorRef>();
+            
+            W.RegisterComponentType<Amount>();
+
+            W.RegisterOneToManyRelationType<Parent, Childs>(defaultComponentCapacity: 4);
         }
 
         public void RegisterInit()
         {
-            
         }
 
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new MovementVelocitySystem());
+            SysReg.AddUpdate(new MovementVelocitySystem());
+            SysReg.AddUpdate(new DestroyLinkSystem());
         }
 
-        public void CreateEntities()
+        public void SetContext()
         {
-            // var entity = W.Entity.New(
-            //     new Velocity(),
-            //     new Position { Value = Vector3.zero },
-            //     new Direction { Value = Vector3.one }
-            // );
+            W.Context<AddressableService>.Set(new AddressableService());
+            W.Context<LocalizationService>.Set(new LocalizationService());
         }
     }
+    
 }

@@ -29,7 +29,7 @@ namespace com.ab.domain.craft
 
         public Color Available;
         public Color NotAvailable;
-        public World<T>.Entity Ent { get; set; }
+        public World<WT>.Entity Ent { get; set; }
 
         public void Init(bool active)
         {

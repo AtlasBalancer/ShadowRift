@@ -99,3 +99,5 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
 /.idea/
+# Secrets - never commit credentials
+Assets/Project/Content/Common/Localization/Google Sheets Service.asset

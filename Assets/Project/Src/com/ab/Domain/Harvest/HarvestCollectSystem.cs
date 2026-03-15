@@ -45,11 +45,8 @@ namespace com.ab.complexity.harvestable
                 var item = Physics2D.OverlapCircle(@ref.Value.position, harvestrer.Radius, _def.Layer);
                 bool harvest = item != null;
 
-                if (harvest && item.TryGetComponent<HarvestableMono>(out var harvestRef))
-                {
-                    W.Events.Send(new CollectSpawn
-                        { Position = harvestRef.transform.position, ID = harvestRef.ResourceDefID });
-                }
+                if (harvest && item.TryGetComponent<HarvMono>(out var harvRef)) 
+                    harvRef.Ent.ApplyTag<PlacedSpawnByDropTable>(true);
 
                 bool hasTool = ent.HasAllOf<Tool>();
                 

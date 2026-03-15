@@ -3,7 +3,12 @@ using System.Linq;
 using UnityEngine;
 using FFS.Libraries.StaticEcs;
 using System.Collections.Generic;
+using System.Threading;
+using com.ab.common;
+using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs.Unity;
+using Sirenix.Utilities;
+using Unity.VisualScripting;
 
 namespace com.ab.complexity.core
 {
@@ -11,21 +16,23 @@ namespace com.ab.complexity.core
     public class Startup : MonoBehaviour
     {
         [SerializeField] Settings _def;
+        [field: NonSerialized] HashSet<IPastInitLoad> _initLoads = new();
 
-        void Awake()
+        async void Awake()
         {
             // ============================================ MAIN INITIALIZATION ======================================================
             W.Create(WorldConfig.Default());
 
             RegisterCoreTypes();
+            RegisterTableTypes();
             RegisterTypes();
             RegisterTag();
             // W.RegisterComponentType<YourComponentType>();
             // W.RegisterTagType<YourTagType>();
             // WEvents.RegisterEventType<YourEventType>();
 
-            EcsDebug<T>.AddWorld();
-            AutoRegister<T>.Apply();
+            EcsDebug<WT>.AddWorld();
+            AutoRegister<WT>.Apply();
 
             W.Initialize();
 
@@ -41,9 +48,34 @@ namespace com.ab.complexity.core
             // UpdateSystems.AddCallOnce(new YourInitOrAndDestroySystem());
             // UpdateSystems.AddUpdate(new YourUpdateSystem1(), new YourUpdateSystem2(), new YourUpdateSystem3());
 
+            InitializeTables();
             Sys.Initialize();
-            EcsDebug<T>.AddSystem<SysT>();
+            await WaitPastInitLoads();
+            EcsDebug<WT>.AddSystem<SysT>();
+        }
 
+        async UniTask WaitPastInitLoads()
+        {
+            var cts = new CancellationTokenSource();
+            
+            var initLoadList = SysReg.All.OfType<IPastInitLoad>().ToList();
+
+            if (initLoadList.Count == 0) return;
+            await UniTask.WhenAll(Enumerable.Select(initLoadList, item => item.PastInitLoad(cts.Token)));
+        }
+
+        void RegisterTableTypes()
+        {
+            foreach (var item in _def.Tables)
+                if (item is IStaticRegisterTypeDef def)
+                    def.RegisterType();
+        }
+
+        void InitializeTables()
+        {
+            foreach (var item in _def.Tables)
+                if (item is IEntTable table)
+                    table.Init();
         }
 
         void RegisterCoreTypes()
@@ -93,7 +125,7 @@ namespace com.ab.complexity.core
                 .ToList();
 
             modules.ForEach(item => item.RegisterType());
-            
+
             var features = _def.GetFeatures<IStaticRegisterTypeDef>();
             features.ForEach(item => item.RegisterType());
         }
@@ -105,7 +137,7 @@ namespace com.ab.complexity.core
                 .ToList();
 
             modules.ForEach(item => item.RegisterInit());
-            
+
             var features = _def.GetFeatures<IStaticInitDef>();
             features.ForEach(item => item.RegisterInit());
         }
@@ -116,7 +148,7 @@ namespace com.ab.complexity.core
                 .OfType<IStaticUpdateDef>()
                 .ToList();
             modules.ForEach(item => item.RegisterUpdate());
-            
+
             var features = _def.GetFeatures<IStaticUpdateDef>();
             features.ForEach(item => item.RegisterUpdate());
         }
@@ -128,7 +160,7 @@ namespace com.ab.complexity.core
                 .ToList();
 
             modules.ForEach(item => item.CreateEntities());
-            
+
             var features = _def.GetFeatures<IStaticCreateEntityDef>();
             features.ForEach(item => item.CreateEntities());
         }
@@ -138,15 +170,19 @@ namespace com.ab.complexity.core
         {
             public List<GameObject> Features = new();
             public List<ScriptableObject> Modules = new();
+            public List<ScriptableObject> Tables = new();
 
             public List<T> GetFeatures<T>()
             {
                 var features = new List<T>();
-                Features.ForEach(item =>
+                foreach (var item in Features)
                 {
+                    if (!item.activeSelf)
+                        continue;
+
                     if (item.TryGetComponent<T>(out T feature))
                         features.Add(feature);
-                });
+                }
 
                 return features;
             }

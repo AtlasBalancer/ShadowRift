@@ -5,9 +5,11 @@ using com.ab.complexity.player;
 using Project.Src.com.ab.Complexity.Core.Static.Mono;
 using Project.Src.com.ab.Domain.Collect;
 using Project.Src.com.ab.Domain.Harvest;
+using Sirenix.OdinInspector;
 
 namespace com.ab.complexity.features.player
 {
+    [InfoBox("Зависит от (HarvesterEntryDef, InventoryEntryDef)")]
     public class PlayerEntryDef : StaticEntryParamDef<PlayerEntryDef.Settings>,
         IStaticTagDef, IStaticRegisterTypeDef, IStaticInitDef, IStaticUpdateDef, IStaticCreateEntityDef
     {
@@ -66,7 +68,7 @@ namespace com.ab.complexity.features.player
                 Timer = new Timer { Max = harvester.Delay }
             });
 
-            ent.Add(new CollectorToInventory { Radius = 1f, CollectTimer = new Timer { Max = .5f } });
+            ent.Add(new PlacedToInventory() { Radius = 1f, CollectTimer = new Timer { Max = .5f } });
             // Camera
             ent.Add(new MovementSamePosition { PositionSource = playerRef, UpdateSource = cameraRef });
         }

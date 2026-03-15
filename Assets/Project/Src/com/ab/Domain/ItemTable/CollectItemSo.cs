@@ -12,7 +12,7 @@ namespace Project.Src.com.ab.Domain.ItemTable
         [Serializable]
         public struct Entry
         {
-            public CollectMono Prefab;
+            public PlacedMono Prefab;
         }
 
         public Dictionary<ResourceDefID, Entry> Items = new();

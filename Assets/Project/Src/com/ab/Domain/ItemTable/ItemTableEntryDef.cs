@@ -12,39 +12,12 @@ namespace Project.Src.com.ab.Domain.ItemTable
         [Serializable]
         public class Settings
         {
-            public ItemTableService.Settings ItemTableSystem;
+            public DropTableService.Settings ItemTableSystem;
         }
 
         public void SetContext()
         {
-            W.Context<ItemTableService>.Set(new ItemTableService(Def.ItemTableSystem));
+            W.Context<DropTableService>.Set(new DropTableService(Def.ItemTableSystem));
         }
-    }
-
-    public class ItemTableService
-    {
-        [Serializable]
-        public class Settings
-        {
-            public ItemsDef Itemses;
-            
-            public DropTableSo DropTable;
-
-            public HarvestItemSo Harvest;
-            public CollectItemSo Collect;
-            public EquipmentSo Equipment;
-            public CraftItemSo Craft;
-            
-            public InventoryCardSo InventoryCards;
-            public InventoryMaterialSo InventoryMaterial;
-            public InventoryItemSo InventoryItem;
-        }
-        
-        public ItemTableService(Settings def)
-        {
-            Def = def;
-        }
-
-        public Settings Def { get; private set; }
     }
 }

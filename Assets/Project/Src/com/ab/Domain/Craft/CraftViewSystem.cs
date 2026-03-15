@@ -21,20 +21,18 @@ namespace com.ab.domain.craft
         }
 
         Settings _def;
-        InventoryService _inventory;
-        ItemTableService _itemTable;
+        DropTableService _dropTable;
         public CraftViewSystem(Settings def) => _def = def;
 
         public void Init()
         {
-            _inventory = W.Context<InventoryService>.Get();
-            _itemTable = W.Context<ItemTableService>.Get();
+            _dropTable = W.Context<DropTableService>.Get();
 
             base.Init(_def.CraftViewPrefab, _def.Root, _def.CraftBtn);
 
             foreach (var item in View.Items)
             {
-                if (!_itemTable.Def.Craft.Entries.TryGetValue(item.ID, out var craftDef))
+                if (!_dropTable.Def.Craft.Entries.TryGetValue(item.ID, out var craftDef))
                     throw new ArgumentException($"{nameof(CraftViewSystem)}:: Can't find {item.ID} in itemTable.Craft");
 
                 // item.Def = craftDef;
@@ -86,7 +84,7 @@ namespace com.ab.domain.craft
             }
         }
 
-        void DecreaseResourceFromInventory(Price price) => 
-            _inventory.Add(price.Resource, -price.Amount);
+        // void DecreaseResourceFromInventory(Price price) => 
+            // _inventory.Add(price.Resource, -price.Amount);
     }
 }

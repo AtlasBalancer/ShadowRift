@@ -9,5 +9,8 @@ EditorBuildSettings:
     path: Assets/Project/Content/Dev.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: ff5a57eb6905d3b49aaef3fdc1eff697, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    com.unity.localization.addressable-group-rules: {fileID: 11400000, guid: 3de90fb221d8f794fa8cab2209af8344, type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: 72db5c76749d8b848b1f30b8209bb303, type: 2}
   m_UseUCBPForAssetBundles: 0

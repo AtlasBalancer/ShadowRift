@@ -21,7 +21,7 @@ namespace Project.Src.com.ab.Domain.Unit.Items
 
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new EquipSystem());
+            SysReg.AddUpdate(new EquipSystem());
         }
     }
 }

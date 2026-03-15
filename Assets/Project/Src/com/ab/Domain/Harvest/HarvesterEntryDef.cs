@@ -20,12 +20,15 @@ namespace Project.Src.com.ab.Domain.Harvest
             W.RegisterComponentType<Harvestable>();
             W.RegisterComponentType<HarvestCollector>();
             W.RegisterComponentType<HarvesterSpawner>();
+            W.RegisterComponentType<HarvestSpawnLoopDef>();
+            W.RegisterComponentType<HarvestSpawnItemRef>();
+            W.RegisterComponentType<HarvAvailablePositions>();
         }
 
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new HarvesterSpawnSystem(Def.HarvesterSpawnSystem));
-            Sys.AddUpdate(new HarvestCollectSystem(Def.HarvestCollectSystem));
+            SysReg.AddUpdate(new HarvesterSpawnSystem(Def.HarvesterSpawnSystem));
+            SysReg.AddUpdate(new HarvestCollectSystem(Def.HarvestCollectSystem));
         }
     }
 

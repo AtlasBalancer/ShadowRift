@@ -18,7 +18,7 @@ namespace com.ab.complexity.core
             
             // Creating systems
             Sys.Create();
-            Sys.AddUpdate(new MovementVelocitySystem());
+            SysReg.AddUpdate(new MovementVelocitySystem());
     
             // Initializing systems
             Sys.Initialize();
