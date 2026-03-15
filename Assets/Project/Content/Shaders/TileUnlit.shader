@@ -19,10 +19,10 @@ Shader "Project/Tile/Unlit"
         Pass
         {
             Name "TileUnlit"
-            Tags { "LightMode" = "UniversalForward" }
+            Tags { "LightMode" = "Universal2D" }
 
             ZWrite On
-            Cull Back
+            Cull Off
 
             HLSLPROGRAM
             #pragma vertex   Vert
