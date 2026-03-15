@@ -104,3 +104,6 @@ Assets/Project/Content/Common/Localization/Google Sheets Service.asset
 
 # Claude Code local settings
 /.claude/
+
+# macOS
+.DS_Store
