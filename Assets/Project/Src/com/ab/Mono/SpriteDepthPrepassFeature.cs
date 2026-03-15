@@ -17,8 +17,10 @@ namespace ab.Mono
     ///     Front layer: Z = 0, next: Z = 1, back: Z = 2, etc.
     ///
     /// Setup:
-    ///   1. Add this feature to the 2D URP Renderer asset.
-    ///   2. No additional configuration needed.
+    ///   1. Merge the PR so the script is in the project.
+    ///   2. Wait for Unity to compile (no errors in Console).
+    ///   3. Select your UniversalRenderer2D asset in the Project window.
+    ///   4. In Inspector click "Add Renderer Feature" → "Sprite Depth Prepass Feature".
     /// </summary>
     public class SpriteDepthPrepassFeature : ScriptableRendererFeature
     {
@@ -42,16 +44,17 @@ namespace ab.Mono
 
         private sealed class SpriteDepthPrepassPass : ScriptableRenderPass
         {
-            private static readonly ShaderTagId _depthOnlyTag = new ShaderTagId("DepthOnly");
-
-            private static readonly SortingSettings _frontToBack = new SortingSettings
-            {
-                criteria = SortingCriteria.CommonOpaque // front-to-back + sorting layer
-            };
+            private static readonly ShaderTagId DepthOnlyTag = new ShaderTagId("DepthOnly");
 
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
             {
-                var drawSettings = new DrawingSettings(_depthOnlyTag, _frontToBack)
+                // SortingSettings requires a camera reference — create per-frame
+                var sortingSettings = new SortingSettings(renderingData.cameraData.camera)
+                {
+                    criteria = SortingCriteria.CommonOpaque // front-to-back + sorting layer
+                };
+
+                var drawSettings = new DrawingSettings(DepthOnlyTag, sortingSettings)
                 {
                     enableDynamicBatching = renderingData.supportsDynamicBatching,
                     enableInstancing      = true
