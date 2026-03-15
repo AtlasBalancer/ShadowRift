@@ -139,6 +139,7 @@
     <Compile Include="Assets\Project\Src\com\ab\Domain\ItemTable\CollectItemSo.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Integrations\SysT.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Harvest\Spawn\HarvestSpawnItemRef.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Mono\TilemapOcclusionBaker.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\EntIDTableSo.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Feature\Player\PlayerMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\IDRef.cs" />
@@ -185,6 +186,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
+    <None Include="Assets\Project\Content\Shaders\TileUnlit.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
