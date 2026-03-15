@@ -56,8 +56,7 @@ namespace ab.Mono
 
                 var drawSettings = new DrawingSettings(DepthOnlyTag, sortingSettings)
                 {
-                    enableDynamicBatching = renderingData.supportsDynamicBatching,
-                    enableInstancing      = true
+                    enableInstancing = true
                 };
 
                 var filterSettings = new FilteringSettings(RenderQueueRange.all);
