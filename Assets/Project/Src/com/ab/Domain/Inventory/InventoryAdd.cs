@@ -9,7 +9,5 @@ namespace Project.Src.com.ab.Domain.Inventory
      * 
      */
     public struct InventoryAdd : ITag
-    {
-        public W.Entity Ent;
-    }
+    { }
 }

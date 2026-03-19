@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using com.ab.complexity.core;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.U2D;
 
 namespace com.ab.common
 {
-    public class AtlasService : IDisposable
+    public class AtlasService : IDisposable, IPastInitLoad
     {
-        private readonly AddressableService _addressables;
-        private readonly IReadOnlyList<string> _atlasKeys;
+        readonly AddressableService _addressables;
+        readonly IReadOnlyList<string> _atlasKeys;
 
         public AtlasService(AddressableService addressables, IReadOnlyList<string> atlasKeys)
         {
@@ -18,7 +20,21 @@ namespace com.ab.common
             SpriteAtlasManager.atlasRequested += OnAtlasRequested;
         }
 
+        public UniTask LoadAtlas(string atlasKey) => 
+            _addressables.LoadAsync<SpriteAtlas>(atlasKey);
+
+        public Sprite GetSprite(string atlasKey, string spriteName)
+        {
+            if (_addressables.TryGet<SpriteAtlas>(atlasKey, out var atlas))
+                return atlas.GetSprite(spriteName);
+            return null;
+        }
+        
+        public UniTask PastInitLoad(CancellationToken ct) => 
+            InitAsync();
+
         // Вызывай на загрузке сцены — загружает все атласы параллельно
+
         public async UniTask InitAsync()
         {
             var tasks = new UniTask<SpriteAtlas>[_atlasKeys.Count];
@@ -29,7 +45,9 @@ namespace com.ab.common
         }
 
         // tag — это SpriteAtlas.tag из инспектора, не Addressable-ключ.
+
         // Убедись что они совпадают, либо добавь маппинг.
+
         private void OnAtlasRequested(string tag, Action<SpriteAtlas> callback)
         {
             if (_addressables.TryGet<SpriteAtlas>(tag, out var cached))

@@ -1,3 +1,4 @@
+using com.ab.common;
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace com.ab.complexity.core
                 var def = entity.Ref<MovementEntry>();
 
                 if (!entity.HasAllOf<Position>())
-                    entity.Add<Position>().Value = @ref.Value.position;
+                    entity.Add<Position>().Value = @ref.Val.position;
 
                 if (!entity.HasAllOf<Velocity>())
                     entity.Add<Velocity>();

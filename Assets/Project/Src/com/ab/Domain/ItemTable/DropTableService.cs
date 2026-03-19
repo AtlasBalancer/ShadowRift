@@ -15,7 +15,6 @@ namespace Project.Src.com.ab.Domain.ItemTable
 
             public CollectItemSo Collect;
             public EquipmentSo Equipment;
-            public CraftItemSo Craft;
             
             public InventoryCardSo InventoryCards;
             public InventoryMaterialSo InventoryMaterial;
@@ -29,12 +28,12 @@ namespace Project.Src.com.ab.Domain.ItemTable
 
         public Settings Def { get; private set; }
 
-        public DropItem[] GetDrop(W.Entity id)
+        public DropItem[] GetDrop(IDEntSo id)
         {
-            // if (!Def.DropTable.Runtime.TryGetValue(id, out var drop))
-                // throw new ArgumentException($"{nameof(DropTableService)}:: Can't find {id} in {nameof(Def.DropTable)}");
+            if (!Def.DropTable.Entries.TryGetValue(id, out var drop))
+                throw new ArgumentException($"{nameof(DropTableService)}:: Can't find {id} in {nameof(Def.DropTable)}");
 
-            throw new NotImplementedException("Cahnge ID to entity");
+            return drop.Items;
         }
     }
 }

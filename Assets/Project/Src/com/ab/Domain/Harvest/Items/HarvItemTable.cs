@@ -5,7 +5,7 @@ using FFS.Libraries.StaticEcs;
 
 namespace Project.Src.com.ab.Domain.Harvest
 {
-    [CreateAssetMenu(fileName = "HarvTables#Name#", menuName = "com.ab/harv/item")]
+    [CreateAssetMenu(fileName = "HarvTable#Name#", menuName = "com.ab/harv/table")]
     public class HarvItemTable : EntIDTableSo<HarvItemEntry>
     {
         
@@ -14,6 +14,6 @@ namespace Project.Src.com.ab.Domain.Harvest
     [Serializable]
     public struct HarvItemEntry : IComponent
     {
-        public string AKSprite;
+        public Sprite AKSprite;
     }
 }

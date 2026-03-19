@@ -15,20 +15,11 @@ MonoBehaviour:
   m_GroupName: Harv
   m_GUID: 9c855db3ac4316b4fad28cd84eda98ff
   m_SerializeEntries:
-  - m_GUID: 193954eace14ef541b41b940a964ba9c
-    m_Address: HSTreeFir
+  - m_GUID: 6fd7d9e409be83f408a5fe30ea1a3fe3
+    m_Address: HarvestAtlas
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7411fdf83c89d8544b281dc0e2d7b120
-    m_Address: HSVeinStone
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ebe0bbae5d4ea80448771bb7b3a44275
-    m_Address: HSTreeOak
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Atlas
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ac1421c65b32a8e41841ee35da847a13, type: 2}

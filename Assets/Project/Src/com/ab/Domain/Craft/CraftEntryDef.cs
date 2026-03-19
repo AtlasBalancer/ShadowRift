@@ -14,6 +14,7 @@ namespace com.ab.domain.craft
         public void RegisterType()
         {
             W.RegisterComponentType<CraftCommand>();
+            W.RegisterComponentType<CraftItemRef>();
         }
 
         public void RegisterUpdate()

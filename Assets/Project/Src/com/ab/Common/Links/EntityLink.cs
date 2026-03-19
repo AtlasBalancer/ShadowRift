@@ -4,28 +4,30 @@ using UnityEngine;
 
 namespace com.ab.common
 {
-    public readonly struct LinkRef : IComponent 
-    {
-        public readonly EntityLink Ref;
-
-        public LinkRef(EntityLink link) => Ref = link;
-    }
-
     public class EntityLink : MonoBehaviour
     {
         public W.Entity Ent { get; private set; }
 
-        public W.Entity Init(W.Entity ent)
+        protected virtual void RegisterComponentRef(){}
+
+        public virtual W.Entity Init(IDEntSo id, bool initRef = false)
         {
-            Ent = ent;
+            var ent = Init(initRef);
+            ent.Add(new IDRef(id));
             return ent;
         }
-        
-        public W.Entity Init()
+
+        public virtual W.Entity Init(bool initRef = false) => 
+            Init(W.Entity.New(), initRef);
+
+        public virtual W.Entity Init(W.Entity ent, bool initRef = false)
         {
-            Ent = W.Entity.New();
-            Ent.Add(new LinkRef(this));
-            return Ent;
+            Ent = ent;
+            RegisterComponentRef();
+            if (initRef)
+                Ent.Add(new Ref(transform));
+            
+            return ent;
         }
     }
 }

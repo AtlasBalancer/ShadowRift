@@ -9,7 +9,7 @@ namespace com.ab.common
         public void Update()
         {
             float delta = Time.deltaTime;
-            
+
             foreach (var ent in W.Query.Entities<All<Destroy>>())
             {
                 ref var item = ref ent.Ref<Destroy>();
@@ -17,11 +17,11 @@ namespace com.ab.common
                 if (!item.Timer.Next(delta))
                     continue;
 
-                if (ent.HasAllOf<LinkRef>())
+                if (ent.HasAllOf<Ref>())
                 {
-                    ent.Ref<LinkRef>().Ref.Active(false);
+                    Object.Destroy(ent.Ref<Ref>().Val.gameObject);
                 }
-                
+
                 ent.Destroy();
             }
         }

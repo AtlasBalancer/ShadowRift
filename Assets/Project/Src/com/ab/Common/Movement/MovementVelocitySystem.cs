@@ -6,18 +6,11 @@ namespace com.ab.complexity.core
     {
         public const float GAP = 0.01f;
 
-        public void Update()
-        {
-            // foreach (var entity in W.Query.Entities<All<Position, Velocity, Direction>>())
-            // {
-            // }
-
-            // Or
+        public void Update() =>
             W.Query.For((W.Entity ent, ref Position pos, ref Velocity vel, ref Direction dir, ref MovementEntry def) =>
             {
                 pos.Value += dir.Value * (vel.Magnitude * def.Speed);
                 ent.ApplyTag<Movement>(vel.Magnitude > GAP);
             });
-        }
     }
 }

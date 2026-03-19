@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
+  m_Name: ShadowRiftItems
+  m_EditorClassIdentifier: Unity.Localization.Editor::UnityEditor.Localization.StringTableCollection
+  m_SharedTableData: {fileID: 11400000, guid: 66db4bb047bb3d849af067f57a644542, type: 2}
+  m_Tables:
+  - {fileID: 11400000, guid: 1515388c5f5926f4fab0f5624465a8c8, type: 2}
+  - {fileID: 11400000, guid: db71a2763b638d646a836517567b0a34, type: 2}
+  m_Extensions:
+  - rid: 2288710815815565490
+  m_Group: String Table
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288710815815565490
+      type: {class: GoogleSheetsExtension, ns: UnityEditor.Localization.Plugins.Google, asm: Unity.Localization.Editor}
+      data:
+        m_Collection: {fileID: 11400000}
+        m_SheetsServiceProvider: {fileID: 11400000, guid: df89a83de21eea44f81a9d1c87d7c468, type: 2}
+        m_SpreadsheetId: 1IIjI1KSS9iwlFN5vr_ANHhvPcgMCwtxiwGVlnGzYUz8
+        m_SheetId: 424256698
+        m_Columns:
+        - rid: 2288710815815565493
+        - rid: 2288710815815565494
+        - rid: 2288710815815565495
+        m_RemoveMissingPulledKeys: 1
+    - rid: 2288710815815565493
+      type: {class: KeyColumn, ns: UnityEditor.Localization.Plugins.Google.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_Column: A
+    - rid: 2288710815815565494
+      type: {class: LocaleColumn, ns: UnityEditor.Localization.Plugins.Google.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_Column: B
+        m_LocaleIdentifier:
+          m_Code: ru-RU
+        m_IncludeComments: 0
+    - rid: 2288710815815565495
+      type: {class: LocaleColumn, ns: UnityEditor.Localization.Plugins.Google.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_Column: C
+        m_LocaleIdentifier:
+          m_Code: en
+        m_IncludeComments: 0

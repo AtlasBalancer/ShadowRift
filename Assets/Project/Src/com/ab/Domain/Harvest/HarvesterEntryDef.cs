@@ -21,7 +21,6 @@ namespace Project.Src.com.ab.Domain.Harvest
             W.RegisterComponentType<HarvestCollector>();
             W.RegisterComponentType<HarvesterSpawner>();
             W.RegisterComponentType<HarvestSpawnLoopDef>();
-            W.RegisterComponentType<HarvestSpawnItemRef>();
             W.RegisterComponentType<HarvAvailablePositions>();
         }
 

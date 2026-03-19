@@ -51,15 +51,13 @@ namespace com.ab.complexity.features.player
             var cameraRef = Def.MainCamera.transform;
             var harvester = player.Harvester;
 
-            var ent = W.Entity.New();
-            player.Ent = ent;
+            var ent = player.Init(true);
 
             ent.SetTag<PlayerTag>();
             ent.SetTag<JoystickEnable>();
-
+            
             ent.Add(new PlayerRef { Ref = player });
-            ent.Add(new Ref { Value = playerRef });
-            ent.Add(new MovementEntry { Speed = .005f });
+            ent.Add(new MovementEntry { Speed = .002f });
             ent.Add(new LogicRender(logicRenderer.Renderer));
             ent.Add(new AnimatorRef { Value = player.Animator });
             ent.Add(new HarvestCollector

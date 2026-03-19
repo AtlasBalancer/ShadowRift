@@ -1,15 +1,14 @@
-using Sirenix.Utilities;
+using UnityEngine;
 
 namespace com.ab.domain.craft
 {
     public class CraftViewMono : ViewMono
     {
-        public CraftItemViewMono[] Items;
-
-        public override void Init()
+        public RectTransform ItemRoot;
+        
+        public void AddItem(Transform item)
         {
-            Items.ForEach(item => item.Init(false));   
-            base.Init();
+            item.SetParent(ItemRoot, false);
         }
     }
 }

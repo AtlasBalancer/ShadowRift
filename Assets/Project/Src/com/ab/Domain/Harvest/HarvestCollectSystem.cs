@@ -1,4 +1,5 @@
 using System;
+using com.ab.common;
 using UnityEngine;
 using com.ab.complexity.core;
 using com.ab.complexity.domain.harvestable;
@@ -42,7 +43,7 @@ namespace com.ab.complexity.harvestable
                 if (!harvestrer.Timer.Next(delta))
                     continue;
 
-                var item = Physics2D.OverlapCircle(@ref.Value.position, harvestrer.Radius, _def.Layer);
+                var item = Physics2D.OverlapCircle(@ref.Val.position, harvestrer.Radius, _def.Layer);
                 bool harvest = item != null;
 
                 if (harvest && item.TryGetComponent<HarvMono>(out var harvRef)) 

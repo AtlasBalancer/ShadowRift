@@ -1,10 +1,13 @@
 using System;
+using System.Threading;
 using com.ab.common;
 using UnityEngine;
 using com.ab.core;
 using UnityEngine.UI;
 using com.ab.complexity.core;
 using com.ab.domain.inventory;
+using com.ab.domain.placed;
+using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs;
 using Project.Src.com.ab.Domain.Equipment;
 using Object = UnityEngine.Object;
@@ -12,11 +15,14 @@ using Project.Src.com.ab.Domain.ItemTable;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
-    public class InventoryViewSystem : ViewPresenter<InventoryView>, IInitSystem, IUpdateSystem
+    public class InventoryViewSystem : ViewPresenter<InventoryView>, IInitSystem, IUpdateSystem, IPastInitLoad
     {
         [Serializable]
         public class Settings
         {
+            public string AtlasKey;
+            public string LocalizationTable;
+
             public InvItemTable ItemTable;
             public InvCategoryTable CategoryTable;
 
@@ -24,7 +30,7 @@ namespace Project.Src.com.ab.Domain.Inventory
 
             public Transform Root;
             public InventoryView Prefab;
-            public InvItemView ItemPrefab;
+            public InvItemMono ItemPrefab;
             public InvCategoryView CategoryPrefab;
         }
 
@@ -34,8 +40,6 @@ namespace Project.Src.com.ab.Domain.Inventory
 
             base.Init(_def.Prefab, _def.Root, _def.InventoryButton);
             W.Context<EquipInventoryPuppetViewMono>.Set(View.Puppet);
-
-            CreateCategories();
         }
 
         void CreateCategories()
@@ -43,26 +47,25 @@ namespace Project.Src.com.ab.Domain.Inventory
             foreach (var ent in W.Query.Entities<All<InvCategoryEntry>>())
             {
                 var item = Object.Instantiate(_def.CategoryPrefab, View.CategoryRoot);
-                
-                // item.SetTitle();
-            }
+                ent.Add<InvCategoryRef>().Ref = item;
 
-            // foreach (var def in _def.CategoryTable.Runtime)
-            // {
-                // var item = Object.Instantiate(_def.CategoryPrefab, View.CategoryRoot);
-                // item.SetTitle(def.Value.LKTitle);
-                // var ent = item.Init();
-                // ent.Add(new InvCategoryRef(item));
-            // }
+                var titleKey = ent.Ref<InvCategoryEntry>().LKTitle;
+                item.SetTitle(_localization.GetString(titleKey));
+            }
         }
 
         Settings _def;
         DropTableService _dropTable;
-
+        LocalizationService _localization;
+        AtlasService _atlas;
         public void Init()
         {
+            _localization = W.Context<LocalizationService>.Get();
+            _atlas = W.Context<AtlasService>.Get();
+            
             View.Card.Hide();
             View.Materials = new();
+            CreateCategories();
             UpdateAllMaterials();
             UpdateAllItems();
         }
@@ -106,13 +109,13 @@ namespace Project.Src.com.ab.Domain.Inventory
         // itemView.UpdateAmount(amount.Value);
         // }
 
-        InvItemView CreateInventoryItemView(InvItemView prefab, InventoryItemLink link, Transform root)
+        InvItemMono CreateInventoryItemView(InvItemMono prefab, InventoryItemLink link, Transform root)
         {
-            InvItemView itemView;
-            itemView = Object.Instantiate(prefab, root);
+            InvItemMono itemMono;
+            itemMono = Object.Instantiate(prefab, root);
             // itemView.Init(link);
 
-            return itemView;
+            return itemMono;
         }
 
         protected override void Show()
@@ -127,19 +130,20 @@ namespace Project.Src.com.ab.Domain.Inventory
             {
                 if (!ent.HasAllOf<InvItemRef>())
                 {
+                    var idRef = ent.Ref<IDRef>();
+                    var itemEntry = idRef.ID.RuntimeID.Ref<ItemEntry>();
+
                     // Create inventory view
                     var item = Object.Instantiate(_def.ItemPrefab);
-                    var id = ent.Ref<IDRef>().ID;
-                    item.Init(ent);
+                    item.UpdateIcon(_atlas.GetSprite(_def.AtlasKey, itemEntry.LKSprite));
+                    item.Init(idRef.ID);
                     ent.Add(new InvItemRef(item));
 
                     if (!ent.HasAllOf<Amount>())
                         ent.Add(new Amount(1));
 
-                    // if (!_def.ItemTable.Runtime.TryGetValue(id, out var itemDef))
-                    // throw new ArgumentException($"{nameof(InventoryItemTable)}:: Can't find {id}");
-
-                    // Object.Instantiate(itemDef.SingleIcon, item.transform);
+                    var categoryRef = itemEntry.Category.RuntimeID.Ref<InvCategoryRef>().Ref;
+                    categoryRef.AddItem(item.transform);
                 }
 
                 var amount = ent.Ref<Amount>().Value;
@@ -190,13 +194,16 @@ namespace Project.Src.com.ab.Domain.Inventory
                 // UpdateItem(@event.Value.ID);
             }
         }
+
+        public UniTask PastInitLoad(CancellationToken ct) =>
+            _localization.PreloadStringTableAsync(_def.LocalizationTable);
     }
 
     public struct InvItemRef : IComponent
     {
-        public InvItemView Ref;
+        public InvItemMono Ref;
 
-        public InvItemRef(InvItemView @ref) =>
+        public InvItemRef(InvItemMono @ref) =>
             Ref = @ref;
     }
 

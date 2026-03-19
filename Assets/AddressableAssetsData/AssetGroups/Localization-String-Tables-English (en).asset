@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-English (en)
   m_GUID: 6ba43dd1d4f3cab4bac7a07574f420c7
   m_SerializeEntries:
+  - m_GUID: 1515388c5f5926f4fab0f5624465a8c8
+    m_Address: ShadowRiftItems_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 37dccf8de6fe3274183153526245efba
     m_Address: Default_en
     m_ReadOnly: 1

@@ -8,12 +8,12 @@ namespace com.ab.common
         public Timer Timer;
         
         public Destroy(float delay = 0) => 
-            Timer = new Timer(0);
+            Timer = new Timer(delay);
     }
 
     public static class DestroyExtensions
     {
         public static void Destr(this W.Entity source, float delay = 0) => 
-            source.Add<Destroy>(new Destroy(delay));
+            source.Add(new Destroy(delay));
     }
 }

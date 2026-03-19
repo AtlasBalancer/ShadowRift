@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3888c1c1b587a654a919e0f68b03567e, type: 3}
   m_Name: Google Sheets Service
   m_EditorClassIdentifier: Unity.Localization.Editor::UnityEditor.Localization.Plugins.Google.SheetsServiceProvider
-  m_ApiKey:
-  m_ClientId:
-  m_ClientSecret:
+  m_ApiKey: 
+  m_ClientId: 469962139297-9a9er91vsnu0ejessugrc45tuv1prgeh.apps.googleusercontent.com
+  m_ClientSecret: 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
   m_AuthenticationType: 1
   m_ApplicationName: ShadowRift
   m_NewSheetProperties:

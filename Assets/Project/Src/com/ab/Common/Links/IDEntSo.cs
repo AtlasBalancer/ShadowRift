@@ -12,7 +12,7 @@ namespace com.ab.common
         [SerializeField, ReadOnly] string _id;
         public string ID => _id;
 
-        [field: System.NonSerialized] W.Entity RuntimeID { get; set; }
+        [field: System.NonSerialized] public W.Entity RuntimeID { get; private set; }
         [field: System.NonSerialized] bool _inited { get; set; }
 
         public W.Entity Init()

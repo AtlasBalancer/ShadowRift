@@ -1,24 +1,29 @@
 using com.ab.common;
 using UnityEngine;
 using DG.Tweening;
+using FFS.Libraries.StaticEcs;
 using Sequence = DG.Tweening.Sequence;
 
 namespace Project.Src.com.ab.Domain.Collect
 {
     public class PlacedMono : EntityLink
     {
+        public SpriteRenderer Render;
+
+        protected override void RegisterComponentRef()
+        {
+            Ent.Add(new PlacedRef(this));
+        }
+
+        public void UpdateRender(Sprite sprite) => Render.sprite = sprite;
+        
         public void FlyTo(Vector3 target, float duration)
         {
-            transform.DOMove(target, duration)
-                .SetEase(Ease.InOutQuad)
-                .OnComplete(() =>
-                {
-                    // gameObject.SetActive(false);
-                    // Добавляем ресурс
-                    // Despawn из пула
-                });
+            Debug.Log($"{nameof(PlacedMono)}::from: {transform.position}; to: {target}, dur: {duration}");
+            
+            transform.DOMove(target, duration).SetEase(Ease.InOutQuad);
         }
-        
+
         public void Drop(Vector3 startPos)
         {
             transform.position = startPos;
@@ -43,15 +48,11 @@ namespace Project.Src.com.ab.Domain.Collect
                     .SetEase(Ease.InQuad)
             );
         }
+    }
 
-        public void OnReuse()
-        {
-            gameObject.SetActive(true);
-        }
-
-        public void OnRelease()
-        {
-            gameObject.SetActive(false);
-        }
+    public readonly struct PlacedRef : IComponent
+    {
+        public readonly PlacedMono Ref;
+        public PlacedRef(PlacedMono @ref) => Ref = @ref;
     }
 }

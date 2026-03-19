@@ -9,6 +9,7 @@ using FFS.Libraries.StaticEcs;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.U2D;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -23,6 +24,7 @@ namespace Project.Src.com.ab.Domain.Harvest
             public Vector3 TileOffset;
 
             public Transform SpawnContainer;
+            public string AtlasKey;
 
             public List<HarvestSpawnInitDef> InitSpawners;
             public List<HarvestSpawnLoopDef> LoopSpawners;
@@ -37,11 +39,11 @@ namespace Project.Src.com.ab.Domain.Harvest
 
         public HarvesterSpawnSystem(Settings def) => _def = def;
         readonly Settings _def;
-        AddressableService _addressable;
+        AtlasService _atlas;
 
         public void Init()
         {
-            _addressable = W.Context<AddressableService>.Get();
+            _atlas = W.Context<AtlasService>.Get();
 
             foreach (var spawner in _def.InitSpawners)
                 InitLayer(spawner);
@@ -62,16 +64,8 @@ namespace Project.Src.com.ab.Domain.Harvest
             }
         }
 
-        public async UniTask PastInitLoad(CancellationToken ct)
-        {
-            foreach (var item in _def.InitSpawners)
-            foreach (var itemTableEntry in item.ItemTable.Entries) 
-                    await _addressable.LoadAsync<GameObject>(itemTableEntry.Value.AKSprite);
-            
-            foreach (var item in _def.LoopSpawners)
-            foreach (var itemTableEntry in item.ItemTable.Entries) 
-                    await _addressable.LoadAsync<GameObject>(itemTableEntry.Value.AKSprite);
-        }
+        public async UniTask PastInitLoad(CancellationToken ct) => 
+            await _atlas.LoadAtlas(_def.AtlasKey);
 
         public void Update()
         {
@@ -86,33 +80,31 @@ namespace Project.Src.com.ab.Domain.Harvest
             }
         }
 
-        void SpawnItem(World<WT>.Entity parentEnt)
+        void SpawnItem(W.Entity spawnerEnt)
         {
-            List<Vector3Int> availablePosition = parentEnt.Ref<HarvAvailablePositions>().Positions;
+            List<Vector3Int> availablePosition = spawnerEnt.Ref<HarvAvailablePositions>().Positions;
             if (availablePosition.Count == 0)
                 return;
 
             var gridPosition = availablePosition.RandAndRemove();
 
-            var spawner = parentEnt.Ref<HarvestSpawnLoopDef>();
+            var spawner = spawnerEnt.Ref<HarvestSpawnLoopDef>();
             var position = spawner.Layer.CellToWorld(gridPosition);
-            // var harDef = spawner.HarvTable.Entries.RandVal();
+            var harDef = spawner.ItemTable.Entries.RandVal();
 
-            // CreateHarvestItem(parentEnt, harDef.Item1, position, harDef.Item2.Prefab);
+            CreateHarvestItem(spawnerEnt, harDef.Item1, position, harDef.Item2.AKSprite);
         }
 
         void CreateHarvestItem(
-            World<WT>.Entity parentEnt,
-            IDEntSo idEntSo,
+            W.Entity spawnerEnt,
+            IDEntSo id,
             Vector3 position,
-            SpriteRenderer prefab)
+            Sprite sprite)
         {
-            var item = CreateHarvestMono(prefab, position);
+            var item = CreateHarvestMono(id, sprite, position);
+            
             var ent = item.Ent;
-            ent.Add(new IDRef(idEntSo));
-            ent.Add(new Ref { Value = item.transform });
-            ent.Add(new HarvestSpawnItemRef { Ref = item });
-            ent.SetLink<Parent>(parentEnt);
+            ent.SetLink<Parent>(spawnerEnt);
         }
 
         List<Vector3Int> GetAvailablePositions(Tilemap map)
@@ -136,27 +128,20 @@ namespace Project.Src.com.ab.Domain.Harvest
             {
                 var position = spawner.OreSpawnLayer.CellToWorld(gridPosition);
 
-                // var veins = spawner.Veins.Entries;
-
-                // var key = veins.Keys.ElementAt(Random.Range(0, veins.Count));
-                // var prefab =  _addressable.TryGet(veins[key].AKSprite);
-
-                // CreateHarvestItem(spawnerEnt, key, position, prefab);
+                var veins = spawner.ItemTable.Entries.RandVal();
+                CreateHarvestItem(spawnerEnt, veins.Item1, position, veins.Item2.AKSprite);
             }
 
             spawner.OreSpawnLayer.gameObject.SetActive(false);
         }
 
-        HarvMono CreateHarvestMono(SpriteRenderer prefab, Vector3 position)
+        HarvMono CreateHarvestMono(IDEntSo id, Sprite sprite, Vector3 position)
         {
             var harvLink = Object.Instantiate(_def.HarvPrefab, _def.SpawnContainer);
             harvLink.transform.position = position;
+            harvLink.SetSprite(sprite);
 
-            var item = Object.Instantiate(prefab);
-            item.transform.SetParent(harvLink.transform, false);
-            item.transform.localPosition = _def.TileOffset;
-
-            harvLink.Init();
+            harvLink.Init(id, true);
             return harvLink;
         }
     }

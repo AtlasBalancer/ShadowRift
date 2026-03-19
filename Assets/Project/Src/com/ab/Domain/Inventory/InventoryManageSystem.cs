@@ -2,6 +2,7 @@ using System;
 using com.ab.common;
 using com.ab.complexity.core;
 using FFS.Libraries.StaticEcs;
+using UnityEngine;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
@@ -21,22 +22,21 @@ namespace Project.Src.com.ab.Domain.Inventory
 
             foreach (var addEnt in W.Query.Entities<TagAll<InventoryAdd>>())
             {
-                var id = addEnt.Ref<IDRef>().ID;
-                
-                /*
-                if (!id.TryFindByTag<Inventory>(out var ent))
+                var idRef = addEnt.Ref<IDRef>();
+                var id = idRef.ID;
+
+                if (!idRef.TryToFindIDRefByTag<Inventory>(out var ent))
                 {
                     ent = W.Entity.New();
                     ent.Add(new IDRef(id));
                     ent.Add(new Amount(0));
                     ent.ApplyTag<Inventory>(true);
                 }
-
+                 
                 ent.Ref<Amount>().Increase(addEnt.GetAmount());
                 ent.ApplyTag<InventoryToUpdate>(true);
 
                 addEnt.ApplyTag<InventoryAdd>(false);
-                */
             }
         }
     }

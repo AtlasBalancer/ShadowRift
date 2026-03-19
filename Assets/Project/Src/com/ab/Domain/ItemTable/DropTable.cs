@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Project.Src.com.ab.Domain.ItemTable
 {
-    [CreateAssetMenu(fileName = "#Name#DropTablesDef", menuName = "com.ab/drop/tables")]
+    [CreateAssetMenu(fileName = "DropTable#Name#", menuName = "com.ab/drop/tables")]
     public class DropTable : EntIDTableSo<DropEntry>
     {
     }

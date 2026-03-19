@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b77c1779c4443a8a51291305ae75391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Project.Src.com.ab.Domain.Inventory.InventoryItemMono
-  ResourceDefID: 0
+  Icon: {fileID: 4336860516433147038}
   AmountLabel: {fileID: 3058590342085539531}
   Btn: {fileID: 1367563606574870336}
 --- !u!114 &2568189598908469362
@@ -411,16 +411,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9607843, g: 0.6745098, b: 0.31764707, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7e29e673396b4f2f8a8e437dd723a032, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 65d8f8f98bebd124f82b22658a0cf759, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

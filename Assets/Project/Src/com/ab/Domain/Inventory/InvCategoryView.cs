@@ -11,5 +11,8 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         public void SetTitle(string title) => 
             Title.SetText(title);
+
+        public void AddItem(Transform item) => 
+            item.SetParent(ItemRoot, false);
     }
 }

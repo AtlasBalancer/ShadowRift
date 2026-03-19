@@ -25,11 +25,11 @@ MonoBehaviour:
     SerializationNodes:
     - Name: Entries
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[com.ab.common.EntID, Assembly-CSharp],[Project.Src.com.ab.Domain.Inventory.InventoryCategories+Entry,
+      Data: 0|System.Collections.Generic.Dictionary`2[[com.ab.common.IDEntSo, Assembly-CSharp],[Project.Src.com.ab.Domain.Inventory.InvCategoryEntry,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[com.ab.common.EntID,
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[com.ab.common.IDEntSo,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 8
@@ -45,10 +45,10 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 2|Project.Src.com.ab.Domain.Inventory.InventoryCategories+Entry, Assembly-CSharp
+      Data: Project.Src.com.ab.Domain.Inventory.InvCategoryEntry, Assembly-CSharp
     - Name: LKTitle
       Entry: 1
-      Data: Item
+      Data: inv.cat.items
     - Name: 
       Entry: 8
       Data: 
@@ -63,10 +63,10 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 3|Project.Src.com.ab.Domain.Inventory.InventoryCategories+Entry, Assembly-CSharp
+      Data: Project.Src.com.ab.Domain.Inventory.InvCategoryEntry, Assembly-CSharp
     - Name: LKTitle
       Entry: 1
-      Data: Material
+      Data: inv.cat.materials
     - Name: 
       Entry: 8
       Data: 

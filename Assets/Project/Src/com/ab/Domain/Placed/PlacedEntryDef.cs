@@ -12,7 +12,7 @@ namespace com.ab.domain.collect
         [Serializable]
         public class Settings
         {
-            public PlacedItemTable ItemTable;
+            public ItemTable ItemTable;
             public PlacedToInventorySystem.Settings CollectToInventorySystem;
             public PlacedSpawnSystem.Settings CollectSpawnSystem;
         }
@@ -31,7 +31,7 @@ namespace com.ab.domain.collect
 
         public void SetContext()
         {
-            W.Context<PlacedItemTable>.Set(Def.ItemTable);
+            W.Context<ItemTable>.Set(Def.ItemTable);
         }
 
         public void CreateEntities()

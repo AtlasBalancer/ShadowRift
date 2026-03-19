@@ -10,11 +10,8 @@ namespace Project.Src.com.ab.Domain.Inventory
         [Serializable]
         public class Settings
         {
-            public InvCategoryTable CategoryTable;
-            public InvItemTable ItemTable;
             public InventoryViewSystem.Settings InventoryInitViewSystem;
         }
-
 
         public void SetContext()
         {

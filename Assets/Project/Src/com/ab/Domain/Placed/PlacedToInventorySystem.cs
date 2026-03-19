@@ -40,7 +40,7 @@ namespace Project.Src.com.ab.Domain.Collect
 
                 ref var @ref = ref ent.Ref<Ref>();
 
-                var sourcePosition = @ref.Value.position;
+                var sourcePosition = @ref.Val.position;
                 var item = Physics2D.OverlapCircle(sourcePosition, collector.Radius, _def.Layer);
 
                 if (item != null && item.TryGetComponent(out PlacedMono collect))

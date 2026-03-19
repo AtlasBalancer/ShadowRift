@@ -1,3 +1,4 @@
+using com.ab.common;
 using com.ab.complexity.core;
 using com.ab.complexity.player;
 using UnityEngine;
@@ -7,7 +8,7 @@ using Sirenix.OdinInspector;
 
 namespace com.ab.complexity.features.player
 {
-    public class PlayerMono : MonoBehaviour
+    public class PlayerMono : EntityLink
     {
         public W.Entity Ent;
 
