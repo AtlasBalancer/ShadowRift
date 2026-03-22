@@ -15,36 +15,22 @@ using Random = UnityEngine.Random;
 
 namespace Project.Src.com.ab.Domain.Harvest
 {
-    public class HarvesterSpawnSystem : IPastInitLoad, IInitSystem, IUpdateSystem
+    public class HarvesterSpawnSystem : IPreInitLoad, IInitSystem, IUpdateSystem
     {
-        [Serializable]
-        public class Settings
+        public HarvesterSpawnSystem(Settings def)
         {
-            public HarvMono HarvPrefab;
-            public Vector3 TileOffset;
-
-            public Transform SpawnContainer;
-            public string AtlasKey;
-
-            public List<HarvestSpawnInitDef> InitSpawners;
-            public List<HarvestSpawnLoopDef> LoopSpawners;
+            _def = def;
+            _atlas = W.Context<AtlasService>.Get();
         }
 
-        [Serializable]
-        public struct HarvestSpawnInitDef
-        {
-            public Tilemap OreSpawnLayer;
-            public HarvItemTable ItemTable;
-        }
-
-        public HarvesterSpawnSystem(Settings def) => _def = def;
         readonly Settings _def;
-        AtlasService _atlas;
+        readonly AtlasService _atlas;
+
+        public async UniTask PreInitLoad(CancellationToken ct) =>
+            await _atlas.LoadAtlas(_def.AtlasKey);
 
         public void Init()
         {
-            _atlas = W.Context<AtlasService>.Get();
-
             foreach (var spawner in _def.InitSpawners)
                 InitLayer(spawner);
 
@@ -63,9 +49,6 @@ namespace Project.Src.com.ab.Domain.Harvest
                         SpawnItem(ent);
             }
         }
-
-        public async UniTask PastInitLoad(CancellationToken ct) => 
-            await _atlas.LoadAtlas(_def.AtlasKey);
 
         public void Update()
         {
@@ -102,7 +85,7 @@ namespace Project.Src.com.ab.Domain.Harvest
             Sprite sprite)
         {
             var item = CreateHarvestMono(id, sprite, position);
-            
+
             var ent = item.Ent;
             ent.SetLink<Parent>(spawnerEnt);
         }
@@ -143,6 +126,26 @@ namespace Project.Src.com.ab.Domain.Harvest
 
             harvLink.Init(id, true);
             return harvLink;
+        }
+        
+        [Serializable]
+        public class Settings
+        {
+            public HarvMono HarvPrefab;
+            public Vector3 TileOffset;
+
+            public Transform SpawnContainer;
+            public string AtlasKey;
+
+            public List<HarvestSpawnInitDef> InitSpawners;
+            public List<HarvestSpawnLoopDef> LoopSpawners;
+        }
+
+        [Serializable]
+        public struct HarvestSpawnInitDef
+        {
+            public Tilemap OreSpawnLayer;
+            public HarvItemTable ItemTable;
         }
     }
 }

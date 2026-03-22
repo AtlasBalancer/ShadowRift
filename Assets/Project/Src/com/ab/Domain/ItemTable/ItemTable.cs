@@ -3,7 +3,7 @@ using UnityEngine;
 using com.ab.common;
 using FFS.Libraries.StaticEcs;
 
-namespace com.ab.domain.placed
+namespace com.ab.domain.item
 {
     [CreateAssetMenu(fileName = "PlacedTable#Name#", menuName = "com.ab/placed/table")]
     public class ItemTable : EntIDTableSo<ItemEntry>
@@ -14,6 +14,8 @@ namespace com.ab.domain.placed
     public struct ItemEntry : IComponent
     {
         public IDEntSo Category;
-        public string LKSprite;
+        public string AKSprite;
+        public string LKTitle;
+        public string LKDescription;
     }
 }

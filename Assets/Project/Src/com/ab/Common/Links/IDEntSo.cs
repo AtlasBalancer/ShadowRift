@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using com.ab.complexity.core;
+using FFS.Libraries.StaticEcs;
 
 namespace com.ab.common
 {
@@ -26,6 +27,23 @@ namespace com.ab.common
             return RuntimeID;
         }
 
+        public bool TryToFindIDRefByTag<TTag>(out W.Entity findingEnt)
+            where TTag : struct, ITag
+        {
+            foreach (var ent in W.Query.Entities<All<IDRef>, TagAll<TTag>>())
+            {
+                if (ent.Ref<IDRef>().ID.RuntimeID == RuntimeID)
+                {
+                    findingEnt = ent;
+                    return true;
+                }
+            }
+
+            findingEnt = default;
+            return false;
+        }
+
+        
 #if UNITY_EDITOR
         void OnValidate() => EnsureId();
 

@@ -1,0 +1,111 @@
+@startuml ComponentDiagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title ECS Components — IComponent Implementations
+
+' ─────────────────────────────────────────────
+'  COMMON
+' ─────────────────────────────────────────────
+Container_Boundary(common, "Common") {
+
+    Container_Boundary(common_unity, "Unity") {
+        Component(Position,        "Position",        "struct / IComponent", "Vector2 Value")
+        Component(Velocity,        "Velocity",        "struct / IComponent", "float Magnitude\nVector2 Value")
+        Component(Direction,       "Direction",       "struct / IComponent", "Vector2 Value")
+        Component(AnimatorRef,     "AnimatorRef",     "struct / IComponent", "Animator Value")
+        Component(Renderer,        "Renderer",        "struct / IComponent", "SpriteRenderer Value")
+        Component(LogicRender,     "LogicRender",     "readonly struct / IComponent", "Transform Value")
+    }
+
+    Container_Boundary(common_links, "Links") {
+        Component(Ref,    "Ref",    "readonly struct / IComponent", "Transform Val")
+        Component(EntRef, "EntRef", "readonly struct / IComponent", "W.Entity ID")
+        Component(IDRef,  "IDRef",  "readonly struct / IComponent", "IDEntSo ID")
+        Component(Amount, "Amount", "struct / IComponent",          "int Val")
+        Component(Destroy,"Destroy","struct / IComponent",          "Timer Timer")
+    }
+
+    Container_Boundary(common_movement, "Movement") {
+        Component(MovementEntry,        "MovementEntry",        "struct / IComponent", "float Speed")
+        Component(MovementSamePosition, "MovementSamePosition", "struct / IComponent", "Transform UpdateSource\nTransform PositionSource")
+    }
+
+    Container_Boundary(common_utils, "Utils") {
+        Component(Timer, "Timer", "struct / IComponent", "float Delay\nfloat Max")
+    }
+}
+
+' ─────────────────────────────────────────────
+'  DOMAIN
+' ─────────────────────────────────────────────
+Container_Boundary(domain, "Domain") {
+
+    Container_Boundary(domain_craft, "Craft") {
+        Component(CraftCommand,  "CraftCommand",  "struct / IComponent\n[marker]", "")
+        Component(CraftEntry,    "CraftEntry",    "struct / IComponent", "CraftAmount[] Price")
+        Component(CraftItemRef,  "CraftItemRef",  "readonly struct / IComponent", "CraftItemMono Val")
+    }
+
+    Container_Boundary(domain_equipment, "Equipment") {
+        Component(EquipCommand,       "EquipCommand",       "readonly struct / IComponent\n[marker]", "")
+        Component(UnEquipCommand,     "UnEquipCommand",     "readonly struct / IComponent\n[marker]", "")
+        Component(EquipmentItemEntry, "EquipmentItemEntry", "struct / IComponent", "GameObject Sprite")
+    }
+
+    Container_Boundary(domain_harvest, "Harvest") {
+        Component(HarvestCollector,      "HarvestCollector",      "struct / IComponent", "float Radius\nTimer Timer")
+        Component(Harvestable,           "Harvestable",           "struct / IComponent", "HarvMono Ref")
+        Component(HarvesterSpawner,      "HarvesterSpawner",      "struct / IComponent", "Timer Timer")
+        Component(HarvAvailablePositions,"HarvAvailablePositions","struct / IComponent", "List<Vector3Int> Positions")
+        Component(HarvestSpawnLoopDef,   "HarvestSpawnLoopDef",   "struct / IComponent", "bool FillInit\nVector2 DelayRange\nTilemap Layer\nHarvItemTable ItemTable")
+        Component(HarvItemEntry,         "HarvItemEntry",         "struct / IComponent", "Sprite AKSprite")
+    }
+
+    Container_Boundary(domain_inventory, "Inventory") {
+        Component(InventoryItem,    "InventoryItem",    "readonly struct / IComponent\n[marker]", "")
+        Component(InvCategoryRef,   "InvCategoryRef",   "readonly struct / IComponent", "InvCategoryView Ref")
+        Component(InvCategoryEntry, "InvCategoryEntry", "struct / IComponent", "string LKTitle")
+        Component(InvItemRef,       "InvItemRef",       "struct / IComponent", "InvItemMono Ref")
+        Component(InvItemEntry,     "InvItemEntry",     "struct / IComponent", "IDEntSo Type\nGameObject SingleIcon")
+    }
+
+    Container_Boundary(domain_itemtable, "ItemTable") {
+        Component(ItemEntry, "ItemEntry", "struct / IComponent", "IDEntSo Category\nstring AKSprite\nstring LKTitle\nstring LKDescription")
+        Component(DropEntry, "DropEntry", "struct / IComponent", "DropItem[] Items")
+    }
+
+    Container_Boundary(domain_placed, "Placed") {
+        Component(PlacedRef,         "PlacedRef",         "readonly struct / IComponent", "PlacedMono Ref")
+        Component(PlacedToInventory, "PlacedToInventory", "struct / IComponent",          "Timer CollectTimer\nfloat Radius")
+    }
+}
+
+' ─────────────────────────────────────────────
+'  FEATURE
+' ─────────────────────────────────────────────
+Container_Boundary(feature, "Feature") {
+
+    Container_Boundary(feature_player, "Player") {
+        Component(PlayerRef, "PlayerRef", "struct / IComponent", "PlayerMono Ref")
+        Component(Tool,      "Tool",      "struct / IComponent\n[marker]", "")
+    }
+}
+
+' ─────────────────────────────────────────────
+'  Relationships (key data dependencies)
+' ─────────────────────────────────────────────
+Rel(Destroy,           Timer,  "contains")
+Rel(HarvestCollector,  Timer,  "contains")
+Rel(HarvesterSpawner,  Timer,  "contains")
+Rel(PlacedToInventory, Timer,  "contains")
+Rel(CraftItemRef,      CraftEntry,    "references via entity")
+Rel(InvItemRef,        InventoryItem, "references via entity")
+Rel(InvItemRef,        InvItemEntry,  "references via entity")
+Rel(InvCategoryRef,    InvCategoryEntry, "references via entity")
+Rel(Harvestable,       HarvItemEntry, "references via entity")
+Rel(EquipmentItemEntry,EquipCommand,  "triggers")
+Rel(PlayerRef,         Tool,          "carries")
+
+@enduml

@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using com.ab.complexity.core;
 using com.ab.domain.craft;
 using Project.Src.com.ab.Domain.Equipment;
-using Project.Src.com.ab.Domain.ItemTable;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +12,6 @@ namespace Project.Src.com.ab.Domain.Inventory
         public EquipInventoryPuppetViewMono Puppet;
 
         public RectTransform CategoryRoot;
-        public Dictionary<ResourceDefID, InvItemMono> Materials = new Dictionary<ResourceDefID, InvItemMono>();
 
         public InventoryCardItemMono Card;
 

@@ -28,7 +28,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: Entries
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[com.ab.common.IDEntSo, Assembly-CSharp],[Project.Src.com.ab.Domain.ItemTable.DropEntry,
+      Data: 0|System.Collections.Generic.Dictionary`2[[com.ab.common.IDEntSo, Assembly-CSharp],[com.ab.item.DropEntry,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
@@ -48,16 +48,16 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: Project.Src.com.ab.Domain.ItemTable.DropEntry, Assembly-CSharp
+      Data: com.ab.item.DropEntry, Assembly-CSharp
     - Name: Items
       Entry: 7
-      Data: 2|Project.Src.com.ab.Domain.ItemTable.DropItem[], Assembly-CSharp
+      Data: 2|com.ab.item.DropItem[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Project.Src.com.ab.Domain.ItemTable.DropItem, Assembly-CSharp
+      Data: com.ab.item.DropItem, Assembly-CSharp
     - Name: PlaceSo
       Entry: 10
       Data: 1
@@ -66,10 +66,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
     - Name: 
       Entry: 3
-      Data: 10
+      Data: 5
     - Name: 
       Entry: 3
-      Data: 15
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -108,16 +108,16 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: Project.Src.com.ab.Domain.ItemTable.DropEntry, Assembly-CSharp
+      Data: com.ab.item.DropEntry, Assembly-CSharp
     - Name: Items
       Entry: 7
-      Data: 3|Project.Src.com.ab.Domain.ItemTable.DropItem[], Assembly-CSharp
+      Data: 3|com.ab.item.DropItem[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Project.Src.com.ab.Domain.ItemTable.DropItem, Assembly-CSharp
+      Data: com.ab.item.DropItem, Assembly-CSharp
     - Name: PlaceSo
       Entry: 10
       Data: 1
@@ -126,10 +126,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
     - Name: 
       Entry: 3
-      Data: 5
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 10
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -168,16 +168,16 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: Project.Src.com.ab.Domain.ItemTable.DropEntry, Assembly-CSharp
+      Data: com.ab.item.DropEntry, Assembly-CSharp
     - Name: Items
       Entry: 7
-      Data: 4|Project.Src.com.ab.Domain.ItemTable.DropItem[], Assembly-CSharp
+      Data: 4|com.ab.item.DropItem[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Project.Src.com.ab.Domain.ItemTable.DropItem, Assembly-CSharp
+      Data: com.ab.item.DropItem, Assembly-CSharp
     - Name: PlaceSo
       Entry: 10
       Data: 4
@@ -186,10 +186,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
     - Name: 
       Entry: 3
-      Data: 5
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 10
+      Data: 5
     - Name: 
       Entry: 8
       Data: 

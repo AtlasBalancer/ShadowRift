@@ -5,17 +5,17 @@ namespace com.ab.common
 {
     public struct Amount : IComponent
     {
-        public int Value;
+        public int Val;
 
-        public Amount(int val) => Value = val;
+        public Amount(int val) => Val = val;
 
         public void Increase(int value) => 
-            Value += value;
+            Val += value;
     }
     
     public static class AmountExtensions
     {
         public static int GetAmount(this W.Entity source) => 
-            source.HasAllOf<Amount>() ? source.Ref<Amount>().Value : 1;
+            source.HasAllOf<Amount>() ? source.Ref<Amount>().Val : 1;
     }
 }

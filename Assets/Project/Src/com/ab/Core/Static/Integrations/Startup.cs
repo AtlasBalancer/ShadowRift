@@ -16,7 +16,7 @@ namespace com.ab.complexity.core
     public class Startup : MonoBehaviour
     {
         [SerializeField] Settings _def;
-        [field: NonSerialized] HashSet<IPastInitLoad> _initLoads = new();
+        [field: NonSerialized] HashSet<IPreInitLoad> _initLoads = new();
 
         async void Awake()
         {
@@ -48,20 +48,25 @@ namespace com.ab.complexity.core
             // UpdateSystems.AddCallOnce(new YourInitOrAndDestroySystem());
             // UpdateSystems.AddUpdate(new YourUpdateSystem1(), new YourUpdateSystem2(), new YourUpdateSystem3());
 
+            // === Initialization order === 
             InitializeTables();
+            await WaitPreInitLoads();
             Sys.Initialize();
-            await WaitPastInitLoads();
+            
+            
             EcsDebug<WT>.AddSystem<SysT>();
         }
 
-        async UniTask WaitPastInitLoads()
+        async UniTask WaitPreInitLoads()
         {
             var cts = new CancellationTokenSource();
-            
-            var initLoadList = SysReg.All.OfType<IPastInitLoad>().ToList();
 
+            await W.Context<AtlasService>.Get().PreInitLoad(cts.Token);
+            
+            var initLoadList = SysReg.All.OfType<IPreInitLoad>().ToList();
             if (initLoadList.Count == 0) return;
-            await UniTask.WhenAll(Enumerable.Select(initLoadList, item => item.PastInitLoad(cts.Token)));
+            await UniTask.WhenAll(Enumerable.Select(initLoadList, 
+                item => item.PreInitLoad(cts.Token)));
         }
 
         void RegisterTableTypes()
@@ -168,8 +173,8 @@ namespace com.ab.complexity.core
         [Serializable]
         public class Settings
         {
-            public List<GameObject> Features = new();
             public List<ScriptableObject> Modules = new();
+            public List<GameObject> Features = new();
             public List<ScriptableObject> Tables = new();
 
             public List<T> GetFeatures<T>()

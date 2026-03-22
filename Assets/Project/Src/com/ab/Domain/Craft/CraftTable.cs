@@ -22,5 +22,6 @@ namespace com.ab.domain.craft
     {
         public int Amount;
         public IDEntSo Item;
+        public string LKDescription;
     }
 }

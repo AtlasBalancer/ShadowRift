@@ -6,40 +6,38 @@ using com.ab.core;
 using UnityEngine.UI;
 using com.ab.complexity.core;
 using com.ab.domain.inventory;
-using com.ab.domain.placed;
+using com.ab.domain.item;
 using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs;
 using Project.Src.com.ab.Domain.Equipment;
 using Object = UnityEngine.Object;
-using Project.Src.com.ab.Domain.ItemTable;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
-    public class InventoryViewSystem : ViewPresenter<InventoryView>, IInitSystem, IUpdateSystem, IPastInitLoad
+    public class InventoryViewSystem : ViewPresenter<InventoryView>, IInitSystem, IUpdateSystem, IPreInitLoad
     {
-        [Serializable]
-        public class Settings
-        {
-            public string AtlasKey;
-            public string LocalizationTable;
-
-            public InvItemTable ItemTable;
-            public InvCategoryTable CategoryTable;
-
-            public Button InventoryButton;
-
-            public Transform Root;
-            public InventoryView Prefab;
-            public InvItemMono ItemPrefab;
-            public InvCategoryView CategoryPrefab;
-        }
-
         public InventoryViewSystem(Settings def)
         {
             _def = def;
-
             base.Init(_def.Prefab, _def.Root, _def.InventoryButton);
+
+            _localization = W.Context<LocalizationService>.Get();
+            _atlas = W.Context<AtlasService>.Get();
+
             W.Context<EquipInventoryPuppetViewMono>.Set(View.Puppet);
+        }
+
+        readonly Settings _def;
+        readonly LocalizationService _localization;
+        readonly AtlasService _atlas;
+
+        public UniTask PreInitLoad(CancellationToken ct) =>
+            _localization.PreloadStringTableAsync(_def.LocalizationTable);
+
+        public void Init()
+        {
+            View.Card.Hide();
+            CreateCategories();
         }
 
         void CreateCategories()
@@ -47,81 +45,11 @@ namespace Project.Src.com.ab.Domain.Inventory
             foreach (var ent in W.Query.Entities<All<InvCategoryEntry>>())
             {
                 var item = Object.Instantiate(_def.CategoryPrefab, View.CategoryRoot);
-                ent.Add<InvCategoryRef>().Ref = item;
+                ent.Add(new InvCategoryRef(item));
 
                 var titleKey = ent.Ref<InvCategoryEntry>().LKTitle;
                 item.SetTitle(_localization.GetString(titleKey));
             }
-        }
-
-        Settings _def;
-        DropTableService _dropTable;
-        LocalizationService _localization;
-        AtlasService _atlas;
-        public void Init()
-        {
-            _localization = W.Context<LocalizationService>.Get();
-            _atlas = W.Context<AtlasService>.Get();
-            
-            View.Card.Hide();
-            View.Materials = new();
-            CreateCategories();
-            UpdateAllMaterials();
-            UpdateAllItems();
-        }
-
-        void UpdateAllMaterials()
-        {
-            // foreach (var @item in _inventory.MaterialLinks)
-            //     UpdateMaterial(@item.Key);
-        }
-
-        void UpdateAllItems()
-        {
-            // foreach (var @item in _inventory.ItemLinks)
-            // UpdateItem(@item.Key);
-        }
-
-        void UpdateMaterial(ResourceDefID id)
-        {
-            if (!View.Materials.TryGetValue(id, out var itemView))
-            {
-                // var prefab = _dropTable.Def.InventoryMaterial.Entries[id].Prefab;
-                // itemView = CreateInventoryItemView(prefab, _inventory.Get(id), View.MaterialsRoot);
-                View.Materials.Add(id, itemView);
-            }
-
-            // var amount = _inventory.Get(id).Amount;
-            // itemView.UpdateAmount(amount.Value);
-        }
-
-        // void UpdateItem(ItemDefID id)
-        // {
-        // InventoryItemMono itemView;
-        // if (!View.Items.TryGetValue(id, out itemView))
-        // {
-        // InventoryItemMono prefab = _itemTable.Def.InventoryItem.Items[id].Prefab;
-        // itemView = CreateInventoryItemView(prefab, _inventory.Get(id), View.ItemsRoot);
-        // View.Items.Add(id, itemView);
-        // }
-
-        // var amount = _inventory.Get(id).Amount;
-        // itemView.UpdateAmount(amount.Value);
-        // }
-
-        InvItemMono CreateInventoryItemView(InvItemMono prefab, InventoryItemLink link, Transform root)
-        {
-            InvItemMono itemMono;
-            itemMono = Object.Instantiate(prefab, root);
-            // itemView.Init(link);
-
-            return itemMono;
-        }
-
-        protected override void Show()
-        {
-            UpdateAllMaterials();
-            UpdateAllItems();
         }
 
         public void Update()
@@ -135,7 +63,7 @@ namespace Project.Src.com.ab.Domain.Inventory
 
                     // Create inventory view
                     var item = Object.Instantiate(_def.ItemPrefab);
-                    item.UpdateIcon(_atlas.GetSprite(_def.AtlasKey, itemEntry.LKSprite));
+                    item.UpdateIcon(_atlas.GetSprite(_def.AtlasKey, itemEntry.AKSprite));
                     item.Init(idRef.ID);
                     ent.Add(new InvItemRef(item));
 
@@ -146,7 +74,7 @@ namespace Project.Src.com.ab.Domain.Inventory
                     categoryRef.AddItem(item.transform);
                 }
 
-                var amount = ent.Ref<Amount>().Value;
+                var amount = ent.Ref<Amount>().Val;
                 ent.Ref<InvItemRef>().Ref.UpdateAmount(amount);
             }
 
@@ -156,8 +84,8 @@ namespace Project.Src.com.ab.Domain.Inventory
                 Debug.Log("PRESSED");
 
                 // ItemDefID id = ent.Ref<InventoryItem>().ID;
-                int amount = ent.Ref<InventoryAmount>().Value;
-                bool isEquipped = ent.HasAllOfTags<Equipped>();
+                // int amount = ent.Ref<InventoryAmount>().Value;
+                // bool isEquipped = ent.HasAllOfTags<Equipped>();
 
                 // if (!_itemTable.Def.InventoryCards.Items.TryGetValue(id, out var cardDef))
                 // throw new ArgumentException($"{nameof(InventoryViewSystem)}:: Can't find {id} in ItemTable");
@@ -195,23 +123,21 @@ namespace Project.Src.com.ab.Domain.Inventory
             }
         }
 
-        public UniTask PastInitLoad(CancellationToken ct) =>
-            _localization.PreloadStringTableAsync(_def.LocalizationTable);
-    }
+        [Serializable]
+        public class Settings
+        {
+            public string AtlasKey;
+            public string LocalizationTable;
 
-    public struct InvItemRef : IComponent
-    {
-        public InvItemMono Ref;
+            public InvItemTable ItemTable;
+            public InvCategoryTable CategoryTable;
 
-        public InvItemRef(InvItemMono @ref) =>
-            Ref = @ref;
-    }
+            public Button InventoryButton;
 
-    internal struct InvCategoryRef : IComponent
-    {
-        public InvCategoryView Ref;
-
-        public InvCategoryRef(InvCategoryView @ref) =>
-            Ref = @ref;
+            public Transform Root;
+            public InventoryView Prefab;
+            public InvItemMono ItemPrefab;
+            public InvCategoryView CategoryPrefab;
+        }
     }
 }

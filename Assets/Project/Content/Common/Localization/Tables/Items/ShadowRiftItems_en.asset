@@ -26,6 +26,22 @@ MonoBehaviour:
     m_Localized: Logs
     m_Metadata:
       m_Items: []
+  - m_Id: 720778155126784
+    m_Localized: Wood axe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 720778184486912
+    m_Localized: Stone pickaxe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 720778188681216
+    m_Localized: A simple tool for chopping wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 720778188681217
+    m_Localized: A simple tool to chisel mountains
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

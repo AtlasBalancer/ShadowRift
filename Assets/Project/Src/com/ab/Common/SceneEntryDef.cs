@@ -1,8 +1,11 @@
+using System;
 using System.Threading;
 using UnityEngine;
 using com.ab.complexity.core;
 using com.ab.complexity.features.player;
 using com.ab.core;
+using com.ab.domain.item;
+using com.ab.item;
 using Cysharp.Threading.Tasks;
 using Project.Src.com.ab.Domain.Inventory;
 using Renderer = com.ab.complexity.core.Renderer;
@@ -11,13 +14,14 @@ using Timer = com.ab.complexity.core.Timer;
 namespace com.ab.common
 {
     [CreateAssetMenu(fileName = "#Name#SceneEntryDef", menuName = "com.ab/scene/common")]
-    public class SceneEntryDef : ScriptableObject,
-        IStaticRegisterTypeDef, IStaticInitDef, IStaticUpdateDef, IStaticContextSetDef, IPastInitLoad
+    public class SceneEntryDef : StaticEntrySOParamDef<SceneEntryDef.Settings>,
+        IStaticRegisterTypeDef, IStaticInitDef, IStaticUpdateDef, IStaticContextSetDef, IPreInitLoad
     {
         public void RegisterType()
         {
             W.RegisterTagType<ViewActive>();
             W.RegisterTagType<ViewPressed>();
+            W.RegisterTagType<Click>();
 
             W.RegisterComponentType<Timer>();
 
@@ -39,12 +43,13 @@ namespace com.ab.common
 
         public void RegisterInit()
         {
+            
         }
 
         public void RegisterUpdate()
         {
-            SysReg.AddUpdate(new MovementVelocitySystem());
             SysReg.AddUpdate(new DestroyLinkSystem());
+            SysReg.AddUpdate(new MovementVelocitySystem());
         }
 
         public void SetContext()
@@ -54,9 +59,17 @@ namespace com.ab.common
             W.Context<AddressableService>.Set(addresable);
             W.Context<LocalizationService>.Set(new LocalizationService());
             W.Context<AtlasService>.Set(new AtlasService(addresable, new[] {"MapAtlas"}));
+            W.Context<ItemService>.Set(new ItemService(Def.ItemTable, Def.DropTable));
         }
 
-        public UniTask PastInitLoad(CancellationToken ct) => 
+        public UniTask PreInitLoad(CancellationToken ct) => 
             W.Context<LocalizationService>.Get().InitializeAsync();
+
+        [Serializable]
+        public class Settings
+        {
+            public ItemTable[] ItemTable;
+            public DropTable[] DropTable;
+        }
     }
 }

@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using com.ab.complexity.core;
+using com.ab.domain.item;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.U2D;
 
 namespace com.ab.common
 {
-    public class AtlasService : IDisposable, IPastInitLoad
+    public class AtlasService : IDisposable, IPreInitLoad
     {
         readonly AddressableService _addressables;
         readonly IReadOnlyList<string> _atlasKeys;
@@ -20,8 +21,14 @@ namespace com.ab.common
             SpriteAtlasManager.atlasRequested += OnAtlasRequested;
         }
 
-        public UniTask LoadAtlas(string atlasKey) => 
+        public UniTask LoadAtlas(string atlasKey) =>
             _addressables.LoadAsync<SpriteAtlas>(atlasKey);
+
+        public Sprite GetSprite(string atlas, W.Entity ent)
+        {
+            var spriteKey = ent.Ref<ItemEntry>().AKSprite;
+            return GetSprite(atlas, spriteKey);
+        }
 
         public Sprite GetSprite(string atlasKey, string spriteName)
         {
@@ -29,11 +36,9 @@ namespace com.ab.common
                 return atlas.GetSprite(spriteName);
             return null;
         }
-        
-        public UniTask PastInitLoad(CancellationToken ct) => 
-            InitAsync();
 
-        // Вызывай на загрузке сцены — загружает все атласы параллельно
+        public UniTask PreInitLoad(CancellationToken ct) =>
+            InitAsync();
 
         public async UniTask InitAsync()
         {

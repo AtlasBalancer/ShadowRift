@@ -1,20 +1,64 @@
 using System;
-using System.Buffers;
 using System.Threading;
 using com.ab.common;
 using UnityEngine;
 using com.ab.complexity.core;
-using com.ab.domain.placed;
+using com.ab.domain.item;
 using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs;
-using Project.Src.com.ab.Domain.ItemTable;
-using UnityEngine.Pool;
 using Object = UnityEngine.Object;
+using com.ab.item;
 
 namespace Project.Src.com.ab.Domain.Collect
 {
-    public class PlacedSpawnSystem : IPastInitLoad, IInitSystem, IUpdateSystem
+    public class PlacedSpawnSystem : IPreInitLoad, IInitSystem, IUpdateSystem
     {
+        public PlacedSpawnSystem(Settings def)
+        {
+            _def = def;
+
+            _atlas = W.Context<AtlasService>.Get();
+            _item = W.Context<ItemService>.Get();
+        }
+
+        readonly Settings _def;
+        readonly ItemService _item;
+        readonly AtlasService _atlas;
+
+        public UniTask PreInitLoad(CancellationToken ct) =>
+            _atlas.LoadAtlas(_def.AtlasKey);
+
+        public void Init()
+        {
+            
+        }
+        
+        public void Update()
+        {
+            foreach (var ent in W.Query.Entities<TagAll<PlacedSpawnByDropTable>>())
+            {
+                var @ref = ent.Ref<Ref>().Val;
+                var idEntry = ent.Ref<IDRef>().ID;
+
+                var dropTable = idEntry.RuntimeID.Ref<DropEntry>().Items;
+                foreach (var item in dropTable)
+                {
+                    if (!item.ChanceRange.RandHappen())
+                        continue;
+
+                    var itemDef = _item.Get(item.PlaceSo);
+                    var link = Object.Instantiate(_def.PlacedPrefab, _def.RootCollectables);
+                    var itemEnt = link.Init(item.PlaceSo, true);
+                    itemEnt.Add(new Amount { Val = item.AmountRange.Rand() });
+                    link.UpdateRender(_atlas.GetSprite(_def.AtlasKey, itemDef.AKSprite));
+
+                    link.Drop(@ref.position);
+                }
+
+                ent.ApplyTag<PlacedSpawnByDropTable>(false);
+            }
+        }
+
         [Serializable]
         public class Settings
         {
@@ -24,50 +68,5 @@ namespace Project.Src.com.ab.Domain.Collect
             public string AtlasKey = "ItemsAtlas";
         }
 
-        public PlacedSpawnSystem(Settings def) => _def = def;
-
-        Settings _def;
-        DropTableService _dropTable;
-        global::com.ab.domain.placed.ItemTable _itemTable;
-        AtlasService _atlas;
-
-        public void Init()
-        {
-            _atlas = W.Context<AtlasService>.Get();
-            _dropTable = W.Context<DropTableService>.Get();
-            _itemTable = W.Context<global::com.ab.domain.placed.ItemTable>.Get();
-        }
-
-        public void Update()
-        {
-            foreach (var ent in W.Query.Entities<TagAll<PlacedSpawnByDropTable>>())
-            {
-                var @ref = ent.Ref<Ref>().Val;
-                var idEntry = ent.Ref<IDRef>().ID;
-                
-                var dropTable = idEntry.RuntimeID.Ref<DropEntry>().Items;
-                foreach (var item in dropTable)
-                {
-                    if (!item.ChanceRange.RandHappen())
-                        continue;
-
-                    if (!_itemTable.Entries.TryGetValue(item.PlaceSo, out var placedDef))
-                        throw new ArgumentException(
-                            $"{nameof(PlacedSpawnSystem)}:: Can't find {item.PlaceSo} in PlaceItemTable");
-
-                    var link = Object.Instantiate(_def.PlacedPrefab, _def.RootCollectables);
-                    var itemEnt = link.Init(item.PlaceSo);
-                    itemEnt.Add(new Amount { Value = item.AmountRange.Rand() });
-                    link.UpdateRender(_atlas.GetSprite(_def.AtlasKey, placedDef.LKSprite));
-                    
-                    link.Drop(@ref.position + _def.DropOffset);
-                }
-
-                ent.ApplyTag<PlacedSpawnByDropTable>(false);
-            }
-        }
-
-        public UniTask PastInitLoad(CancellationToken ct) => 
-            _atlas.LoadAtlas(_def.AtlasKey);
     }
 }

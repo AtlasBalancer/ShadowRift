@@ -12,3 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fec7ad712f96e4dad199ae7161dd27, type: 3}
   m_Name: SceneEntryDef
   m_EditorClassIdentifier: Assembly-CSharp::Project.Src.com.ab.Complexity.Features.Topdown.TopdownEntryDef
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Def:
+    ItemTable:
+    - {fileID: 11400000, guid: c6d3afb0366b7bd40b0ba7da00187e3e, type: 2}
+    - {fileID: 11400000, guid: 6232e37938179984e88d40ffc29ad2ed, type: 2}
+    DropTable:
+    - {fileID: 11400000, guid: 918836f408d04074488979c5d199783e, type: 2}

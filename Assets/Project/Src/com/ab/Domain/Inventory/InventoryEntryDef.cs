@@ -24,9 +24,7 @@ namespace Project.Src.com.ab.Domain.Inventory
             W.RegisterTagType<InventoryAdd>();
             W.RegisterTagType<InventoryToUpdate>();
             
-            W.RegisterComponentType<InventoryMaterial>();
             W.RegisterComponentType<InventoryItem>();
-            W.RegisterComponentType<InventoryAmount>();
             W.RegisterComponentType<InvCategoryRef>();
             
             W.RegisterComponentType<InvItemRef>();

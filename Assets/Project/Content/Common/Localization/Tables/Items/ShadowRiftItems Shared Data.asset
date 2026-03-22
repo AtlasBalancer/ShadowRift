@@ -23,6 +23,22 @@ MonoBehaviour:
     m_Key: item.logs
     m_Metadata:
       m_Items: []
+  - m_Id: 720778155126784
+    m_Key: item.title.axe.wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 720778184486912
+    m_Key: item.title.pickaxe.stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 720778188681216
+    m_Key: item.desc.axe.wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 720778188681217
+    m_Key: item.desc.pickaxe.stone
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

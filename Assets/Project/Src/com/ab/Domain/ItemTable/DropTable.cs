@@ -1,9 +1,9 @@
 using System;
+using UnityEngine;
 using com.ab.common;
 using FFS.Libraries.StaticEcs;
-using UnityEngine;
 
-namespace Project.Src.com.ab.Domain.ItemTable
+namespace com.ab.item
 {
     [CreateAssetMenu(fileName = "DropTable#Name#", menuName = "com.ab/drop/tables")]
     public class DropTable : EntIDTableSo<DropEntry>

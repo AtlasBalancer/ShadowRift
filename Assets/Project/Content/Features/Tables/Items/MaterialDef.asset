@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66862c76df79421897047b425b3abcca, type: 3}
-  m_Name: ItemDef
+  m_Name: MaterialDef
   m_EditorClassIdentifier: Assembly-CSharp::Project.Src.com.ab.Domain.Placed.PlacedDef
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 558f083ba9f06934b885abf083acd071, type: 2}
-    - {fileID: 11400000, guid: 16e6e03a78470bb41ba766e0cd8aa761, type: 2}
-    - {fileID: 11400000, guid: dbd4f7dde8200c54e8ce51fe87dfd95f, type: 2}
+    - {fileID: 11400000, guid: ea0733e24d46e8748a403568f5c57ff3, type: 2}
+    - {fileID: 11400000, guid: 4a2cb76f9bcbe6f48a1e57db9e4c89a3, type: 2}
+    - {fileID: 11400000, guid: bd0726322df2bf9499f53023998facea, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -52,13 +52,10 @@ MonoBehaviour:
       Data: 1
     - Name: AKSprite
       Entry: 1
-      Data: hammer
+      Data: LogSingle
     - Name: LKTitle
       Entry: 1
-      Data: item.title.axe.wood
-    - Name: LKDescription
-      Entry: 1
-      Data: item.desc.axe.wood
+      Data: item.logs
     - Name: 
       Entry: 8
       Data: 
@@ -79,13 +76,10 @@ MonoBehaviour:
       Data: 1
     - Name: AKSprite
       Entry: 1
-      Data: axe
+      Data: StoneS
     - Name: LKTitle
       Entry: 1
-      Data: item.title.axe.wood
-    - Name: LKDescription
-      Entry: 1
-      Data: item.desc.pickaxe.stone
+      Data: item.rocks
     - Name: 
       Entry: 8
       Data: 

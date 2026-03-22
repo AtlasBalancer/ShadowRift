@@ -1,36 +1,34 @@
+using System.Text;
 using com.ab.common;
-using com.ab.complexity.core;
 using DG.Tweening;
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
+using TMPro;
 
 namespace com.ab.domain.craft
 {
-    public readonly struct CraftItemRef : IComponent
-    {
-        public readonly CraftItemMono Val;
-        public CraftItemRef(CraftItemMono val) => Val = val;
-    }
-    
     public class CraftItemMono : EntityLink
     {
         public RectTransform PriceRoot;
 
+        public TMP_Text Title;
+        public TMP_Text Description;
+        
         public Button Button;
         public Image Bg;
+        public Image Icon;
 
         public Color Available;
         public Color NotAvailable;
-
 
         protected override void RegisterComponentRef()
         {
             Ent.Add(new CraftItemRef(this));
             
             Button.onClick.AddListener(Press);
-            Active(false);
+            UpdateCraftAvailable(false);
         }
 
         public void Press()
@@ -38,6 +36,8 @@ namespace com.ab.domain.craft
             if (!Button.interactable)
                 return;
 
+            OnClick();
+            
             Button.interactable = false;
             Button.transform.DOScale(0.95f, 0.1f)
                 .OnComplete(() =>
@@ -48,24 +48,36 @@ namespace com.ab.domain.craft
         }
 
         [Button]
-        public void Deactive() => Active(false);
+        public void Deactive() => UpdateCraftAvailable(false);
 
         [Button]
-        public void Active() => Active(true);
-
-        public void Active(bool active)
-        {
-            Button.interactable = active;
-
-            if (active)
-                Bg.color = Available;
-            else
-                Bg.color = NotAvailable;
-        }
+        public void Active() => UpdateCraftAvailable(true);
 
         public void AddPrice(Transform price)
         {
             price.transform.SetParent(PriceRoot, false);
         }
+
+        public void UpdateIcon(Sprite sprite) => Icon.sprite = sprite;
+
+        public void UpdateTile(string title) => Title.SetText(title);
+
+        public void UpdateDescription(string description) => Description.SetText(description);
+
+        public void UpdateCraftAvailable(bool available)
+        {
+            Button.interactable = available;
+
+            if (available)
+                Bg.color = Available;
+            else
+                Bg.color = NotAvailable;
+        }
+    }
+
+    public readonly struct CraftItemRef : IComponent
+    {
+        public readonly CraftItemMono Val;
+        public CraftItemRef(CraftItemMono val) => Val = val;
     }
 }

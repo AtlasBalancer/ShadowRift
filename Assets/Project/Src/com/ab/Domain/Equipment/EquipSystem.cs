@@ -4,8 +4,6 @@ using com.ab.complexity.player;
 using FFS.Libraries.StaticEcs;
 using Project.Src.com.ab.Domain.Equipment;
 using Project.Src.com.ab.Domain.Inventory;
-using Project.Src.com.ab.Domain.ItemTable;
-using UnityEngine.UI;
 
 namespace Project.Src.com.ab.Domain.Unit.Items
 {
@@ -14,11 +12,11 @@ namespace Project.Src.com.ab.Domain.Unit.Items
         PlayerMono _player;
         EquipInventoryPuppetViewMono _puppet;
 
-        DropTableService _dropTable;
+        // DropTableService _dropTable;
 
         public void Init()
         {
-            _dropTable = W.Context<DropTableService>.Get();
+            // _dropTable = W.Context<DropTableService>.Get();
             W.Query.Entities<All<PlayerRef>>().First(out var playerEnt);
 
             _player = playerEnt.Ref<PlayerRef>().Ref;

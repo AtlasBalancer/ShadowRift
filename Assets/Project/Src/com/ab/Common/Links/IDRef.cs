@@ -1,5 +1,6 @@
 using System;
 using com.ab.complexity.core;
+using com.ab.domain.item;
 using FFS.Libraries.StaticEcs;
 
 namespace com.ab.common
@@ -38,5 +39,11 @@ namespace com.ab.common
             findingEnt = default;
             return false;
         }
+
+        public static ItemEntry GetItemDef(this W.Entity source) => 
+            source.Ref<IDRef>().GetItemDef();
+        
+        public static ItemEntry GetItemDef(this IDRef source) => 
+            source.ID.RuntimeID.Ref<ItemEntry>();
     }
 }

@@ -45,9 +45,8 @@ namespace Project.Src.com.ab.Domain.Collect
 
                 if (item != null && item.TryGetComponent(out PlacedMono collect))
                 {
-                    collect.FlyTo(sourcePosition, _def.FlyDuration);
+                    collect.PickUp(sourcePosition, _def.FlyDuration);
                     collect.Ent.ApplyTag<InventoryAdd>(true);
-                    collect.Ent.Destr(_def.FlyDuration);
                 }
             }
         }

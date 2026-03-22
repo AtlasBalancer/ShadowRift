@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8c75dcd40bef74047ac0c43173d11189
+guid: 6877b6de967ed364b9ea582fb03fb2e7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7579998358627734626
-    second: hatchet _0
+      213: 4301844918096825189
+    second: hammer_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -47,10 +47,10 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
-  spriteExtrude: 1
+  spriteExtrude: 4
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.15549085, y: 0.16125737}
+  alignment: 0
+  spritePivot: {x: 0.7, y: 0.1}
   spritePixelsToUnits: 750
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hatchet _0
+      name: hammer_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 5
-        width: 484
-        height: 462
+        x: 1
+        y: 4
+        width: 392
+        height: 478
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e9b23f347af6ec690800000000000000
-      internalID: -7579998358627734626
+      spriteID: 56b0bfd292933bb30800000000000000
+      internalID: 4301844918096825189
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      hatchet _0: -7579998358627734626
+      hammer_0: 4301844918096825189
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

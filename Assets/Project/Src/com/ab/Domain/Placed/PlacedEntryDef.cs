@@ -1,8 +1,6 @@
 using System;
 using com.ab.complexity.core;
-using com.ab.domain.placed;
 using Project.Src.com.ab.Domain.Collect;
-using UnityEngine.Pool;
 
 namespace com.ab.domain.collect
 {
@@ -12,13 +10,14 @@ namespace com.ab.domain.collect
         [Serializable]
         public class Settings
         {
-            public ItemTable ItemTable;
+            // public ItemTable ItemTable;
             public PlacedToInventorySystem.Settings CollectToInventorySystem;
             public PlacedSpawnSystem.Settings CollectSpawnSystem;
         }
 
         public void RegisterType()
         {
+            W.RegisterComponentType<PlacedRef>();
             W.RegisterComponentType<PlacedToInventory>();
             W.RegisterTagType<PlacedSpawnByDropTable>();
         }
@@ -31,7 +30,7 @@ namespace com.ab.domain.collect
 
         public void SetContext()
         {
-            W.Context<ItemTable>.Set(Def.ItemTable);
+            // W.Context<ItemTable>.Set(Def.ItemTable);
         }
 
         public void CreateEntities()

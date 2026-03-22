@@ -1,11 +1,12 @@
 using com.ab.complexity.core;
-using FFS.Libraries.StaticEcs;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace com.ab.common
 {
     public class EntityLink : MonoBehaviour
     {
+        [ShowInInspector] public uint ID => Ent.Gid().Id;
         public W.Entity Ent { get; private set; }
 
         protected virtual void RegisterComponentRef(){}
@@ -29,5 +30,8 @@ namespace com.ab.common
             
             return ent;
         }
+
+        protected void OnClick() => 
+            Ent.ApplyTag<Click>(true);
     }
 }

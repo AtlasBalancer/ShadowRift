@@ -954,7 +954,6 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Def:
-    ItemTable: {fileID: 11400000, guid: 6232e37938179984e88d40ffc29ad2ed, type: 2}
     CollectToInventorySystem:
       Layer:
         serializedVersion: 2
@@ -31454,6 +31453,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a00b0a4771d9cb1409334d309e72ae84, type: 2}
     Tables:
     - {fileID: 11400000, guid: 6232e37938179984e88d40ffc29ad2ed, type: 2}
+    - {fileID: 11400000, guid: c6d3afb0366b7bd40b0ba7da00187e3e, type: 2}
     - {fileID: 11400000, guid: 918836f408d04074488979c5d199783e, type: 2}
     - {fileID: 11400000, guid: edf198af1e480614dbce44a73409763b, type: 2}
     - {fileID: 11400000, guid: 1a922ec0d4ff95e4eb61ab7e97506082, type: 2}

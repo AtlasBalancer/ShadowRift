@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Project.Src.com.ab.Domain.Collect.PlacedMono
   Render: {fileID: 1717447062203335982}
+  Collider: {fileID: -4203590471588194424}
 --- !u!61 &-4203590471588194424
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -183,4 +184,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1

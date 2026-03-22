@@ -3,8 +3,8 @@ using Cysharp.Threading.Tasks;
 
 namespace com.ab.complexity.core
 {
-    public interface IPastInitLoad
+    public interface IPreInitLoad
     {
-        public UniTask PastInitLoad(CancellationToken ct);
+        public UniTask PreInitLoad(CancellationToken ct);
     }
 }
