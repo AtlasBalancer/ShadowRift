@@ -64,7 +64,7 @@ namespace Project.Src.com.ab.Domain.Inventory
                     // Create inventory view
                     var item = Object.Instantiate(_def.ItemPrefab);
                     item.UpdateIcon(_atlas.GetSprite(_def.AtlasKey, itemEntry.AKSprite));
-                    item.Init(idRef.ID);
+                    item.Init(ent);
                     ent.Add(new InvItemRef(item));
 
                     if (!ent.HasAllOf<Amount>())

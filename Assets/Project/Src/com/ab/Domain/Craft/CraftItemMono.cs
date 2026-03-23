@@ -25,8 +25,6 @@ namespace com.ab.domain.craft
 
         protected override void RegisterComponentRef()
         {
-            Ent.Add(new CraftItemRef(this));
-            
             Button.onClick.AddListener(Press);
             UpdateCraftAvailable(false);
         }

@@ -7,8 +7,6 @@ using System.Threading;
 using com.ab.common;
 using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs.Unity;
-using Sirenix.Utilities;
-using Unity.VisualScripting;
 
 namespace com.ab.complexity.core
 {
@@ -22,6 +20,7 @@ namespace com.ab.complexity.core
         {
             // ============================================ MAIN INITIALIZATION ======================================================
             W.Create(WorldConfig.Default());
+            WC.Create(WorldConfig.Default());
 
             RegisterCoreTypes();
             RegisterTableTypes();

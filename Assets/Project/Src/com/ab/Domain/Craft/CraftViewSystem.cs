@@ -38,6 +38,8 @@ namespace com.ab.domain.craft
                     continue;
 
                 var item = UnityEngine.Object.Instantiate(_def.ItemPrefab);
+                
+            
                 var itemDef = ent.Ref<ItemEntry>();
 
                 item.Init(ent);
@@ -45,6 +47,7 @@ namespace com.ab.domain.craft
                 item.UpdateTile(_localization.GetString(itemDef.LKTitle, _def.LocalizationTable));
                 item.UpdateDescription(_localization.GetString(itemDef.LKDescription, _def.LocalizationTable));
                 View.AddItem(item.transform);
+                ent.Add(new CraftItemRef(item));
 
                 var entry = ent.Ref<CraftEntry>();
 
