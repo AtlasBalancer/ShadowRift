@@ -23,9 +23,9 @@ namespace com.ab.common
             W.RegisterTagType<ViewPressed>();
             W.RegisterTagType<Click>();
 
+            W.RegisterComponentType<ConfigRef>();
             W.RegisterComponentType<Timer>();
 
-            W.RegisterComponentType<IDRef>();
             W.RegisterComponentType<EntRef>();
             W.RegisterComponentType<Destroy>();
 

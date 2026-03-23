@@ -8,8 +8,8 @@ namespace com.ab.domain.item
 {
     public class ItemService
     {
-        readonly Dictionary<IDEntSo, ItemEntry> _items;
-        readonly Dictionary<IDEntSo, DropEntry> _drop;
+        readonly Dictionary<ConfigIDEntSo, ItemEntry> _items;
+        readonly Dictionary<ConfigIDEntSo, DropEntry> _drop;
 
         public ItemService(ItemTable[] item, DropTable[] drop)
         {
@@ -20,11 +20,11 @@ namespace com.ab.domain.item
                 .ToDictionary(item => item.Key, item => item.Value);
         }
 
-        public ItemEntry Get(IDEntSo id)
+        public ItemEntry Get(ConfigIDEntSo configID)
         {
-            if (!_items.TryGetValue(id, out var itemDef))
+            if (!_items.TryGetValue(configID, out var itemDef))
                 throw new ArgumentException(
-                    $"{nameof(ItemService)}:: Can't find {id.ID} in ItemTable");
+                    $"{nameof(ItemService)}:: Can't find {configID.ID} in ItemTable");
 
             return itemDef;
         }

@@ -17,9 +17,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 0496bbbcfda55444493636d1337ced55, type: 2}
-    - {fileID: 5474976368110108103, guid: 423ae3a65a1023e47ac2b720e33d4246, type: 3}
     - {fileID: 11400000, guid: b9f3896255f687940a0b567f1eb763a7, type: 2}
-    - {fileID: -6053503033485622927, guid: 3c739473529cb2a4eaa85d559d755b0a, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -27,11 +25,11 @@ MonoBehaviour:
     SerializationNodes:
     - Name: Entries
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[com.ab.common.IDEntSo, Assembly-CSharp],[Project.Src.com.ab.Domain.Harvest.HarvItemEntry,
-        Assembly-CSharp]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[com.ab.common.ConfigIDEntSo,
+        Assembly-CSharp],[com.ab.domain.harv.HarvItemEntry, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[com.ab.common.IDEntSo,
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[com.ab.common.ConfigIDEntSo,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 8
@@ -47,10 +45,10 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: Project.Src.com.ab.Domain.Harvest.HarvItemEntry, Assembly-CSharp
+      Data: com.ab.domain.harv.HarvItemEntry, Assembly-CSharp
     - Name: AKSprite
-      Entry: 10
-      Data: 1
+      Entry: 1
+      Data: AppleTreesAtlas_0
     - Name: 
       Entry: 8
       Data: 
@@ -62,13 +60,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 10
-      Data: 2
+      Data: 1
     - Name: $v
       Entry: 7
-      Data: Project.Src.com.ab.Domain.Harvest.HarvItemEntry, Assembly-CSharp
+      Data: com.ab.domain.harv.HarvItemEntry, Assembly-CSharp
     - Name: AKSprite
-      Entry: 10
-      Data: 3
+      Entry: 1
+      Data: TreesAtlas_1
     - Name: 
       Entry: 8
       Data: 

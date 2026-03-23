@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using com.ab.complexity.core;
 using com.ab.complexity.player;
+using com.ab.domain.harv;
 using Project.Src.com.ab.Complexity.Core.Static.Mono;
 using Project.Src.com.ab.Domain.Collect;
-using Project.Src.com.ab.Domain.Harvest;
 using Sirenix.OdinInspector;
 
 namespace com.ab.complexity.features.player
@@ -60,7 +60,7 @@ namespace com.ab.complexity.features.player
             ent.Add(new MovementEntry { Speed = .002f });
             ent.Add(new LogicRender(logicRenderer.Renderer));
             ent.Add(new AnimatorRef { Value = player.Animator });
-            ent.Add(new HarvestCollector
+            ent.Add(new HarvCollector
             {
                 Radius = harvester.Radius,
                 Timer = new Timer { Max = harvester.Delay }

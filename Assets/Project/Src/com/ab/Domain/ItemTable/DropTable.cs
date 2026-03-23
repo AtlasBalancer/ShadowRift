@@ -6,7 +6,7 @@ using FFS.Libraries.StaticEcs;
 namespace com.ab.item
 {
     [CreateAssetMenu(fileName = "DropTable#Name#", menuName = "com.ab/drop/tables")]
-    public class DropTable : EntIDTableSo<DropEntry>
+    public class DropTable : ConfigTableSo<DropEntry>
     {
     }
 
@@ -19,7 +19,7 @@ namespace com.ab.item
     [Serializable]
     public struct DropItem
     {
-        public IDEntSo PlaceSo;
+        public ConfigIDEntSo PlaceSo;
         public Vector2Int AmountRange;
         public Vector2 ChanceRange;
     }

@@ -17,7 +17,6 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 45ae5906945831c4393bc3aaeaafee7e, type: 2}
-    - {fileID: -2801501242401512020, guid: e5b287ab5ee85814c9078727c5ceb0a5, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -25,11 +24,11 @@ MonoBehaviour:
     SerializationNodes:
     - Name: Entries
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[com.ab.common.IDEntSo, Assembly-CSharp],[Project.Src.com.ab.Domain.Harvest.HarvItemEntry,
-        Assembly-CSharp]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[com.ab.common.ConfigIDEntSo,
+        Assembly-CSharp],[com.ab.domain.harv.HarvItemEntry, Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[com.ab.common.IDEntSo,
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[com.ab.common.ConfigIDEntSo,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 8
@@ -45,10 +44,10 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: Project.Src.com.ab.Domain.Harvest.HarvItemEntry, Assembly-CSharp
+      Data: com.ab.domain.harv.HarvItemEntry, Assembly-CSharp
     - Name: AKSprite
-      Entry: 10
-      Data: 1
+      Entry: 1
+      Data: RocksAtlas_4
     - Name: 
       Entry: 8
       Data: 

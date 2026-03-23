@@ -14,16 +14,17 @@ namespace com.ab.complexity.core
     public class Startup : MonoBehaviour
     {
         [SerializeField] Settings _def;
-        [field: NonSerialized] HashSet<IPreInitLoad> _initLoads = new();
 
         async void Awake()
         {
+            // == CONFIGS === 
+            WC.Create(WorldConfig.Default());
+            RegisterConfigTypes();
+            WC.Initialize();
+            
             // ============================================ MAIN INITIALIZATION ======================================================
             W.Create(WorldConfig.Default());
-            WC.Create(WorldConfig.Default());
-
             RegisterCoreTypes();
-            RegisterTableTypes();
             RegisterTypes();
             RegisterTag();
             // W.RegisterComponentType<YourComponentType>();
@@ -32,7 +33,7 @@ namespace com.ab.complexity.core
 
             EcsDebug<WT>.AddWorld();
             AutoRegister<WT>.Apply();
-
+            
             W.Initialize();
 
             // ============================================ CONTEXT INITIALIZATION ====================================================
@@ -48,10 +49,9 @@ namespace com.ab.complexity.core
             // UpdateSystems.AddUpdate(new YourUpdateSystem1(), new YourUpdateSystem2(), new YourUpdateSystem3());
 
             // === Initialization order === 
-            InitializeTables();
+            InitializeConfig();
             await WaitPreInitLoads();
             Sys.Initialize();
-            
             
             EcsDebug<WT>.AddSystem<SysT>();
         }
@@ -68,18 +68,20 @@ namespace com.ab.complexity.core
                 item => item.PreInitLoad(cts.Token)));
         }
 
-        void RegisterTableTypes()
+        void RegisterConfigTypes()
         {
-            foreach (var item in _def.Tables)
+            WC.RegisterComponentType<ConfigRef>();
+            
+            foreach (var item in _def.Configs)
                 if (item is IStaticRegisterTypeDef def)
                     def.RegisterType();
         }
 
-        void InitializeTables()
+        void InitializeConfig()
         {
-            foreach (var item in _def.Tables)
-                if (item is IEntTable table)
-                    table.Init();
+            foreach (var item in _def.Configs)
+                if (item is IEntConfig config)
+                    config.Init();
         }
 
         void RegisterCoreTypes()
@@ -174,7 +176,7 @@ namespace com.ab.complexity.core
         {
             public List<ScriptableObject> Modules = new();
             public List<GameObject> Features = new();
-            public List<ScriptableObject> Tables = new();
+            public List<ScriptableObject> Configs = new();
 
             public List<T> GetFeatures<T>()
             {

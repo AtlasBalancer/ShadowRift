@@ -32,32 +32,27 @@ namespace com.ab.domain.craft
         {
             base.Init(_def.CraftViewPrefab, _def.Root, _def.CraftBtn);
 
-            foreach (var ent in W.Query.Entities<All<CraftEntry>>())
+            foreach (var entC in WC.Query.Entities<All<CraftEntry>>())
             {
-                if (ent.HasAllOf<CraftItemRef>())
-                    continue;
-
                 var item = UnityEngine.Object.Instantiate(_def.ItemPrefab);
-                
-            
-                var itemDef = ent.Ref<ItemEntry>();
+                var itemDef = entC.Ref<ItemEntry>();
 
-                item.Init(ent);
+                item.Init(entC);
                 item.UpdateIcon(_atlas.GetSprite(_def.AtlasKey, itemDef.AKSprite));
                 item.UpdateTile(_localization.GetString(itemDef.LKTitle, _def.LocalizationTable));
                 item.UpdateDescription(_localization.GetString(itemDef.LKDescription, _def.LocalizationTable));
                 View.AddItem(item.transform);
-                ent.Add(new CraftItemRef(item));
+                item.Ent.Add(new CraftItemRef(item));
 
-                var entry = ent.Ref<CraftEntry>();
-
+                var entry = entC.Ref<CraftEntry>();
+                
                 foreach (var priceDef in entry.Price)
                 {
                     var sprite = _atlas.GetSprite(_def.AtlasKey, priceDef.Item.RuntimeID);
 
                     var priceItem = UnityEngine.Object.Instantiate(_def.PricePrefab);
-                    item.AddPrice(priceItem.transform);
                     priceItem.UpdateData(sprite, priceDef.Amount);
+                    item.AddPrice(priceItem.transform);
                 }
             }
         }
@@ -70,13 +65,13 @@ namespace com.ab.domain.craft
             foreach (var ent in W.Query.Entities<All<CraftItemRef>>())
             {
                 var @ref = ent.Ref<CraftItemRef>().Val;
-                var price = ent.Ref<CraftEntry>().Price;
+                var price = ent.GetConfigTable<CraftEntry>().Price;
 
                 bool craftAvailable = true;
 
                 foreach (var craftAmount in price)
                 {
-                    if (!craftAmount.Item.TryToFindIDRefByTag<Inventory>(out var invEnt))
+                    if (!craftAmount.Item.TryToFindConfigRefByTag<InvTag>(out var invEnt, out _))
                     {
                         craftAvailable = false;
                         break;

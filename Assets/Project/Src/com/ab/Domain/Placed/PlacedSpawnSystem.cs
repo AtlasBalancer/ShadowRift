@@ -30,17 +30,15 @@ namespace Project.Src.com.ab.Domain.Collect
 
         public void Init()
         {
-            
         }
-        
+
         public void Update()
         {
             foreach (var ent in W.Query.Entities<TagAll<PlacedSpawnByDropTable>>())
             {
                 var @ref = ent.Ref<Ref>().Val;
-                var idEntry = ent.Ref<IDRef>().ID;
-
-                var dropTable = idEntry.RuntimeID.Ref<DropEntry>().Items;
+                var dropTable = ent.GetConfigTable<DropEntry>().Items;
+                
                 foreach (var item in dropTable)
                 {
                     if (!item.ChanceRange.RandHappen())
@@ -67,6 +65,5 @@ namespace Project.Src.com.ab.Domain.Collect
             public Vector3 DropOffset = new(0, 0.5f, 0);
             public string AtlasKey = "ItemsAtlas";
         }
-
     }
 }

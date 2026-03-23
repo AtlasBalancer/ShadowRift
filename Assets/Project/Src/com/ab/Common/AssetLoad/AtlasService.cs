@@ -24,7 +24,7 @@ namespace com.ab.common
         public UniTask LoadAtlas(string atlasKey) =>
             _addressables.LoadAsync<SpriteAtlas>(atlasKey);
 
-        public Sprite GetSprite(string atlas, W.Entity ent)
+        public Sprite GetSprite(string atlas, WC.Entity ent)
         {
             var spriteKey = ent.Ref<ItemEntry>().AKSprite;
             return GetSprite(atlas, spriteKey);

@@ -13,7 +13,7 @@ namespace com.ab.common
 
         public bool Equals(EntRef other) => ID == other.ID;
 
-        public override bool Equals(object obj) => obj is IDRef other && Equals(other);
+        public override bool Equals(object obj) => obj is ConfigRef other && Equals(other);
 
         public override int GetHashCode() => ID.GetHashCode();
         

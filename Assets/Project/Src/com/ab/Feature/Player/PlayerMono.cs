@@ -1,8 +1,8 @@
 using com.ab.common;
 using com.ab.complexity.core;
 using com.ab.complexity.player;
+using com.ab.domain.harv;
 using UnityEngine;
-using Project.Src.com.ab.Domain.Harvest;
 using Project.Src.com.ab.Domain.Unit.Items;
 using Sirenix.OdinInspector;
 
@@ -15,7 +15,7 @@ namespace com.ab.complexity.features.player
         public Transform ToolRoot;
 
         public Animator Animator;
-        public HarvestCollectorMono Harvester;
+        public HarvCollectorMono Harvester;
 
         public EquipmentMono ToolEquipment;
 

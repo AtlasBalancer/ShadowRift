@@ -31440,6 +31440,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::com.ab.complexity.core.Startup
   _def:
+    Modules:
+    - {fileID: 11400000, guid: 2235357beb4712f4c8ff483ee5875388, type: 2}
+    - {fileID: 11400000, guid: a00b0a4771d9cb1409334d309e72ae84, type: 2}
     Features:
     - {fileID: 1672976241}
     - {fileID: 951765360}
@@ -31448,16 +31451,13 @@ MonoBehaviour:
     - {fileID: 1888850293}
     - {fileID: 1995383276}
     - {fileID: 574834243}
-    Modules:
-    - {fileID: 11400000, guid: 2235357beb4712f4c8ff483ee5875388, type: 2}
-    - {fileID: 11400000, guid: a00b0a4771d9cb1409334d309e72ae84, type: 2}
-    Tables:
-    - {fileID: 11400000, guid: 6232e37938179984e88d40ffc29ad2ed, type: 2}
+    Configs:
     - {fileID: 11400000, guid: c6d3afb0366b7bd40b0ba7da00187e3e, type: 2}
-    - {fileID: 11400000, guid: 918836f408d04074488979c5d199783e, type: 2}
-    - {fileID: 11400000, guid: edf198af1e480614dbce44a73409763b, type: 2}
+    - {fileID: 11400000, guid: 6232e37938179984e88d40ffc29ad2ed, type: 2}
     - {fileID: 11400000, guid: 1a922ec0d4ff95e4eb61ab7e97506082, type: 2}
+    - {fileID: 11400000, guid: edf198af1e480614dbce44a73409763b, type: 2}
     - {fileID: 11400000, guid: 558624102fba9dc4a87d215b7b01183a, type: 2}
+    - {fileID: 11400000, guid: 918836f408d04074488979c5d199783e, type: 2}
     - {fileID: 11400000, guid: 841b8d39e3016ea479d792e5cf0351e8, type: 2}
 --- !u!1 &1854138840
 GameObject:
@@ -31552,8 +31552,8 @@ MonoBehaviour:
     InventoryInitViewSystem:
       AtlasKey: ItemsAtlas
       LocalizationTable: ShadowRiftItems
-      ItemTable: {fileID: 11400000, guid: 276beecd274e3434ba097f5c29b06e9d, type: 2}
-      CategoryTable: {fileID: 11400000, guid: 558624102fba9dc4a87d215b7b01183a, type: 2}
+      ItemTable: {fileID: 0}
+      CategoryTable: {fileID: 0}
       InventoryButton: {fileID: 1812324129}
       Root: {fileID: 673999124}
       Prefab: {fileID: 7728325634944225039, guid: 5ed4e0d2710b0414eb7d0611dbc44618, type: 3}
@@ -39352,6 +39352,7 @@ MonoBehaviour:
       PricePrefab: {fileID: 5520530620890333100, guid: dd2fb343db665a94780a332bc0589cfe, type: 3}
       ItemPrefab: {fileID: 3291811430682055561, guid: eb0466f1686d60a49a47ef89b85d8d33, type: 3}
       AtlasKey: ItemsAtlas
+      LocalizationTable: ShadowRiftItems
 --- !u!1 &2015881981
 GameObject:
   m_ObjectHideFlags: 0
