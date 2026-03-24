@@ -42,6 +42,14 @@ MonoBehaviour:
     m_Localized: A simple tool to chisel mountains
     m_Metadata:
       m_Items: []
+  - m_Id: 2466287299457024
+    m_Localized: Simple and sturdy material
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2466287324622848
+    m_Localized: Simple and sturdy material
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

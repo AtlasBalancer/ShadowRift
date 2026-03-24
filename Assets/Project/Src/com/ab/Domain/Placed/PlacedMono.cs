@@ -20,8 +20,7 @@ namespace Project.Src.com.ab.Domain.Collect
         public void PickUp(Vector3 target, float duration, bool disableCollider = true)
         {
             Collider.enabled = false;
-
-
+            
             _tweenSeq.Kill();
             _tweenSeq = DOTween.Sequence(
                 transform.DOMove(target, duration).SetEase(Ease.InOutQuad)
@@ -29,7 +28,6 @@ namespace Project.Src.com.ab.Domain.Collect
                     {
                         this.Active(false);
                         Ent.Destr();
-                        Debug.Log("Complete");
                     }));
         }
 

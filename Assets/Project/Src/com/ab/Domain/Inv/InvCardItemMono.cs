@@ -1,4 +1,5 @@
 using com.ab.complexity.core;
+using com.ab.domain.equip;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,6 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         public TMP_Text Title;
 
-        public RectTransform IconRoot;
         public Image Icon;
         public TMP_Text Amount;
         public TMP_Text Description;
@@ -21,7 +21,7 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         public Button BackButton;
 
-        public void Init()
+        public void Subscribe()
         {
             BackButton.onClick.AddListener(Hide);
             Equip.onClick.AddListener(SetEquip);
@@ -30,34 +30,24 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         void SetEquip()
         {
-            Ent.Add<EquipCommand>();
+            W.Events.Send(new EquipSetEvent(Ent));
             SetEquipButton(true);
         }
 
         void SetUnquip()
         {
-            Ent.Add<UnEquipCommand>();
+            W.Events.Send(new EquipUnSetEvent(Ent));
             SetEquipButton(false);
         }
 
-        public void Show(W.Entity ent, Image icon, int amount, string title, string description, bool equipped)
+        public void Show(W.Entity ent, Sprite sprite, int amount, string title, string description)
         {
-            if (Icon != null)
-            {
-                Destroy(Icon);
-                Icon = null;
-            }
-
-            Title.SetText(title);
-            Icon = Instantiate(icon);
-            Icon.transform.SetParent(IconRoot, false);
-
-            Amount.SetText(amount.ToString());
-            Description.SetText(description);
-
-            SetEquipButton(equipped);
-
             Ent = ent;
+            Title.SetText(title);
+            Icon.sprite = sprite;
+            Description.SetText(description);
+            Amount.SetText(amount.ToString());
+
             gameObject.SetActive(true);
             BackButton.gameObject.SetActive(true);
         }

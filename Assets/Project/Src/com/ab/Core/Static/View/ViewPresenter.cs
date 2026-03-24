@@ -10,17 +10,19 @@ namespace com.ab.core
     {
         protected TView View;
 
-        protected void Init(TView viewPrefab, Transform root, Button activeButton)
+        protected void Init(TView viewPrefab, Transform root, Button activeButton = null)
         {
             View = Object.Instantiate(viewPrefab, root);
             View.gameObject.SetActive(false);
             View.Init();
+
+            if (activeButton != null)
+                Bind(activeButton);
             
-            Bind(activeButton);
             Bind(View.HideBtn);
         }
 
-        protected void Bind(Button activateButton) => 
+        protected void Bind(Button activateButton) =>
             activateButton.onClick.AddListener(ViewActive);
 
         protected void ViewActive()
@@ -34,10 +36,15 @@ namespace com.ab.core
                 Hide();
         }
 
-        protected virtual void Show(){}
-        protected virtual void Hide() { }
-        
-        protected bool IsActive() => 
+        protected virtual void Show()
+        {
+        }
+
+        protected virtual void Hide()
+        {
+        }
+
+        protected bool IsActive() =>
             View.Ent.HasAllOfTags<ViewActive>();
     }
 }

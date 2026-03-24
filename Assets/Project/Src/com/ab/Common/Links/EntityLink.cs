@@ -24,6 +24,8 @@ namespace com.ab.common
 
         protected virtual void Subscribe() { }
 
+        protected virtual void Register() { }
+        
         public virtual W.Entity Init(WC.Entity entC, bool initRef = false)
         {
             var ent = Init(initRef);
@@ -48,6 +50,7 @@ namespace com.ab.common
                 Ent.Add(new Ref(transform));
 
             Subscribe();
+            Register();
             
             return ent;
         }

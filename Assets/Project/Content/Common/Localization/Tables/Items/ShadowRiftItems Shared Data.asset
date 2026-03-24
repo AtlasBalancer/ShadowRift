@@ -19,8 +19,16 @@ MonoBehaviour:
     m_Key: item.rocks
     m_Metadata:
       m_Items: []
+  - m_Id: 2466287299457024
+    m_Key: item.desc.rocks
+    m_Metadata:
+      m_Items: []
   - m_Id: 265078304768
     m_Key: item.logs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2466287324622848
+    m_Key: item.desc.logs
     m_Metadata:
       m_Items: []
   - m_Id: 720778155126784

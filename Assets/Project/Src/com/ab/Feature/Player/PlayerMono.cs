@@ -17,7 +17,7 @@ namespace com.ab.complexity.features.player
         public Animator Animator;
         public HarvCollectorMono Harvester;
 
-        public EquipmentMono ToolEquipment;
+        public EquipMono ToolEquip;
 
         [Button]
         public void SetTool()
@@ -28,20 +28,20 @@ namespace com.ab.complexity.features.player
                 Ent.Add<Tool>();
         }
 
-        public void SetTool(EquipmentMono tool)
+        public void SetTool(EquipMono tool)
         {
             RemoveTool();
 
-            ToolEquipment = Instantiate(tool);
-            ToolEquipment.transform.SetParent(ToolRoot, false);
+            ToolEquip = Instantiate(tool);
+            ToolEquip.transform.SetParent(ToolRoot, false);
         }
 
         public void RemoveTool()
         {
-            if (ToolEquipment != null)
+            if (ToolEquip != null)
             {
-                Destroy(ToolEquipment.gameObject);
-                ToolEquipment = null;
+                Destroy(ToolEquip.gameObject);
+                ToolEquip = null;
             }
         }
     }

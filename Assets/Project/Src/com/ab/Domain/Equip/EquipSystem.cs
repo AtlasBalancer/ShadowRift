@@ -10,7 +10,7 @@ namespace Project.Src.com.ab.Domain.Unit.Items
     public class EquipSystem : IInitSystem, IUpdateSystem
     {
         PlayerMono _player;
-        EquipInventoryPuppetViewMono _puppet;
+        EquipPuppetMono _puppet;
 
         // DropTableService _dropTable;
 
@@ -20,15 +20,15 @@ namespace Project.Src.com.ab.Domain.Unit.Items
             W.Query.Entities<All<PlayerRef>>().First(out var playerEnt);
 
             _player = playerEnt.Ref<PlayerRef>().Ref;
-            _puppet = W.Context<EquipInventoryPuppetViewMono>.Get();
+            _puppet = W.Context<EquipPuppetMono>.Get();
         }
 
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<All<EquipCommand>>())
-            {
+            // foreach (var ent in W.Query.Entities<All<EquipCommand>>())
+            // {
 
-                W.Query.Entities<TagAll<Equipped>>().DeleteTagForAll<Equipped>();
+                // W.Query.Entities<TagAll<Equip>>().DeleteTagForAll<Equip>();
                 
                 
                 // ItemDefID id = ent.Ref<InventoryItem>().ID;
@@ -42,25 +42,25 @@ namespace Project.Src.com.ab.Domain.Unit.Items
                 if (!_player.Ent.HasAllOf<Tool>())
                     _player.Ent.Add<Tool>();
 
-                ent.ApplyTag<Equipped>(true);
-                ent.Delete<EquipCommand>();
+                // ent.ApplyTag<Equip>(true);
+                // ent.Delete<EquipCommand>();
             }
 
-            foreach (var ent in W.Query.Entities<All<UnEquipCommand>>())
-            {
-                foreach (var entEquipped in W.Query.Entities<TagAll<Equipped>>())
-                    entEquipped.DeleteTag<Equipped>();
+            // foreach (var ent in W.Query.Entities<All<UnEquipCommand>>())
+            // {
+                // foreach (var entEquipped in W.Query.Entities<TagAll<Equip>>())
+                    // entEquipped.DeleteTag<Equip>();
 
-                _player.RemoveTool();
+                // _player.RemoveTool();
 
-                if (_player.Ent.HasAllOf<Tool>())
-                    _player.Ent.Delete<Tool>();
+                // if (_player.Ent.HasAllOf<Tool>())
+                    // _player.Ent.Delete<Tool>();
 
-                _puppet.RemoveTool();
+                // _puppet.RemoveTool();
 
-                ent.ApplyTag<Equipped>(false);
-                ent.Delete<UnEquipCommand>();
-            }
-        }
+                // ent.ApplyTag<Equip>(false);
+                // ent.Delete<UnEquipCommand>();
+            // }
+        // }
     }
 }

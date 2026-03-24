@@ -5,7 +5,6 @@ using UnityEngine;
 using com.ab.core;
 using UnityEngine.UI;
 using com.ab.complexity.core;
-using com.ab.domain.inventory;
 using com.ab.domain.item;
 using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs;
@@ -24,7 +23,7 @@ namespace Project.Src.com.ab.Domain.Inventory
             _localization = W.Context<LocalizationService>.Get();
             _atlas = W.Context<AtlasService>.Get();
 
-            W.Context<EquipInventoryPuppetViewMono>.Set(View.Puppet);
+            W.Context<EquipPuppetMono>.Set(View.Puppet);
         }
 
         readonly Settings _def;
@@ -36,8 +35,17 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         public void Init()
         {
-            View.Card.Hide();
+            InitCards();
             CreateCategories();
+        }
+
+        void InitCards()
+        {
+            View.Cards.ForEach(item =>
+            {
+                item.Card.Subscribe();
+                item.Card.Hide();
+            });
         }
 
         void CreateCategories()
@@ -83,6 +91,25 @@ namespace Project.Src.com.ab.Domain.Inventory
             {
                 Debug.Log("PRESSED");
 
+                var itemDef = ent.GetConfigTable<ItemEntry>();
+                int amount = ent.Ref<Amount>().Val;
+
+                foreach (var card in View.Cards)
+                {
+                    if (card.Category.Equals(itemDef.Category))
+                    {
+                        var icon = _atlas.GetSprite(_def.AtlasKey, itemDef.AKSprite);
+                        var title = _localization.GetString(itemDef.LKTitle, _def.LocalizationTable);
+                        var descr = _localization.GetString(itemDef.LKDescription, _def.LocalizationTable);
+
+                        card.Card.Show(ent, icon, amount, title, descr);
+                    }
+                    else
+                    {
+                        card.Card.gameObject.SetActive(false);
+                    }
+                }
+
                 // ItemDefID id = ent.Ref<InventoryItem>().ID;
                 // int amount = ent.Ref<InventoryAmount>().Value;
                 // bool isEquipped = ent.HasAllOfTags<Equipped>();
@@ -90,8 +117,7 @@ namespace Project.Src.com.ab.Domain.Inventory
                 // if (!_itemTable.Def.InventoryCards.Items.TryGetValue(id, out var cardDef))
                 // throw new ArgumentException($"{nameof(InventoryViewSystem)}:: Can't find {id} in ItemTable");
 
-                
-                
+
                 // View.Card.Show(ent, cardDef.Icon, amount, cardDef.Title, cardDef.Decription, isEquipped);
 
                 ent.ApplyTag<Click>(false);

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Google Sheets Service
   m_EditorClassIdentifier: Unity.Localization.Editor::UnityEditor.Localization.Plugins.Google.SheetsServiceProvider
   m_ApiKey: 
-  m_ClientId: 469962139297-9a9er91vsnu0ejessugrc45tuv1prgeh.apps.googleusercontent.com
-  m_ClientSecret: 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
+  m_ClientId: 469962139297-hv142ok02iev3o46agjftgtrq3j5a0jv.apps.googleusercontent.com
+  m_ClientSecret: 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
   m_AuthenticationType: 1
   m_ApplicationName: ShadowRift
   m_NewSheetProperties:

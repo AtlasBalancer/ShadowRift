@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Project.Src.com.ab.Domain.Equipment
 {
-    public class EquipInventoryPuppetViewMono : MonoBehaviour
+    public class EquipPuppetMono : MonoBehaviour
     {
         public RectTransform ToolSlotRoot;
         public RectTransform ToolPuppetRoot;

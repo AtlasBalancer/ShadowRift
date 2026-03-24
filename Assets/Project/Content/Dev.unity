@@ -980,7 +980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &574834244
 Transform:
   m_ObjectHideFlags: 0
@@ -1019,7 +1019,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: Def
       Entry: 7
-      Data: 0|Project.Src.com.ab.Domain.Unit.Items.EquipmentEntryDef+Settings, Assembly-CSharp
+      Data: 0|Project.Src.com.ab.Domain.Unit.Items.EquipEntryDef+Settings, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -31552,8 +31552,6 @@ MonoBehaviour:
     InventoryInitViewSystem:
       AtlasKey: ItemsAtlas
       LocalizationTable: ShadowRiftItems
-      ItemTable: {fileID: 0}
-      CategoryTable: {fileID: 0}
       InventoryButton: {fileID: 1812324129}
       Root: {fileID: 673999124}
       Prefab: {fileID: 7728325634944225039, guid: 5ed4e0d2710b0414eb7d0611dbc44618, type: 3}
