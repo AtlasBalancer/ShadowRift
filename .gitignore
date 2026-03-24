@@ -100,7 +100,8 @@ InitTestScene*.unity*
 
 /.idea/
 # Secrets - never commit credentials
-Assets/Project/Content/Common/Localization/Google Sheets Service.asset
+/Assets/Project/Content/Common/Localization/Google Sheets Service.asset
+/Assets/Project/Content/Common/Localization/Google Sheets Service.asset.meta
 
 # Claude Code local settings
 /.claude/
