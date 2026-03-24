@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 140669340843875605}
   - component: {fileID: 6138617676774473347}
   m_Layer: 5
-  m_Name: InventoryPuppet
+  m_Name: InvPuppet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

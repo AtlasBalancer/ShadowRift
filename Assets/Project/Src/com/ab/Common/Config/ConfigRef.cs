@@ -9,7 +9,7 @@ namespace com.ab.common
         public readonly uint Id; // raw WC entity index
 
         public ConfigRef(uint id) => Id = id;
-        
+
         public ConfigRef(WC.Entity wcEnt) => Id = wcEnt.Gid().Id;
 
         public WC.Entity Unpack() => WC.Entity.FromIdx(Id);

@@ -15,11 +15,6 @@ namespace Project.Src.com.ab.Domain.Collect
         public Collider2D Collider;
         public Sequence _tweenSeq;
 
-        protected override void RegisterComponentRef()
-        {
-            Ent.Add(new PlacedRef(this));
-        }
-
         public void UpdateRender(Sprite sprite) => Render.sprite = sprite;
 
         public void PickUp(Vector3 target, float duration, bool disableCollider = true)
@@ -65,11 +60,4 @@ namespace Project.Src.com.ab.Domain.Collect
             _tweenSeq = null;
         }
     }
-
-    public readonly struct PlacedRef : IComponent
-    {
-        public readonly PlacedMono Ref;
-        public PlacedRef(PlacedMono @ref) => Ref = @ref;
-    }
-    
 }

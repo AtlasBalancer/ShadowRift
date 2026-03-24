@@ -14,7 +14,6 @@ namespace com.ab.core
         {
             View = Object.Instantiate(viewPrefab, root);
             View.gameObject.SetActive(false);
-            View.Ent = W.Entity.New();
             View.Init();
             
             Bind(activeButton);

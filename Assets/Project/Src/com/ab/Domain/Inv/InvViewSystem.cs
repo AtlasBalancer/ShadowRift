@@ -70,7 +70,7 @@ namespace Project.Src.com.ab.Domain.Inventory
                     if (!ent.HasAllOf<Amount>())
                         ent.Add(new Amount(1));
 
-                    itemEntry.Category.TryToFindConfigRef<InvCategoryRef>(out var entCategory, out _);
+                    itemEntry.Category.TryToFindRuntimeRef<InvCategoryRef>(out var entCategory, out _);
                     var categoryRef = entCategory.Ref<InvCategoryRef>().Ref;
                     categoryRef.AddItem(item.transform);
                 }
@@ -79,8 +79,7 @@ namespace Project.Src.com.ab.Domain.Inventory
                 ent.Ref<InvItemRef>().Ref.UpdateAmount(amount);
             }
 
-
-            foreach (var ent in W.Query.Entities<All<InvItemRef>, TagAll<ViewPressed>>())
+            foreach (var ent in W.Query.Entities<All<InvItemRef>, TagAll<Click>>())
             {
                 Debug.Log("PRESSED");
 
@@ -91,9 +90,11 @@ namespace Project.Src.com.ab.Domain.Inventory
                 // if (!_itemTable.Def.InventoryCards.Items.TryGetValue(id, out var cardDef))
                 // throw new ArgumentException($"{nameof(InventoryViewSystem)}:: Can't find {id} in ItemTable");
 
-                // View.ShowCard(ent, cardDef.Icon, amount, cardDef.Title, cardDef.Decription, isEquipped);
+                
+                
+                // View.Card.Show(ent, cardDef.Icon, amount, cardDef.Title, cardDef.Decription, isEquipped);
 
-                ent.ApplyTag<ViewPressed>(false);
+                ent.ApplyTag<Click>(false);
             }
 
             // foreach (var ent in W.Query.Entities<All<InventoryMaterial>, TagAll<Delete>>())
@@ -129,9 +130,6 @@ namespace Project.Src.com.ab.Domain.Inventory
         {
             public string AtlasKey;
             public string LocalizationTable;
-
-            public InvItemTable ItemTable;
-            public InvCategoryTable CategoryTable;
 
             public Button InventoryButton;
 

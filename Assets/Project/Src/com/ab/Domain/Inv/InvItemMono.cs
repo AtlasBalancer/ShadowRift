@@ -1,7 +1,7 @@
 using TMPro;
 using System.Text;
-using com.ab.common;
 using UnityEngine;
+using com.ab.common;
 using UnityEngine.UI;
 
 namespace Project.Src.com.ab.Domain.Inventory
@@ -13,8 +13,8 @@ namespace Project.Src.com.ab.Domain.Inventory
         public TMP_Text AmountLabel;
         public Button Btn;
 
-        // void Press() => 
-        // Link.Ent.ApplyTag<ViewPressed>(true);
+        protected override void Subscribe() => 
+            Btn.onClick.AddListener(OnClick);
 
         public void UpdateIcon(Sprite icon) =>
             Icon.sprite = icon;

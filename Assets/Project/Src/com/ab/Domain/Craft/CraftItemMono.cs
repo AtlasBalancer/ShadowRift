@@ -1,4 +1,3 @@
-using System.Text;
 using com.ab.common;
 using DG.Tweening;
 using FFS.Libraries.StaticEcs;
@@ -23,7 +22,7 @@ namespace com.ab.domain.craft
         public Color Available;
         public Color NotAvailable;
 
-        protected override void RegisterComponentRef()
+        protected override void Subscribe()
         {
             Button.onClick.AddListener(Press);
             UpdateCraftAvailable(false);

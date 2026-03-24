@@ -16,13 +16,10 @@ namespace Project.Src.com.ab.Domain.Collect
         public PlacedSpawnSystem(Settings def)
         {
             _def = def;
-
             _atlas = W.Context<AtlasService>.Get();
-            _item = W.Context<ItemService>.Get();
         }
 
         readonly Settings _def;
-        readonly ItemService _item;
         readonly AtlasService _atlas;
 
         public UniTask PreInitLoad(CancellationToken ct) =>
@@ -44,7 +41,7 @@ namespace Project.Src.com.ab.Domain.Collect
                     if (!item.ChanceRange.RandHappen())
                         continue;
 
-                    var itemDef = _item.Get(item.PlaceSo);
+                    item.PlaceSo.GetConfig<ItemEntry>(out var itemDef, out _);
                     var link = Object.Instantiate(_def.PlacedPrefab, _def.RootCollectables);
                     var itemEnt = link.Init(item.PlaceSo, true);
                     itemEnt.Add(new Amount { Val = item.AmountRange.Rand() });

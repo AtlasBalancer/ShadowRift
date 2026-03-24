@@ -1,8 +1,9 @@
-using com.ab.complexity.core;
+using System.Collections.Generic;
+using com.ab.common;
 using com.ab.domain.craft;
 using Project.Src.com.ab.Domain.Equipment;
+using Sirenix.Serialization;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
@@ -14,12 +15,7 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         public InvCardItemMono Card;
 
-        public override void Init() => 
-            Card.Init();
-
-        public void ShowCard(W.Entity ent, Image icon, int amount, string title, string description, bool equipped)
-        {
-            Card.Show(ent, icon, amount, title, description, equipped);
-        }
+        [OdinSerialize]
+        public Dictionary<ConfigIDEntSo, InvCardItemMono> Cards;
     }
 }

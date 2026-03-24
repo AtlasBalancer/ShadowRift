@@ -17,7 +17,6 @@ namespace com.ab.domain.collect
 
         public void RegisterType()
         {
-            W.RegisterComponentType<PlacedRef>();
             W.RegisterComponentType<PlacedToInventory>();
             W.RegisterTagType<PlacedSpawnByDropTable>();
         }

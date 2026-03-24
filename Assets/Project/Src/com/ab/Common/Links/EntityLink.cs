@@ -22,9 +22,7 @@ namespace com.ab.common
 
         public W.Entity Ent { get; private set; }
 
-        protected virtual void RegisterComponentRef()
-        {
-        }
+        protected virtual void Subscribe() { }
 
         public virtual W.Entity Init(WC.Entity entC, bool initRef = false)
         {
@@ -46,10 +44,11 @@ namespace com.ab.common
         public virtual W.Entity Init(W.Entity ent, bool initRef = false)
         {
             Ent = ent;
-            RegisterComponentRef();
             if (initRef)
                 Ent.Add(new Ref(transform));
 
+            Subscribe();
+            
             return ent;
         }
 

@@ -20,7 +20,6 @@ namespace com.ab.common
         public void RegisterType()
         {
             W.RegisterTagType<ViewActive>();
-            W.RegisterTagType<ViewPressed>();
             W.RegisterTagType<Click>();
 
             W.RegisterComponentType<ConfigRef>();

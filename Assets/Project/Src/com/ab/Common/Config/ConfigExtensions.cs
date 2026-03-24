@@ -5,26 +5,52 @@ namespace com.ab.common
 {
     public static class ConfigExtensions
     {
-        public static bool TryToFindConfigRefByTag<TTag>(this ConfigIDEntSo source, out W.Entity findingEnt,
+        public static bool GetConfig<TComponent>(this ConfigIDEntSo source, out TComponent component,
+            out ConfigRef @ref)
+            where TComponent : struct, IComponent
+        {
+            @ref = source.RuntimeID.Ref<ConfigRef>();
+            return @ref.GetConfig(out component);
+        }
+
+        public static bool GetConfig<TComponent>(this ConfigRef source, out TComponent component)
+            where TComponent : struct, IComponent
+        {
+            foreach (var entC in WC.Query.Entities<All<ConfigRef, TComponent>>())
+            {
+                if (entC.Ref<ConfigRef>().Equals(source))
+                {
+                    component = entC.Ref<TComponent>();
+                    return true;
+                }
+            }
+
+            component = default;
+            return false;
+        }
+
+
+        public static bool TryToFindRuntimeRefByTag<TTag>(this ConfigIDEntSo source, out W.Entity findingEnt,
             out uint idRef)
             where TTag : struct, ITag
         {
             var @ref = source.RuntimeID.Ref<ConfigRef>();
             idRef = @ref.Id;
 
-            return TryToFindConfigRefByTag<TTag>(@ref, out findingEnt);
+            return TryToFindRuntimeRefByTag<TTag>(@ref, out findingEnt);
         }
-        
-        public static bool TryToFindConfigRefByTag<TTag>(this W.Entity source, out W.Entity findingEnt, out uint idRef)
+
+        public static bool TryToFindRuntimeRefByTag<TTag>(this W.Entity source, out W.Entity findingEnt, out uint idRef)
             where TTag : struct, ITag
         {
             var @ref = source.Ref<ConfigRef>();
             idRef = @ref.Id;
-            
-            return TryToFindConfigRefByTag<TTag>(@ref, out findingEnt);
+
+            return TryToFindRuntimeRefByTag<TTag>(@ref, out findingEnt);
         }
 
-        public static bool TryToFindConfigRefByTag<TTag>(this ConfigRef source, out W.Entity findingEnt)
+
+        public static bool TryToFindRuntimeRefByTag<TTag>(this ConfigRef source, out W.Entity findingEnt)
             where TTag : struct, ITag
         {
             foreach (var ent in W.Query.Entities<All<ConfigRef>, TagAll<TTag>>())
@@ -39,18 +65,18 @@ namespace com.ab.common
             findingEnt = default;
             return false;
         }
- 
-        public static bool TryToFindConfigRef<TComponent>(this ConfigIDEntSo source, out W.Entity findingEnt,
+
+        public static bool TryToFindRuntimeRef<TComponent>(this ConfigIDEntSo source, out W.Entity findingEnt,
             out uint idRef)
             where TComponent : struct, IComponent
         {
             var @ref = source.RuntimeID.Ref<ConfigRef>();
             idRef = @ref.Id;
 
-            return TryToFindConfigRef<TComponent>(@ref, out findingEnt);
+            return TryToFindRuntimeRef<TComponent>(@ref, out findingEnt);
         }
-        
-        public static bool TryToFindConfigRef<TComponent>(this ConfigRef source, out W.Entity findingEnt)
+
+        public static bool TryToFindRuntimeRef<TComponent>(this ConfigRef source, out W.Entity findingEnt)
             where TComponent : struct, IComponent
         {
             foreach (var ent in W.Query.Entities<All<ConfigRef, TComponent>>())

@@ -71,7 +71,7 @@ namespace com.ab.domain.craft
 
                 foreach (var craftAmount in price)
                 {
-                    if (!craftAmount.Item.TryToFindConfigRefByTag<InvTag>(out var invEnt, out _))
+                    if (!craftAmount.Item.TryToFindRuntimeRefByTag<InvTag>(out var invEnt, out _))
                     {
                         craftAvailable = false;
                         break;
@@ -90,6 +90,7 @@ namespace com.ab.domain.craft
             foreach (var ent in W.Query.Entities<All<CraftItemRef>, TagAll<Click>>())
             {
                 ent.ApplyTag<InventoryAdd>(true);
+                ent.ApplyTag<Click>(false);
             }
 
             /*

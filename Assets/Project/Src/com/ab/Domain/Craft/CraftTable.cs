@@ -23,5 +23,4 @@ namespace com.ab.domain.craft
         public int Amount;
         public ConfigIDEntSo Item;
     }
-    
 }

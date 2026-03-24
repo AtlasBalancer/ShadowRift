@@ -49,7 +49,6 @@
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Integrations\WT.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\View\ViewPresenter.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Defs\IStaticRegisterTypeDef.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Domain\Craft\CraftID.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Craft\CraftTable.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Craft\CraftItemMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Mono\LogicRendererMono.cs" />
@@ -68,8 +67,6 @@
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvCardItemMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\SceneEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Defs\IStaticContextSetDef.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Domain\Craft\CraftCommand.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Interactions\JoystickEnable.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equipment\Equipped.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvAvailablePositions.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Extensions\Vector2Extensions.cs" />
@@ -102,11 +99,11 @@
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equipment\EquipInventoryPuppetViewMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Movement\MovementEntry.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvViewSystem.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Joystick\JoystickEnable.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\IEntConfig.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\View\ViewMono.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Interactions\JoystickEntryDef.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvSpawnSysytem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvItemRef.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvSpawnSysytem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\ItemTable\ItemTable.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvItemTable.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\View\ViewActive.cs" />
@@ -124,12 +121,13 @@
     <Compile Include="Assets\Project\Src\com\ab\Common\Unity\Position.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\ItemTable\ItemService.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equipment\EquipSystem.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Domain\Placed\PlacedSpawnByDropTable.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equipment\Items\EquipmentItem.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Domain\Placed\PlacedSpawnByDropTable.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Defs\IStaticUpdateDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvCollectorMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Integrations\SysT.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvItemTable.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Joystick\JoystickEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Mono\TilemapOcclusionBaker.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Feature\Player\PlayerMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Integrations\IPreInitLoad.cs" />
@@ -147,7 +145,6 @@
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\GridAutoCellSizeMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Const.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InventoryItem.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Core\Static\Integrations\EntityRef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\EntityLink.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\Destroy.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Feature\Player\Tool.cs" />
@@ -161,12 +158,11 @@
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Placed\PlacedEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Integrations\Sys.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Interactions\JoystickToMovementSystem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Entrys\StaticEntrySOParamDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvToUpdateTag.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Config\ConfigExtensions.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Unity\Renderer.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\ViewPressed.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Joystick\JoystickToMovementSystem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Config\ConfigRef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\Parent.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Movement\MovementDirectionSystem.cs" />
