@@ -78,6 +78,7 @@ namespace Best.HTTP.Hosts.Connections
         PeekableContentProviderStream IContentConsumer.ContentProvider { get; }
 
         private Negotiator _negotiator;
+        private NegotiationSteps _lastStep;
 
         internal HTTPOverTCPConnection(HostKey hostKey)
             : base(hostKey)
@@ -143,6 +144,10 @@ namespace Best.HTTP.Hosts.Connections
 
         bool INegotiationPeer.MustStopAdvancingToNextStep(Negotiator negotiator, NegotiationSteps finishedStep, NegotiationSteps nextStep, Exception error)
         {
+            HTTPManager.Logger.Information(nameof(HTTPOverTCPConnection), $"{nameof(INegotiationPeer.MustStopAdvancingToNextStep)}({negotiator}, {finishedStep}, {nextStep}, {error})", this.Context);
+            
+            _lastStep = finishedStep;
+            
             if (TrySetErrorState(CurrentRequest, error))
                 return true;
 
@@ -215,13 +220,14 @@ namespace Best.HTTP.Hosts.Connections
         private void OnCancellationRequested(HTTPRequest req)
         {
             if (HTTPManager.Logger.IsDiagnostic)
-                HTTPManager.Logger.Information(nameof(HTTPOverTCPConnection), $"{nameof(OnCancellationRequested)}({req})", this.Context);
+                HTTPManager.Logger.Information(nameof(HTTPOverTCPConnection), $"{nameof(OnCancellationRequested)}({_lastStep}, {req}, {this._negotiator?.Peer}, {this._negotiator?.Streamer}, {this._negotiator?.Stream})", this.Context);
         
             CurrentRequest.OnCancellationRequested -= OnCancellationRequested;
 
-            this._negotiator?.OnCancellationRequested();            
+            this._negotiator?.OnCancellationRequested();
 
-            //ConnectionEventHelper.EnqueueConnectionEvent(new ConnectionEventInfo(this, HTTPConnectionStates.Closed));
+            if (_lastStep < NegotiationSteps.TLSNegotiation)
+                ConnectionEventHelper.EnqueueConnectionEvent(new ConnectionEventInfo(this, HTTPConnectionStates.Closed));
         }
 
         private bool PreprocessRequestState(Exception error)

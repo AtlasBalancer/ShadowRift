@@ -1,9 +1,7 @@
 using System;
 using com.ab.complexity.core;
-using com.ab.domain.equip;
-using Project.Src.com.ab.Domain.Equip.Pupet;
 
-namespace Project.Src.com.ab.Domain.Unit.Items
+namespace com.ab.domain.equip
 {
     public class EquipEntryDef : StaticEntryParamDef<EquipEntryDef.Settings>,
         IStaticRegisterTypeDef, IStaticUpdateDef
@@ -12,20 +10,25 @@ namespace Project.Src.com.ab.Domain.Unit.Items
         public class Settings
         {
             public EquipPuppetSystem.Settings EquipPuppetSystem;
+            public EquipUnitSystem.Settings EquipUnitSystem;
         }
 
         public void RegisterType()
         {
             W.RegisterTagType<EquipTag>();
             
-            W.Events.RegisterEventType<EquipSetEvent>();
+            W.RegisterComponentType<EquipUnitRef>();
+
+            W.Events.RegisterEventType<EquipUnitRegisterEvent>();
             W.Events.RegisterEventType<EquipUnSetEvent>();
+            W.Events.RegisterEventType<EquipSetEvent>();
         }
 
         public void RegisterUpdate()
         {
-            SysReg.AddUpdate(new EquipSystem());
             SysReg.AddUpdate(new EquipPuppetSystem(Def.EquipPuppetSystem));
+            SysReg.AddUpdate(new EquipUnitSystem(Def.EquipUnitSystem));
+            
         }
     }
 }

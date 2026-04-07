@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using com.ab.common.ProgressBar;
 using UnityEngine;
 using com.ab.complexity.core;
 using com.ab.complexity.features.player;
@@ -7,9 +8,7 @@ using com.ab.core;
 using com.ab.domain.item;
 using com.ab.item;
 using Cysharp.Threading.Tasks;
-using Project.Src.com.ab.Domain.Inventory;
 using Renderer = com.ab.complexity.core.Renderer;
-using Timer = com.ab.complexity.core.Timer;
 
 namespace com.ab.common
 {
@@ -21,6 +20,9 @@ namespace com.ab.common
         {
             W.RegisterTagType<ViewActive>();
             W.RegisterTagType<Click>();
+            W.RegisterTagType<ActiveTag>();
+            W.RegisterTagType<AvailableTag>();
+            W.RegisterTagType<TriggerEnterTag>();
 
             W.RegisterComponentType<ConfigRef>();
             W.RegisterComponentType<Timer>();
@@ -36,6 +38,8 @@ namespace com.ab.common
             W.RegisterComponentType<AnimatorRef>();
 
             W.RegisterComponentType<Amount>();
+            W.RegisterComponentType<AmountUpdate>();
+            W.RegisterComponentType<ProgressBarRef>();
 
             W.RegisterOneToManyRelationType<Parent, Childs>(defaultComponentCapacity: 4);
         }

@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e1527cbf1e4c8f810ce3cde7b4d7d2, type: 3}
+  m_Name: PriceTableConstruct
+  m_EditorClassIdentifier: Assembly-CSharp::Project.Src.com.ab.Domain.Price.PriceTable
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: bf7e5202dd7ace147b530347ef289599, type: 2}
+    - {fileID: 11400000, guid: bd0726322df2bf9499f53023998facea, type: 2}
+    - {fileID: 11400000, guid: ea0733e24d46e8748a403568f5c57ff3, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Entries
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[com.ab.common.ConfigIDEntSo,
+        Assembly-CSharp],[com.ab.domain.price.PriceEntry, Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[com.ab.common.ConfigIDEntSo,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: com.ab.domain.price.PriceEntry, Assembly-CSharp
+    - Name: Price
+      Entry: 7
+      Data: 2|com.ab.domain.price.PriceAmount[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: com.ab.domain.price.PriceAmount, Assembly-CSharp
+    - Name: Amount
+      Entry: 3
+      Data: 10
+    - Name: Item
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: com.ab.domain.price.PriceAmount, Assembly-CSharp
+    - Name: Amount
+      Entry: 3
+      Data: 10
+    - Name: Item
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

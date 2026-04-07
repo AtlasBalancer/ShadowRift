@@ -79,9 +79,9 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
 
         // PeekableStream's default implementation of write would place the buffer into its inner segment list,
         // but here we want to send it to the server instead.
-        public override void Write(byte[] buffer, int offset, int count) => this._streamer.EnqueueToSend(buffer.CopyAsBuffer(offset, count));
+        public override void Write(byte[] buffer, int offset, int count) => this._streamer?.EnqueueToSend(buffer.CopyAsBuffer(offset, count));
 
-        public override void Write(BufferSegment buffer) => this._streamer.EnqueueToSend(buffer);
+        public override void Write(BufferSegment buffer) => this._streamer?.EnqueueToSend(buffer);
 
         public override int Read(byte[] buffer, int offset, int count)
         {

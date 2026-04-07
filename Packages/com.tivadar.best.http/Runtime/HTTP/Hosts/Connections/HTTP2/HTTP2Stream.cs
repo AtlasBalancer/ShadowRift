@@ -89,6 +89,8 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
         public HTTPRequest AssignedRequest { get; protected set; }
 
         public LoggingContext Context { get; protected set; }
+        
+        public HTTP2ContentConsumer ParentHandler { get; private set; }
 
         protected uint downloaded;
 
@@ -120,15 +122,13 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
 
         protected int lastReadCount;
 
-        protected HTTP2ContentConsumer _parentHandler;
-
         /// <summary>
         /// Constructor to create a client stream.
         /// </summary>
         public HTTP2Stream(UInt32 id, HTTP2ContentConsumer parentHandler, HTTP2SettingsManager registry, HPACKEncoder hpackEncoder)
         {
             this.Id = id;
-            this._parentHandler = parentHandler;
+            this.ParentHandler = parentHandler;
             this.settings = registry;
             this.encoder = hpackEncoder;
 
@@ -384,7 +384,7 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
         void IDownloadContentBufferAvailable.BufferAvailable(DownloadContentStream stream)
         {
             // Signal the http2 thread, window update will be sent out in ProcessOpenState.
-            this._parentHandler.SignalThread(SignalHandlerTypes.Signal);
+            this.ParentHandler.SignalThread(SignalHandlerTypes.Signal);
         }
 
         protected virtual void ProcessIncomingDATAFrame(ref HTTP2FrameHeaderAndPayload frame)
@@ -455,7 +455,7 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
                         this.lastReadCount = 1;
 
                         if (this.AssignedRequest.UploadSettings.UploadStream is UploadStreamBase upStream)
-                            upStream.BeforeSendBody(this.AssignedRequest, this._parentHandler);
+                            upStream.BeforeSendBody(this.AssignedRequest, this.ParentHandler);
 
                         if (this.AssignedRequest.UploadSettings != null && this.AssignedRequest.UploadSettings.UploadStream != null)
                             this.uploadLength = this.AssignedRequest.UploadSettings.UploadStream.Length;

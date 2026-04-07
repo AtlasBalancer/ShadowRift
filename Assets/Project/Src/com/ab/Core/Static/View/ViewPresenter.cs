@@ -1,4 +1,3 @@
-using com.ab.complexity.core;
 using com.ab.domain.craft;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +20,20 @@ namespace com.ab.core
             
             Bind(View.HideBtn);
         }
+        
+        protected void Register(TView viewRef, Button activeButton = null)
+        {
+            View = viewRef;
+            View.gameObject.SetActive(false);
+            View.Init();
 
+            if (activeButton != null)
+                Bind(activeButton);
+            
+            if(View.HideBtn != null)
+              Bind(View.HideBtn);
+        }
+        
         protected void Bind(Button activateButton) =>
             activateButton.onClick.AddListener(ViewActive);
 
@@ -36,13 +48,9 @@ namespace com.ab.core
                 Hide();
         }
 
-        protected virtual void Show()
-        {
-        }
+        protected virtual void Show() { }
 
-        protected virtual void Hide()
-        {
-        }
+        protected virtual void Hide() { }
 
         protected bool IsActive() =>
             View.Ent.HasAllOfTags<ViewActive>();

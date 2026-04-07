@@ -58,13 +58,13 @@ namespace Best.HTTP.HostSetting
         public LoggingContext Context { get; private set; }
 
         // All the connections. Free and processing ones too.
-        protected List<ConnectionBase> Connections = new List<ConnectionBase>();
+        protected readonly List<ConnectionBase> Connections = new List<ConnectionBase>();
 
         // Queued requests that aren't passed yet to a connection.
-        protected Queue<HTTPRequest> Queue = new Queue<HTTPRequest>();
+        protected readonly Queue<HTTPRequest> Queue = new Queue<HTTPRequest>();
 
         // Host-variant settings
-        protected HostVariantSettings _settings;
+        protected readonly HostVariantSettings _settings;
 
         // Cached list
         protected List<KeyValuePair<int, ConnectionBase>> availableConnections;

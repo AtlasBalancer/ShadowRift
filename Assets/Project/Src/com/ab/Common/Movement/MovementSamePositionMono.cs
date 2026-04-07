@@ -1,18 +1,39 @@
-using com.ab.core;
 using UnityEngine;
+using com.ab.common;
+using Sirenix.OdinInspector;
 
 namespace com.ab.complexity
 {
-    public class MovementSamePositionMono : MonoEntity
+    public class MovementSamePositionMono : EntityLink
     {
+        public bool Self;
+        
+        [HideIf(nameof(Self))]
         public Transform UpdateSource;
-        public Transform PositionSource;
+        public Transform TargetSource;
+
+        protected override void Register()
+        {
+            Ent.Add(this.ToComponent());
+            base.Register();
+        }
 
         public MovementSamePosition ToComponent() =>
             new()
             {
                 UpdateSource = this.UpdateSource,
-                PositionSource = this.PositionSource
+                TargetSource = this.TargetSource
             };
+
+        void OnValidate()
+        {
+            if (Self) UpdateSource = this.transform;
+        }
+
+        public void UpdateTarget(Transform source)
+        {
+            ref var item = ref Ent.Ref<MovementSamePosition>();
+            item.TargetSource = source;
+        }
     }
 }

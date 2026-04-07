@@ -14,13 +14,5 @@ namespace com.ab.domain.craft
     [Serializable]
     public struct CraftEntry : IComponent
     {
-        public CraftAmount[] Price;
-    }
-
-    [Serializable]
-    public struct CraftAmount
-    {
-        public int Amount;
-        public ConfigIDEntSo Item;
     }
 }

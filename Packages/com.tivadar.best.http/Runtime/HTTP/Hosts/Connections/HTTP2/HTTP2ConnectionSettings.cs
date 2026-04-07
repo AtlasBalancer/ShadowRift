@@ -70,7 +70,7 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
         public TimeSpan PingFrequency = TimeSpan.FromSeconds(5);
 
         /// <summary>
-        /// Timeout to receive a ping acknowledgement from the server. If no ack reveived in this time the connection will be treated as broken.
+        /// Timeout to receive a ping acknowledgement from the server. If no ack received in this time the connection will be treated as broken.
         /// </summary>
         public TimeSpan Timeout = TimeSpan.FromSeconds(3);
 
@@ -83,6 +83,11 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
         /// Settings for WebSockets over HTTP/2 (RFC 8441)
         /// </summary>
         public WebSocketOverHTTP2Settings WebSocketOverHTTP2Settings = new WebSocketOverHTTP2Settings();
+
+        /// <summary>
+        /// When set to <c>true</c> the plugin will send a <c>Content-Length</c> header, even if it has a <c>0</c> value.
+        /// </summary>
+        public bool ForceSendContentLengthHeader { get; set; } = false;
     }
 }
 #endif

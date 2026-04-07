@@ -1,4 +1,5 @@
 using System;
+using com.ab.common;
 using com.ab.complexity.core;
 using FFS.Libraries.StaticEcs;
 
@@ -10,21 +11,22 @@ namespace com.ab.domain.harv
         [Serializable]
         public class Settings
         {
-            public HarvSpawnSysytem.Settings HarvesterSpawnSystem;
+            public HarvSpawnSystem.Settings HarvesterSpawnSystem;
             public HarvCollectSystem.Settings HarvestCollectSystem;
         }
 
         public void RegisterType()
         {
-            W.RegisterComponentType<HarvCollector>();
+            W.RegisterComponentType<HarvCollectorRef>();
             W.RegisterComponentType<HarvesterSpawner>();
             W.RegisterComponentType<HarvSpawnLoop>();
             W.RegisterComponentType<HarvAvailablePositions>();
+            W.RegisterComponentType<HarvRef>();
         }
 
         public void RegisterUpdate()
         {
-            SysReg.AddUpdate(new HarvSpawnSysytem(Def.HarvesterSpawnSystem));
+            SysReg.AddUpdate(new HarvSpawnSystem(Def.HarvesterSpawnSystem));
             SysReg.AddUpdate(new HarvCollectSystem(Def.HarvestCollectSystem));
         }
     }

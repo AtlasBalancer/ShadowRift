@@ -606,7 +606,7 @@ namespace Best.HTTP.JSON.LitJson
                     instance = list;
 
             }
-            else if (reader.Token == JsonToken.ObjectStart)
+            else if (reader.Token == JsonToken.ObjectStart || reader.Token == JsonToken.PropertyName)
             {
 
                 if (inst_type == typeof(System.Object))
@@ -620,7 +620,8 @@ namespace Best.HTTP.JSON.LitJson
 
                 while (true)
                 {
-                    reader.Read();
+                    if (reader.Token != JsonToken.PropertyName)
+                        reader.Read();
 
                     if (reader.Token == JsonToken.ObjectEnd)
                         break;

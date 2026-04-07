@@ -17,6 +17,8 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 45ae5906945831c4393bc3aaeaafee7e, type: 2}
+    - {fileID: 11400000, guid: a9a73708975524b4d856729433221998, type: 2}
+    - {fileID: 11400000, guid: c095920afd58dc14e8be414ebe4c905f, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -35,7 +37,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -48,6 +50,87 @@ MonoBehaviour:
     - Name: AKSprite
       Entry: 1
       Data: RocksAtlas_4
+    - Name: AmountRange
+      Entry: 7
+      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 10
+    - Name: 
+      Entry: 3
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ProgressBarOffset
+      Entry: 4
+      Data: 0.1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: com.ab.domain.harv.HarvItemEntry, Assembly-CSharp
+    - Name: AKSprite
+      Entry: 1
+      Data: RocksAtlas_2
+    - Name: AmountRange
+      Entry: 7
+      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 20
+    - Name: 
+      Entry: 3
+      Data: 30
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ProgressBarOffset
+      Entry: 4
+      Data: 0.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: com.ab.domain.harv.HarvItemEntry, Assembly-CSharp
+    - Name: AKSprite
+      Entry: 1
+      Data: RocksAtlas_3
+    - Name: AmountRange
+      Entry: 7
+      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 10000
+    - Name: 
+      Entry: 3
+      Data: 15000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ProgressBarOffset
+      Entry: 4
+      Data: 0.6
     - Name: 
       Entry: 8
       Data: 

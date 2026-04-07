@@ -1,14 +1,36 @@
+using System;
 using com.ab.common;
-using com.ab.domain.equip;
+using com.ab.complexity.core;
+using Project.Src.com.ab.Common.Unity;
+using Sirenix.Utilities;
 
-namespace Project.Src.com.ab.Domain.Equip
+namespace com.ab.domain.equip
 {
+    [Serializable]
+    public class IDBySlot : SerializableMap<ConfigIDEntSo, EquipUnitItemSlotMono>
+    {
+        public void Init()
+        {
+            _map.ForEach(item => item.Value.Init());
+            
+            HideAll();
+        }
+        
+        public void HideAll() =>
+            _map.ForEach(item => item.Value.Render.enabled = false);
+    }
+
     public class EquipUnitMono : EntityLink
     {
+        public IDBySlot Slots;
+
         protected override void Register()
         {
+            Slots.Init();
+
             Ent.ApplyTag<EquipTag>(true);
             Ent.Add(new EquipUnitRef(this));
+            W.Events.Send(new EquipUnitRegisterEvent(this));
         }
     }
 }

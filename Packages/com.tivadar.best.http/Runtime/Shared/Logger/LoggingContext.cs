@@ -18,7 +18,7 @@ namespace Best.HTTP.Shared.Logger
         /// </summary>
         public string Hash { get; private set; }
 
-        private enum LoggingContextFieldType
+        public enum LoggingContextFieldType
         {
             Long,
             Bool,
@@ -26,7 +26,7 @@ namespace Best.HTTP.Shared.Logger
             AnotherContext
         }
 
-        private struct LoggingContextField
+        public struct LoggingContextField
         {
             public string key;
             public long longValue;
@@ -49,7 +49,7 @@ namespace Best.HTTP.Shared.Logger
             }
         }
 
-        private List<LoggingContextField> fields = new List<LoggingContextField>(8);
+        public List<LoggingContextField> fields = new List<LoggingContextField>(8);
 
         /// <summary>
         /// Initializes a new instance of the LoggingContext class associated with the specified object.

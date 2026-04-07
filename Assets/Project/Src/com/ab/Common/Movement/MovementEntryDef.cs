@@ -1,3 +1,4 @@
+using Project.Src.com.ab.Common.Movement;
 using UnityEngine;
 
 namespace com.ab.complexity.core
@@ -9,6 +10,7 @@ namespace com.ab.complexity.core
         public void RegisterType()
         {
             W.RegisterComponentType<MovementEntry>();
+            W.RegisterComponentType<MovementSamePositionSmoothChangeTarget>();
             W.RegisterComponentType<MovementSamePosition>();
             
             W.RegisterTagType<Movement>();

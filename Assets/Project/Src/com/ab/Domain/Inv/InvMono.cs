@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using com.ab.common;
 using com.ab.domain.craft;
-using Project.Src.com.ab.Domain.Equipment;
+using com.ab.domain.equip;
 using UnityEngine;
 
 namespace Project.Src.com.ab.Domain.Inventory

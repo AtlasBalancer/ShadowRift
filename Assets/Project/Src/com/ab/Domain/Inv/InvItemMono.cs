@@ -16,6 +16,9 @@ namespace Project.Src.com.ab.Domain.Inventory
         protected override void Subscribe() => 
             Btn.onClick.AddListener(OnClick);
 
+        protected override void UnSubscribe() => 
+            Btn.onClick.RemoveListener(OnClick);
+
         public void UpdateIcon(Sprite icon) =>
             Icon.sprite = icon;
 

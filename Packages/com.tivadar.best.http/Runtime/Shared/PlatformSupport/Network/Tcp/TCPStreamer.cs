@@ -347,7 +347,7 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
                             consumer?.OnConnectionClosed(this);
 #if LOG_TCP_STREAMER
                         else if (HTTPManager.Logger.IsDiagnostic)
-                            HTTPManager.Logger.Error(nameof(TCPStreamer), $"{nameof(OnReceived)}({errorCode}) - No consumer to call OnConnectionClosed on!", this._loggingContext);
+                            HTTPManager.Logger.Warning(nameof(TCPStreamer), $"{nameof(OnReceived)}({errorCode}) - No consumer to call OnConnectionClosed on!", this._loggingContext);
 #endif
                     }
                     catch (Exception e)

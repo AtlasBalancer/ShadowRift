@@ -1,5 +1,6 @@
 using System;
 using com.ab.common;
+using com.ab.common.ProgressBar;
 using UnityEngine;
 using com.ab.complexity.core;
 using com.ab.complexity.player;
@@ -25,7 +26,7 @@ namespace com.ab.domain.harv
         {
             var delta = Time.deltaTime;
 
-            foreach (var ent in W.Query.Entities<All<Ref, HarvCollector>>())
+            foreach (var ent in W.Query.Entities<All<Ref, HarvCollectorRef>>())
             {
                 var animator = ent.Ref<AnimatorRef>().Value;
 
@@ -36,21 +37,44 @@ namespace com.ab.domain.harv
                 }
 
                 ref var @ref = ref ent.Ref<Ref>();
-                ref var harvestrer = ref ent.Ref<HarvCollector>();
+                ref var harvestrer = ref ent.Ref<HarvCollectorRef>();
 
                 if (!harvestrer.Timer.Next(delta))
                     continue;
-
-                var item = Physics2D.OverlapCircle(@ref.Val.position, harvestrer.Radius, _def.Layer);
+                
+                var interactionPosition = harvestrer.Ref.InteractionPoint.position;
+                var item = Physics2D.OverlapCircle(interactionPosition, harvestrer.Radius, _def.Layer);
                 bool harvest = item != null;
 
-                if (harvest && item.TryGetComponent<HarvMono>(out var harvRef)) 
+                if (harvest && item.TryGetComponent<HarvMono>(out var harvRef))
+                {
                     harvRef.Ent.ApplyTag<PlacedSpawnByDropTable>(true);
+                }
 
-                bool hasTool = ent.HasAllOf<Tool>();
-                
+                bool hasTool = harvestrer.Ref.WorkingPart.Equiped();
+
                 animator.SetBool(HarvConst.HAS_TOOL_KEY, hasTool);
                 animator.SetBool(HarvConst.HARVEST_KEY, harvest);
+            }
+
+            foreach (var ent in W.Query.Entities<All<HarvRef, ProgressBarRef, AmountUpdate>>())
+            {
+                int amountUpdate = ent.Ref<AmountUpdate>().Val;
+                ent.Delete<AmountUpdate>();
+                
+                var progressBar = ent.Ref<ProgressBarRef>().Val;
+                ref var amountRef = ref ent.Ref<Amount>();
+                amountRef.Val += amountUpdate;
+
+                if (amountRef.Val <= 0)
+                {
+                    var refMono = ent.Ref<HarvRef>().Val;
+                    UnityEngine.Object.Destroy(refMono.gameObject);
+                    ent.Destroy();
+                    continue;
+                }
+                
+                progressBar.UpdateAmount(amountRef.Val);
             }
         }
     }

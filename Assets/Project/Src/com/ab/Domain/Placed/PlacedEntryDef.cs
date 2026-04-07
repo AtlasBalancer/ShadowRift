@@ -5,7 +5,7 @@ using Project.Src.com.ab.Domain.Collect;
 namespace com.ab.domain.collect
 {
     public class PlacedEntryDef : StaticEntryParamDef<PlacedEntryDef.Settings>, IStaticRegisterTypeDef,
-        IStaticUpdateDef, IStaticCreateEntityDef, IStaticContextSetDef
+        IStaticUpdateDef, IStaticCreateProtoEntityDef, IStaticContextSetDef
     {
         [Serializable]
         public class Settings
@@ -32,7 +32,7 @@ namespace com.ab.domain.collect
             // W.Context<ItemTable>.Set(Def.ItemTable);
         }
 
-        public void CreateEntities()
+        public void CreateProtoEntities()
         {
         }
     }

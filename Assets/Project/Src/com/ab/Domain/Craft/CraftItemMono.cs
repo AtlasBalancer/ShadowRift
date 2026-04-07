@@ -28,6 +28,17 @@ namespace com.ab.domain.craft
             UpdateCraftAvailable(false);
         }
 
+        protected override void UnSubscribe()
+        {
+            Button.onClick.RemoveListener(Press);
+        }
+
+        protected override void Register()
+        {
+            Ent.Add(new CraftItemRef(this));
+            base.Register();
+        }
+
         public void Press()
         {
             if (!Button.interactable)

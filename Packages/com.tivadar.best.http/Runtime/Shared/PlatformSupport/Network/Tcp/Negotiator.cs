@@ -242,7 +242,9 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
                         this._parameters.context);
                     //this._streamer._debugRequest = this._parameters.optionalRequest;
 
-                    this._stream = new NonblockingTCPStream(this._streamer, false, lowLevelSettings.ReadBufferSize);
+                    var str = new NonblockingTCPStream(this._streamer, false, lowLevelSettings.ReadBufferSize);
+                    str.SetTwoWayBinding(this._peer as IContentConsumer);
+                    this._stream = str;
 
                     if (this._parameters.proxy != null)
                     {
@@ -339,8 +341,9 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
                                 var handler = new TlsClientProtocol();
                                 handler.Connect(tlsClient);
 
-                                new NonblockingBCTLSStream(this._streamer, handler, tlsClient, true, this.Parameters.hostSettings.LowLevelConnectionSettings.ReadBufferSize)
-                                    .OnNegotiated = OnBC_TLSNegotiated;
+                                var str = new NonblockingBCTLSStream(this._streamer, handler, tlsClient, true, this.Parameters.hostSettings.LowLevelConnectionSettings.ReadBufferSize);
+                                str.OnNegotiated = OnBC_TLSNegotiated;
+                                str.SetTwoWayBinding(this._peer as IContentConsumer);
                             }
                             break;
 #endif
@@ -403,7 +406,7 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
 
         private void SetupSocket(System.Net.Sockets.Socket socket, HostSettings hostSettings)
         {
-#if UNITY_WINDOWS || UNITY_EDITOR
+#if UNITY_WINDOWS || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
             // Set the keep-alive time and interval on windows
 
             // https://msdn.microsoft.com/en-us/library/windows/desktop/dd877220%28v=vs.85%29.aspx
@@ -413,6 +416,75 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
                 SetKeepAlive(socket, true, 30000, 1000);
             }
             catch { }
+#endif
+
+#if UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX || UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
+            if (this._parameters.hostSettings.LowLevelConnectionSettings.KeepAlive.EnableKeepAlive &&
+                this._parameters.hostSettings.LowLevelConnectionSettings.KeepAlive.IdleSeconds > 0 &&
+                this._parameters.hostSettings.LowLevelConnectionSettings.KeepAlive.IntervalSeconds > 0 &&
+                this._parameters.hostSettings.LowLevelConnectionSettings.KeepAlive.ProbeCount > 0)
+            {
+                unsafe
+                {
+                    // Periodically test if connection is alive
+                    // 0 = disables, 1 = enables
+                    socket.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Socket, System.Net.Sockets.SocketOptionName.KeepAlive, true);
+
+                    int handle = socket.Handle.ToInt32();
+                    int value;
+                    uint valueSize = sizeof(int);
+
+                    try
+                    {
+                        const int SOL_TCP = 6;
+
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
+                        const int TCP_KEEPIDLE = 16;
+                        const int TCP_KEEPINTVL = 257;
+                        const int TCP_KEEPCNT = 258;
+#else
+                        const int TCP_KEEPIDLE = 4;
+                        const int TCP_KEEPINTVL = 5;
+                        const int TCP_KEEPCNT = 6;
+#endif
+
+                        // When the SO_KEEPALIVE option is enabled, TCP probes a connection that has been idle for some amount of time. The default value for this idle period is 2 hours.
+                        // The TCP_KEEPIDLE option can be used to affect this value for a given socket, and specifies the number of seconds of idle time between keepalive probes.
+                        // Not cross platform. This option takes an int value, with a range of 1 to 32767.
+                        // TCP_KEEPIDLE 7200 => 
+                        value = this._parameters.hostSettings.LowLevelConnectionSettings.KeepAlive.IdleSeconds;
+                        var ret = 0;
+                        if ((ret = setsockopt(handle, SOL_TCP, TCP_KEEPIDLE, &value, valueSize)) != 0)
+                            HTTPManager.Logger.Warning(nameof(Negotiator), $"setsockopt TCP_KEEPIDLE returned {ret}");
+
+                        // Specifies the interval between packets that are sent to validate the connection.
+                        // Not cross platform.
+                        // TCP_KEEPINTVL 75  =>
+                        value = this._parameters.hostSettings.LowLevelConnectionSettings.KeepAlive.IntervalSeconds;
+                        if ((ret = setsockopt(handle, SOL_TCP, TCP_KEEPINTVL, &value, valueSize)) != 0)
+                            HTTPManager.Logger.Warning(nameof(Negotiator), $"setsockopt TCP_KEEPINTVL returned {ret}");
+
+                        // When the SO_KEEPALIVE option is enabled, TCP probes a connection that has been idle for some amount of time.
+                        // If the remote system does not respond to a keepalive probe, TCP retransmits the probe a certain number of times before a connection is considered to be broken.
+                        // The TCP_KEEPCNT option can be used to affect this value for a given socket, and specifies the maximum number of keepalive probes to be sent.
+                        // This option takes an int value, with a range of 1 to 32767. Not cross platform.
+                        // TCP_KEEPCNT    9  =>
+                        value = this._parameters.hostSettings.LowLevelConnectionSettings.KeepAlive.ProbeCount;
+                        if ((ret = setsockopt(handle, SOL_TCP, TCP_KEEPCNT, &value, valueSize)) != 0)
+                            HTTPManager.Logger.Warning(nameof(Negotiator), $"setsockopt TCP_KEEPCNT returned {ret}");
+
+                        // https://man7.org/linux/man-pages/man2/setsockopt.2.html
+                        // int setsockopt(int sockfd, int level, int optname, const void optval[optlen], socklen_t optlen);
+
+                        [System.Runtime.InteropServices.DllImport("libc", SetLastError = true)]
+                        static extern int setsockopt(int socket, int level, int optname, void* optval, uint optlen);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        HTTPManager.Logger.Exception(nameof(Negotiator), nameof(SetupSocket), ex, this._parameters.context);
+                    }
+                }
+            }
 #endif
 
             try
@@ -433,7 +505,7 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
             catch { }
         }
 
-#if UNITY_WINDOWS || UNITY_EDITOR
+#if UNITY_WINDOWS || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
         private void SetKeepAlive(System.Net.Sockets.Socket socket, bool on, uint keepAliveTime, uint keepAliveInterval)
         {
             int size = System.Runtime.InteropServices.Marshal.SizeOf(new uint());

@@ -39,6 +39,8 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
         public LoggingContext Context { get; private set; }
 
         public PeekableContentProviderStream ContentProvider { get; private set; }
+        
+        public HTTP2ConnectionSettings ConnectionSettings { get; private set; }
 
         private DateTime lastPingSent = DateTime.MinValue;
         private int waitingForPingAck = 0;
@@ -73,8 +75,6 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
         // With an initial value of -1, the first client initiated stream's id going to be 1.
         private long LastStreamId = -1;
 
-        private HTTP2ConnectionSettings _connectionSettings;
-
         public HTTP2ContentConsumer(HTTPOverTCPConnection conn)
         {
             this.Context = new LoggingContext(this);
@@ -83,8 +83,8 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
             this.conn = conn;
             this.isRunning = true;
 
-            this._connectionSettings = HTTPManager.PerHostSettings.Get(conn.HostKey).HTTP2ConnectionSettings;
-            this.settings = new HTTP2SettingsManager(this.Context, this._connectionSettings);
+            this.ConnectionSettings = HTTPManager.PerHostSettings.Get(conn.HostKey).HTTP2ConnectionSettings;
+            this.settings = new HTTP2SettingsManager(this.Context, this.ConnectionSettings);
 
             Process(this.conn.CurrentRequest);
         }
@@ -146,16 +146,16 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
                     // 101 (Switching Protocols) response (indicating a successful upgrade)
                     // or as the first application data octets of a TLS connection
 
-                    this.settings.InitiatedMySettings[HTTP2Settings.INITIAL_WINDOW_SIZE] = this._connectionSettings.InitialStreamWindowSize;
-                    this.settings.InitiatedMySettings[HTTP2Settings.MAX_CONCURRENT_STREAMS] = this._connectionSettings.MaxConcurrentStreams;
-                    this.settings.InitiatedMySettings[HTTP2Settings.ENABLE_CONNECT_PROTOCOL] = (uint)(this._connectionSettings.EnableConnectProtocol ? 1 : 0);
+                    this.settings.InitiatedMySettings[HTTP2Settings.INITIAL_WINDOW_SIZE] = this.ConnectionSettings.InitialStreamWindowSize;
+                    this.settings.InitiatedMySettings[HTTP2Settings.MAX_CONCURRENT_STREAMS] = this.ConnectionSettings.MaxConcurrentStreams;
+                    this.settings.InitiatedMySettings[HTTP2Settings.ENABLE_CONNECT_PROTOCOL] = (uint)(this.ConnectionSettings.EnableConnectProtocol ? 1 : 0);
                     this.settings.InitiatedMySettings[HTTP2Settings.ENABLE_PUSH] = 0;
                     this.settings.SendChanges(this.outgoingFrames);
                     this.settings.RemoteSettings.OnSettingChangedEvent += OnRemoteSettingChanged;
 
                     // The default window size for the whole connection is 65535 bytes,
                     // but we want to set it to the maximum possible value.
-                    Int64 initialConnectionWindowSize = this._connectionSettings.InitialConnectionWindowSize;
+                    Int64 initialConnectionWindowSize = this.ConnectionSettings.InitialConnectionWindowSize;
 
                     // yandex.ru returns with an FLOW_CONTROL_ERROR (3) error when the plugin tries to set the connection window to 2^31 - 1
                     // and works only with a maximum value of 2^31 - 10Mib (10 * 1024 * 1024).
@@ -190,13 +190,13 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
                             //----|---------------------|---------------|----------------------|----------------------|------------|
                             // lastInteraction                                                                                    lastInteraction + MaxIdleTime
 
-                            var sendPingAt = this.lastPingSent + this._connectionSettings.PingFrequency;
-                            var timeoutAt = this.waitingForPingAck != 0 ? this.lastPingSent + this._connectionSettings.Timeout : DateTime.MaxValue;
+                            var sendPingAt = this.lastPingSent + this.ConnectionSettings.PingFrequency;
+                            var timeoutAt = this.waitingForPingAck != 0 ? this.lastPingSent + this.ConnectionSettings.Timeout : DateTime.MaxValue;
 
                             // sendPingAt can be in the past if Timeout is larger than PingFrequency
                             var nextPingInteraction = sendPingAt < timeoutAt && sendPingAt >= now ? sendPingAt : timeoutAt;
 
-                            var disconnectByIdleAt = this.lastInteraction + this._connectionSettings.MaxIdleTime;
+                            var disconnectByIdleAt = this.lastInteraction + this.ConnectionSettings.MaxIdleTime;
 
                             var nextDueClientInteractionAt = nextPingInteraction < disconnectByIdleAt ? nextPingInteraction : disconnectByIdleAt;
                             int wait = (int)(nextDueClientInteractionAt - now).TotalMilliseconds;
@@ -225,7 +225,7 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
                         }
 
                         //  Don't send a new ping until a pong isn't received for the last one
-                        if (now - this.lastPingSent >= this._connectionSettings.PingFrequency && Interlocked.CompareExchange(ref this.waitingForPingAck, 1, 0) == 0)
+                        if (now - this.lastPingSent >= this.ConnectionSettings.PingFrequency && Interlocked.CompareExchange(ref this.waitingForPingAck, 1, 0) == 0)
                         {
                             this.lastPingSent = now;
 
@@ -279,7 +279,7 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
                                         this.settings.Process(header, this.outgoingFrames);
 
                                         Interlocked.Exchange(ref this._maxAssignedRequests, 
-                                            (int)Math.Min(this._connectionSettings.MaxConcurrentStreams, 
+                                            (int)Math.Min(this.ConnectionSettings.MaxConcurrentStreams, 
                                                           this.settings.RemoteSettings[HTTP2Settings.MAX_CONCURRENT_STREAMS]));
 
                                         /*
@@ -383,7 +383,7 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
                             var lastPingDiff = now - this.lastPingSent;
                             var lastDataDiff = now - this.lastDataFrameReceived;
                             
-                            if(lastPingDiff >= this._connectionSettings.Timeout && lastDataDiff >= this._connectionSettings.Timeout)
+                            if(lastPingDiff >= this.ConnectionSettings.Timeout && lastDataDiff >= this.ConnectionSettings.Timeout)
                                 throw new TimeoutException("Ping ACK isn't received in time!");
                         }
 
@@ -440,7 +440,7 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
                         // Room for improvement: An improvement would be here to stop data frame sending per-stream.
                         bool haltDataSending = false;
 
-                        if (this.ShutdownType == ShutdownTypes.Running && !this.SentGoAwayFrame && now - this.lastInteraction >= this._connectionSettings.MaxIdleTime)
+                        if (this.ShutdownType == ShutdownTypes.Running && !this.SentGoAwayFrame && now - this.lastInteraction >= this.ConnectionSettings.MaxIdleTime)
                         {
                             this.lastInteraction = now;
 #if ENABLE_LOGGING

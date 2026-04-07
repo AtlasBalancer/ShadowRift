@@ -15,5 +15,9 @@ namespace com.ab.domain.harv
     public struct HarvItemEntry : IComponent
     {
         public string AKSprite;
+
+        public Vector2Int AmountRange;
+        
+        public float ProgressBarOffset;
     }
 }

@@ -34,8 +34,9 @@ namespace Project.Src.com.ab.Domain.Collect
             foreach (var ent in W.Query.Entities<TagAll<PlacedSpawnByDropTable>>())
             {
                 var @ref = ent.Ref<Ref>().Val;
+                int amount = ent.Ref<Amount>().Val;
                 var dropTable = ent.GetConfigTable<DropEntry>().Items;
-                
+
                 foreach (var item in dropTable)
                 {
                     if (!item.ChanceRange.RandHappen())
@@ -44,7 +45,16 @@ namespace Project.Src.com.ab.Domain.Collect
                     item.PlaceSo.GetConfig<ItemEntry>(out var itemDef, out _);
                     var link = Object.Instantiate(_def.PlacedPrefab, _def.RootCollectables);
                     var itemEnt = link.Init(item.PlaceSo, true);
-                    itemEnt.Add(new Amount { Val = item.AmountRange.Rand() });
+
+
+                    int dropAmount = item.AmountRange.Rand();
+
+                    if (amount < dropAmount)
+                        dropAmount = amount;
+
+                    itemEnt.Add(new Amount { Val = dropAmount });
+                    ent.Add(new AmountUpdate(-dropAmount));
+
                     link.UpdateRender(_atlas.GetSprite(_def.AtlasKey, itemDef.AKSprite));
 
                     link.Drop(@ref.position);
@@ -63,4 +73,5 @@ namespace Project.Src.com.ab.Domain.Collect
             public string AtlasKey = "ItemsAtlas";
         }
     }
+
 }

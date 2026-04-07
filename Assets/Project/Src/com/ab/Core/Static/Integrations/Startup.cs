@@ -39,7 +39,7 @@ namespace com.ab.complexity.core
             // ============================================ CONTEXT INITIALIZATION ====================================================
             W.Context<Settings>.Set(_def);
             SetContext();
-            CreateEntities();
+            CreateProtoEntities();
             // ============================================ MAIN SYSTEMS INITIALIZATION ===============================================
             Sys.Create();
 
@@ -53,6 +53,7 @@ namespace com.ab.complexity.core
             await WaitPreInitLoads();
             Sys.Initialize();
             
+            CreateLastInitStage();
             EcsDebug<WT>.AddSystem<SysT>();
         }
 
@@ -80,8 +81,8 @@ namespace com.ab.complexity.core
         void InitializeConfig()
         {
             foreach (var item in _def.Configs)
-                if (item is IEntConfig config)
-                    config.Init();
+                if (item is IEcsTable config)
+                    config.OpenEcsSession();
         }
 
         void RegisterCoreTypes()
@@ -98,6 +99,12 @@ namespace com.ab.complexity.core
         {
             Sys.Destroy();
             W.Destroy();
+            
+            foreach (var item in _def.Configs)
+                if (item is IEcsTable config)
+                    config.CloseEcsSession();
+            
+            WC.Destroy();
         }
 
         void SetContext()
@@ -159,16 +166,28 @@ namespace com.ab.complexity.core
             features.ForEach(item => item.RegisterUpdate());
         }
 
-        void CreateEntities()
+        void CreateProtoEntities()
         {
             var modules = _def.Modules
-                .OfType<IStaticCreateEntityDef>()
+                .OfType<IStaticCreateProtoEntityDef>()
                 .ToList();
 
-            modules.ForEach(item => item.CreateEntities());
+            modules.ForEach(item => item.CreateProtoEntities());
 
-            var features = _def.GetFeatures<IStaticCreateEntityDef>();
-            features.ForEach(item => item.CreateEntities());
+            var features = _def.GetFeatures<IStaticCreateProtoEntityDef>();
+            features.ForEach(item => item.CreateProtoEntities());
+        }
+        
+        void CreateLastInitStage()
+        {
+            var modules = _def.Modules
+                .OfType<IStaticLastInitStageDef>()
+                .ToList();
+
+            modules.ForEach(item => item.LastInit());
+
+            var features = _def.GetFeatures<IStaticLastInitStageDef>();
+            features.ForEach(item => item.LastInit());
         }
 
         [Serializable]

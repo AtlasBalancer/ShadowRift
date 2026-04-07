@@ -49,6 +49,21 @@ MonoBehaviour:
     - Name: AKSprite
       Entry: 1
       Data: AppleTreesAtlas_0
+    - Name: AmountRange
+      Entry: 7
+      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 20
+    - Name: 
+      Entry: 3
+      Data: 25
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ProgressBarOffset
+      Entry: 4
+      Data: 0.65
     - Name: 
       Entry: 8
       Data: 
@@ -67,6 +82,21 @@ MonoBehaviour:
     - Name: AKSprite
       Entry: 1
       Data: TreesAtlas_1
+    - Name: AmountRange
+      Entry: 7
+      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 10
+    - Name: 
+      Entry: 3
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ProgressBarOffset
+      Entry: 4
+      Data: 0.65
     - Name: 
       Entry: 8
       Data: 

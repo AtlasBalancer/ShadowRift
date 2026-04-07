@@ -29,7 +29,9 @@ namespace com.ab.common
             return RuntimeID;
         }
 
-        
+        public void End() => 
+            _inited = false;
+
 #if UNITY_EDITOR
         void OnValidate() => EnsureId();
 

@@ -41,7 +41,7 @@ namespace com.ab.complexity.core
                 magnitude = 0;
             }
             
-            TagAll<JoystickEnable> all = default;
+            TagAll<JoystickAttachTag> all = default;
             All<Direction, Velocity> filter = default;
             var with = With.Create(all, filter);
 

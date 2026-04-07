@@ -1,14 +1,14 @@
 using System;
-using System.Threading;
-using com.ab.common;
 using UnityEngine;
 using com.ab.core;
+using com.ab.common;
 using UnityEngine.UI;
-using com.ab.complexity.core;
+using System.Threading;
 using com.ab.domain.item;
+using com.ab.domain.equip;
+using com.ab.complexity.core;
 using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs;
-using Project.Src.com.ab.Domain.Equipment;
 using Object = UnityEngine.Object;
 
 namespace Project.Src.com.ab.Domain.Inventory
@@ -18,7 +18,7 @@ namespace Project.Src.com.ab.Domain.Inventory
         public InvViewSystem(Settings def)
         {
             _def = def;
-            base.Init(_def.Prefab, _def.Root, _def.InventoryButton);
+            Register(_def.ViewRef, _def.InventoryButton);
 
             _localization = W.Context<LocalizationService>.Get();
             _atlas = W.Context<AtlasService>.Get();
@@ -101,8 +101,9 @@ namespace Project.Src.com.ab.Domain.Inventory
                         var icon = _atlas.GetSprite(_def.AtlasKey, itemDef.AKSprite);
                         var title = _localization.GetString(itemDef.LKTitle, _def.LocalizationTable);
                         var descr = _localization.GetString(itemDef.LKDescription, _def.LocalizationTable);
+                        bool equip = ent.HasAllOfTags<EquipTag>();
 
-                        card.Card.Show(ent, icon, amount, title, descr);
+                        card.Card.Show(ent, equip, icon, amount, title, descr);
                     }
                     else
                     {
@@ -160,7 +161,7 @@ namespace Project.Src.com.ab.Domain.Inventory
             public Button InventoryButton;
 
             public Transform Root;
-            public InvMono Prefab;
+            public InvMono ViewRef;
             public InvItemMono ItemPrefab;
             public InvCategoryView CategoryPrefab;
         }

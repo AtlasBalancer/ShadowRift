@@ -160,15 +160,15 @@ namespace Best.HTTP.Hosts.Settings
             {
 	            // This splits the hostname (a.b.c.tld) into segments (["a", "b", "c", "tld"]), reverse it (["tld", "c", "b", "a"])
 	            //  and creates a final List<string> object.
-	                this._segments.Clear();
-	                this._segments.AddRange(hostname.Split(SPLITTER, StringSplitOptions.RemoveEmptyEntries));
-	                this._segments.Reverse();
-	
-	                string subKey = this._segments[0];
-	                this._segments.RemoveAt(0);
+	            this._segments.Clear();
+	            this._segments.AddRange(hostname.Split(SPLITTER, StringSplitOptions.RemoveEmptyEntries));
+	            this._segments.Reverse();
+
+	            string subKey = this._segments[0];
+	            this._segments.RemoveAt(0);
 	
 	            if (_rootNodes.TryGetValue(subKey, out var node))
-	                    foundSettings = node.Find(this._segments);
+	                foundSettings = node.Find(this._segments);
             }
 
             if (fallbackToWildcard && foundSettings == null && _rootNodes.TryGetValue("*", out var asteriskNode))

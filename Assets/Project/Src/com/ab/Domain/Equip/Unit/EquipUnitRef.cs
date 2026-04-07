@@ -1,6 +1,6 @@
 using FFS.Libraries.StaticEcs;
 
-namespace Project.Src.com.ab.Domain.Equip
+namespace com.ab.domain.equip
 {
     public readonly struct EquipUnitRef : IComponent
     {

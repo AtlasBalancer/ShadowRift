@@ -460,13 +460,13 @@ namespace Best.HTTP.Shared.PlatformSupport.Memory
                 // Size of the bucket, already negated.
                 int bucketSize = -(int)(MIN_BUFFER_SIZE << i);
                 var remove = Interlocked.Exchange(ref bucket.MinCount, int.MaxValue);
-                int removed = 0;
+
+                // Remove half of the unused items, releasing them back to the GC in a few steps
+                if (remove != int.MaxValue && remove > 1)
+                    remove >>= 1;
 
                 for (int counter = 0; counter < remove && bucket.TryPop(out var _); ++counter)
-                {
                     Interlocked.Add(ref PoolSize, bucketSize);
-                    removed++;
-                }
 
                 // Remove FastItem too, when it wasn't used in a full maintenance round
                 if (remove == int.MaxValue && Interlocked.Exchange(ref bucket.FastItem, null) != null)

@@ -274,13 +274,13 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
                     Socket = socket
                 };
 
+                nextIdx = Interlocked.Increment(ref lane.Race.NextAddressIndex);
+                
                 var asyncResult = socket.BeginConnect(address.IPAddress, parameters.Port, OnLaneFinished, lane);
-
+                
                 // Under Android (and possible under other non-windows platforms) Unity doesn't call the OnLaneFinished callback, only returns with the IAsyncResult instance.
                 if (asyncResult.CompletedSynchronously && asyncResult.IsCompleted)
                     OnLaneFinished(asyncResult);
-
-                nextIdx = Interlocked.Increment(ref lane.Race.NextAddressIndex);
             }
 
             if (parameters.Token != CancellationToken.None)
@@ -351,7 +351,10 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
 
                     lane.AddressIndex = nextIndex;
                     lane.Socket = new Socket(lane.Race.Parameters.Addresses[lane.AddressIndex].IPAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                    lane.Socket.BeginConnect(lane.Race.Parameters.Addresses[lane.AddressIndex].IPAddress, lane.Race.Parameters.Port, OnLaneFinished, lane);
+                    var asyncResult = lane.Socket.BeginConnect(lane.Race.Parameters.Addresses[lane.AddressIndex].IPAddress, lane.Race.Parameters.Port, OnLaneFinished, lane);
+
+                    if (asyncResult.CompletedSynchronously && asyncResult.IsCompleted)
+                        OnLaneFinished(asyncResult);
                 }
                 else
                 {

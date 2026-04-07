@@ -1,7 +1,8 @@
 using System;
+using com.ab.complexity.core;
 using FFS.Libraries.StaticEcs;
 
-namespace com.ab.complexity.core
+namespace com.ab.common
 {
     [Serializable]
     public struct Timer : IComponent

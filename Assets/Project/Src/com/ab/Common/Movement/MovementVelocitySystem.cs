@@ -1,4 +1,5 @@
 using FFS.Libraries.StaticEcs;
+using UnityEngine;
 
 namespace com.ab.complexity.core
 {
@@ -9,7 +10,7 @@ namespace com.ab.complexity.core
         public void Update() =>
             W.Query.For((W.Entity ent, ref Position pos, ref Velocity vel, ref Direction dir, ref MovementEntry def) =>
             {
-                pos.Value += dir.Value * (vel.Magnitude * def.Speed);
+                pos.Value += dir.Value * (vel.Magnitude * def.Speed * Time.deltaTime);
                 ent.ApplyTag<Movement>(vel.Magnitude > GAP);
             });
     }

@@ -55,6 +55,7 @@ namespace Best.HTTP
     /// </summary>
     public static class HTTPRequestAsyncExtensions
     {
+#if !UNITY_SERVER
         /// <summary>
         /// Asynchronously sends an HTTP request and retrieves the response as an <see cref="AssetBundle"/>.
         /// </summary>
@@ -121,6 +122,7 @@ namespace Best.HTTP
 
             tcs.TrySetResult(req.assetBundle);
         }
+#endif
 #endif
 
         /// <summary>
@@ -195,6 +197,7 @@ namespace Best.HTTP
             });
         }
 
+#if !UNITY_SERVER
         /// <summary>
         /// Asynchronously sends an <see cref="HTTPRequest"/> and retrieves the response content as a <see cref="Texture2D"/>.
         /// </summary>
@@ -229,6 +232,7 @@ namespace Best.HTTP
                 }
             });
         }
+#endif
 
         /// <summary>
         /// Asynchronously sends an <see cref="HTTPRequest"/> and retrieves the response content as a <c>byte[]</c>.

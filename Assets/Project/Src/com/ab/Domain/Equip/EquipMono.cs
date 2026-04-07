@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Project.Src.com.ab.Domain.Unit.Items
+namespace com.ab.domain.equip
 {
     public class EquipMono : MonoBehaviour
     {

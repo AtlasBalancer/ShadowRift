@@ -1,3 +1,4 @@
+using com.ab.common;
 using com.ab.complexity.core;
 using com.ab.domain.equip;
 using TMPro;
@@ -8,7 +9,8 @@ namespace Project.Src.com.ab.Domain.Inventory
 {
     public class InvCardItemMono : MonoBehaviour
     {
-        public W.Entity Ent;
+        [Header("Configuration")] public bool HasEquip;
+        [Header("Refs")] public W.Entity ShowingEnt;
 
         public TMP_Text Title;
 
@@ -21,6 +23,8 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         public Button BackButton;
 
+        public ResponseButtonMono Btn;
+
         public void Subscribe()
         {
             BackButton.onClick.AddListener(Hide);
@@ -30,19 +34,21 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         void SetEquip()
         {
-            W.Events.Send(new EquipSetEvent(Ent));
+            W.Events.Send(new EquipSetEvent(ShowingEnt));
             SetEquipButton(true);
         }
 
         void SetUnquip()
         {
-            W.Events.Send(new EquipUnSetEvent(Ent));
+            W.Events.Send(new EquipUnSetEvent(ShowingEnt));
             SetEquipButton(false);
         }
 
-        public void Show(W.Entity ent, Sprite sprite, int amount, string title, string description)
+        public void Show(W.Entity refEnt, bool equip, Sprite sprite, int amount, string title, string description)
         {
-            Ent = ent;
+            // Btn.Subscribe(ent);
+
+            ShowingEnt = refEnt;
             Title.SetText(title);
             Icon.sprite = sprite;
             Description.SetText(description);
@@ -50,10 +56,15 @@ namespace Project.Src.com.ab.Domain.Inventory
 
             gameObject.SetActive(true);
             BackButton.gameObject.SetActive(true);
+
+            SetEquipButton(equip);
         }
 
         void SetEquipButton(bool equipped)
         {
+            if (!HasEquip)
+                return;
+
             Equip.gameObject.SetActive(!equipped);
             UnEquip.gameObject.SetActive(equipped);
         }

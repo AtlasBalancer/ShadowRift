@@ -250,6 +250,45 @@ namespace Best.HTTP.Hosts.Settings
         /// </para>
         /// </remarks>
         public uint ReadBufferSize = 1024 * 1024;
+        
+        /// <summary>
+        /// TCP keepalive settings. Disabled by default.
+        /// </summary>
+        public KeepAliveSettings KeepAlive = new KeepAliveSettings(false, 7200, 75, 9);
+        
+        public struct KeepAliveSettings
+        {
+            /// <summary>
+            /// Must be true in order to apply the other values.
+            /// </summary>
+            public readonly bool EnableKeepAlive;
+            
+            /// <summary>
+            /// When the SO_KEEPALIVE option is enabled, TCP probes a connection that has been idle for some amount of time. The default value for this idle period is 2 hours.
+            /// The TCP_KEEPIDLE option can be used to affect this value for a given socket, and specifies the number of seconds of idle time between keepalive probes.
+            /// </summary>
+            public readonly int IdleSeconds;
+            
+            /// <summary>
+            /// Specifies the interval between packets that are sent to validate the connection.
+            /// </summary>
+            public readonly  int IntervalSeconds;
+            
+            /// <summary>
+            /// When the SO_KEEPALIVE option is enabled, TCP probes a connection that has been idle for some amount of time.
+            /// If the remote system does not respond to a keepalive probe, TCP retransmits the probe a certain number of times before a connection is considered to be broken.
+            /// The TCP_KEEPCNT option can be used to affect this value for a given socket, and specifies the maximum number of keepalive probes to be sent.
+            /// </summary>
+            public readonly  int ProbeCount;
+
+            public KeepAliveSettings(bool enableKeepAlive = false, int idleSeconds = 7200, int intervalSeconds = 75, int probeCount = 9)
+            {
+                EnableKeepAlive = enableKeepAlive;
+                IdleSeconds = idleSeconds;
+                IntervalSeconds = intervalSeconds;
+                ProbeCount = probeCount;
+            }
+        }
     }
 
     /// <summary>

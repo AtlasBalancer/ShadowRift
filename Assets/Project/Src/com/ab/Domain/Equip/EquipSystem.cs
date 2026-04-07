@@ -1,9 +1,6 @@
-using com.ab.complexity.core;
-using com.ab.complexity.features.player;
-using com.ab.complexity.player;
 using FFS.Libraries.StaticEcs;
-using Project.Src.com.ab.Domain.Equipment;
-using Project.Src.com.ab.Domain.Inventory;
+using com.ab.domain.equip;
+using com.ab.complexity.features.player;
 
 namespace Project.Src.com.ab.Domain.Unit.Items
 {
@@ -17,10 +14,10 @@ namespace Project.Src.com.ab.Domain.Unit.Items
         public void Init()
         {
             // _dropTable = W.Context<DropTableService>.Get();
-            W.Query.Entities<All<PlayerRef>>().First(out var playerEnt);
+            // W.Query.Entities<All<PlayerRef>>().First(out var playerEnt);
 
-            _player = playerEnt.Ref<PlayerRef>().Ref;
-            _puppet = W.Context<EquipPuppetMono>.Get();
+            // _player = playerEnt.Ref<PlayerRef>().Ref;
+            // _puppet = W.Context<EquipPuppetMono>.Get();
         }
 
         public void Update()
@@ -39,8 +36,8 @@ namespace Project.Src.com.ab.Domain.Unit.Items
                 // var toolPrefab = _itemTable.Def.Equipment.Entrys[id].Prefab;
                 // _player.SetTool(toolPrefab);
 
-                if (!_player.Ent.HasAllOf<Tool>())
-                    _player.Ent.Add<Tool>();
+                // if (!_player.Ent.HasAllOf<Tool>())
+                    // _player.Ent.Add<Tool>();
 
                 // ent.ApplyTag<Equip>(true);
                 // ent.Delete<EquipCommand>();

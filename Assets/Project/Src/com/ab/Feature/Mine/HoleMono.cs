@@ -1,0 +1,28 @@
+using com.ab.common;
+using com.ab.complexity.features.player;
+using FFS.Libraries.StaticEcs;
+using UnityEngine;
+
+namespace Project.Src.com.ab.Feature.Mine
+{
+    public readonly struct HoleRef : IComponent
+    {
+        public readonly HoleMono Val;
+        public HoleRef(HoleMono val) => Val = val;
+    }
+
+    public class HoleMono : EntityLink
+    {
+        protected override void Register() => 
+            Ent.Add(new HoleRef(this));
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!Ent.HasAllOfTags<AvailableTag>())
+                return;
+
+            if (other.TryGetComponent<PlayerMono>(out _))
+                Ent.ApplyTag<TriggerEnterTag>(true);
+        }
+    }
+}

@@ -512,10 +512,10 @@ namespace Best.HTTP.Hosts.Connections
         {
             HTTPRequest request = context as HTTPRequest;
 
-            if (request.State >= HTTPRequestStates.Finished)
+            if (request.State >= HTTPRequestStates.Finished || request.IsCancellationRequested)
                 return false; // don't repeat
 
-            var downStream= request.Response?.DownStream;
+            var downStream = request.Response?.DownStream;
 
             if (downStream != null && downStream.DoFullCheck(limit: 2))
             {
@@ -606,8 +606,11 @@ namespace Best.HTTP.Hosts.Connections
                         source.Timing.AddEvent(new TimingEventInfo(source, TimingEvents.StartNext, TimingEventNames.Callback));
                         try
                         {
-                            using (var __ = new Unity.Profiling.ProfilerMarker(nameof(source.Callback)).Auto())
-                                source.Callback(source, source.Response);
+                            if (registeredRequests.Contains(source))
+                            {
+                                using (var __ = new Unity.Profiling.ProfilerMarker(nameof(source.Callback)).Auto())
+                                    source.Callback(source, source.Response);
+                            }
                         }
                         catch (Exception ex)
                         {

@@ -1,9 +1,8 @@
 using System;
+using com.ab.common;
 using UnityEngine;
 using com.ab.complexity.core;
 using com.ab.complexity.player;
-using com.ab.domain.harv;
-using Project.Src.com.ab.Complexity.Core.Static.Mono;
 using Project.Src.com.ab.Domain.Collect;
 using Sirenix.OdinInspector;
 
@@ -11,13 +10,13 @@ namespace com.ab.complexity.features.player
 {
     [InfoBox("Зависит от (HarvesterEntryDef, InventoryEntryDef)")]
     public class PlayerEntryDef : StaticEntryParamDef<PlayerEntryDef.Settings>,
-        IStaticTagDef, IStaticRegisterTypeDef, IStaticInitDef, IStaticUpdateDef, IStaticCreateEntityDef
+        IStaticTagDef, IStaticRegisterTypeDef, IStaticInitDef, IStaticUpdateDef, IStaticLastInitStageDef
     {
         [Serializable]
         public class Settings
         {
             public Transform Root;
-            public Camera MainCamera;
+            public MovementSamePositionMono MainCamera;
             public PlayerMono PlayerPrefab;
         }
 
@@ -42,33 +41,20 @@ namespace com.ab.complexity.features.player
             // Debug.Log($"{nameof(PlayerEntryDef)}::{nameof(RegisterUpdate)}");
         }
 
-        public void CreateEntities()
+        public void LastInit()
         {
             var player = Instantiate(Def.PlayerPrefab, Def.Root);
 
-            var logicRenderer = player.GetComponent<LogicRendererMono>();
             var playerRef = player.transform;
-            var cameraRef = Def.MainCamera.transform;
-            var harvester = player.Harvester;
 
             var ent = player.Init(true);
 
-            ent.SetTag<PlayerTag>();
-            ent.SetTag<JoystickEnable>();
-            
-            ent.Add(new PlayerRef { Ref = player });
-            ent.Add(new MovementEntry { Speed = .002f });
-            ent.Add(new LogicRender(logicRenderer.Renderer));
+            ent.Add(new MovementEntry { Speed = .5f });
             ent.Add(new AnimatorRef { Value = player.Animator });
-            ent.Add(new HarvCollector
-            {
-                Radius = harvester.Radius,
-                Timer = new Timer { Max = harvester.Delay }
-            });
 
             ent.Add(new PlacedToInventory() { Radius = 1f, CollectTimer = new Timer { Max = .5f } });
             // Camera
-            ent.Add(new MovementSamePosition { PositionSource = playerRef, UpdateSource = cameraRef });
+            Def.MainCamera.UpdateTarget(player.transform);
         }
     }
 }

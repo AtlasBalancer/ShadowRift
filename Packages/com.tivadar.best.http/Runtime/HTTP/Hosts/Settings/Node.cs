@@ -58,6 +58,9 @@ namespace Best.HTTP.Hosts.Settings
             if (this.childNodes.TryGetValue(subKey, out var node))
                 return node.Find(segments);
 
+            if (this.childNodes.TryGetValue("*", out var wildcardNode))
+                return wildcardNode.Find(segments);
+            
             return null;
         }
     }

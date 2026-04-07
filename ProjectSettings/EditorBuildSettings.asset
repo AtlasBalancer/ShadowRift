@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Project/Content/Dev.unity
+    path: Assets/Project/Content/Island.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Project/Content/Mine.unity
+    guid: d0ef277dd03aa0d4981c779ed6669754
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: ff5a57eb6905d3b49aaef3fdc1eff697, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

@@ -220,7 +220,7 @@ var Lib_BEST_HTTP_WebGL_HTTP_Bridge =
 				if (e.error)
 					HandleError(e.error);
 				else
-					HandleError("Unknown Error! Maybe a CORS porblem?");
+					HandleError("Unknown Error! Maybe a CORS problem?");
 			};
 		}
 
@@ -273,8 +273,13 @@ var Lib_BEST_HTTP_WebGL_HTTP_Bridge =
 		var http = _best_http_request_bridge_global.requestInstances[request];
 
 		try {
-			if (length > 0)
-				http.send(HEAPU8.subarray(ptr, ptr+length));
+			if (length > 0){
+			    #if USE_PTHREADS
+			        http.send(new Uint8Array(HEAPU8.subarray(ptr, ptr+length)));
+			    #else
+				    http.send(HEAPU8.subarray(ptr, ptr+length));
+				#endif
+			}
 			else
 				http.send();
 		}

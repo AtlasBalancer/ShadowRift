@@ -64,7 +64,7 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
                 WriteLiteralHeaderFieldWithoutIndexing_IndexedName(bufferStream, 4, request.CurrentUri.PathAndQuery);
 
                 //bool hasBody = false;
-
+                
                 // add other, regular headers
                 request.EnumerateHeaders((header, values) =>
                 {
@@ -72,8 +72,10 @@ namespace Best.HTTP.Hosts.Connections.HTTP2
                         (header.Equals("te", StringComparison.OrdinalIgnoreCase) && !values.Contains("trailers") && values.Count <= 1) ||
                         header.Equals("host", StringComparison.OrdinalIgnoreCase) ||
                         header.Equals("keep-alive", StringComparison.OrdinalIgnoreCase) ||
-                        header.StartsWith("proxy-", StringComparison.OrdinalIgnoreCase) ||
-                        (header.Equals("content-length", StringComparison.OrdinalIgnoreCase) && values.Count == 1 && int.TryParse(values[0], out int contentLength) && contentLength <= 0))
+                        header.StartsWith("proxy-", StringComparison.OrdinalIgnoreCase))
+                        return;
+                    
+                    if (header.Equals("content-length", StringComparison.OrdinalIgnoreCase) && values.Count == 1 && int.TryParse(values[0], out int contentLength) && contentLength <= 0 && !context.ParentHandler.ConnectionSettings.ForceSendContentLengthHeader)
                         return;
 
                     //if (!hasBody)

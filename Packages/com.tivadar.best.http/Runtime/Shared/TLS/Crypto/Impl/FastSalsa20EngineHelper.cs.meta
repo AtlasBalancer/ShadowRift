@@ -13,6 +13,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 267636
   packageName: Best HTTP
-  packageVersion: 3.0.17
+  packageVersion: 3.1.0
   assetPath: Packages/com.tivadar.best.http/Runtime/Shared/TLS/Crypto/Impl/FastSalsa20EngineHelper.cs
-  uploadId: 783279
+  uploadId: 884706

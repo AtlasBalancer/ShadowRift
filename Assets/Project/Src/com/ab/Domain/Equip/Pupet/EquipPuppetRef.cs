@@ -1,6 +1,6 @@
 using FFS.Libraries.StaticEcs;
 
-namespace Project.Src.com.ab.Domain.Equip.Pupet
+namespace com.ab.domain.equip
 {
     public readonly struct EquipPuppetRef : IComponent
     {

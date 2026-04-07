@@ -301,14 +301,14 @@ namespace Best.HTTP
         /// </summary>
         public LoggingContext Context { get; private set; }
 
-        private Dictionary<string, List<string>> Headers { get; set; }
+        public Dictionary<string, List<string>> Headers { get; set; }
 
         /// <summary>
         /// Creates an HTTP GET request with the specified URL.
         /// </summary>
         /// <param name="url">The URL of the request.</param>
         public HTTPRequest(string url)
-            : this(new Uri(url)) { }
+            :this(new Uri(url)) {}
 
         /// <summary>
         /// Creates an HTTP GET request with the specified URL and registers a callback function to be called

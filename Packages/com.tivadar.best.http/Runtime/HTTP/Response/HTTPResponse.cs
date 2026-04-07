@@ -160,6 +160,7 @@ namespace Best.HTTP
             }
         }
 
+#if !UNITY_SERVER
         /// <summary>
         /// Cached converted data.
         /// </summary>
@@ -186,6 +187,7 @@ namespace Best.HTTP
                 return texture;
             }
         }
+#endif
 
         /// <summary>
         /// Reference to the <see cref="DownloadContentStream"/> instance that contains the downloaded data.

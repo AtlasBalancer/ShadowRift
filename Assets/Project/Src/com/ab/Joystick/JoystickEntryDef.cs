@@ -3,7 +3,7 @@ using System;
 namespace com.ab.complexity.core
 {
     public class JoystickEntryDef : StaticEntryParamDef<JoystickEntryDef.Settings>,
-        IStaticRegisterTypeDef, IStaticUpdateDef, IStaticCreateEntityDef, IStaticContextSetDef
+        IStaticRegisterTypeDef, IStaticUpdateDef, IStaticCreateProtoEntityDef, IStaticContextSetDef
     {
         [Serializable]
         public class Settings
@@ -18,7 +18,7 @@ namespace com.ab.complexity.core
 
         public void RegisterType()
         {
-            W.RegisterTagType<JoystickEnable>();
+            W.RegisterTagType<JoystickAttachTag>();
         }
 
         public void RegisterUpdate()
@@ -26,7 +26,7 @@ namespace com.ab.complexity.core
             SysReg.AddUpdate(new JoystickToMovementSystem());
         }
 
-        public void CreateEntities()
+        public void CreateProtoEntities()
         {
             
         }
