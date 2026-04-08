@@ -35,7 +35,7 @@ namespace com.ab.domain.price
                 AddConfigID(Ent, ItemID);
 
             Ent.Add(new PriceRef(this));
-            Ent.ApplyTag<PriceRegister>(true);
+            Ent.ApplyTag<PriceRegisterTag>(true);
             base.Register();
         }
 

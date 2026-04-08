@@ -15,7 +15,6 @@ namespace com.ab.domain.construct
         public void RegisterType()
         {
             W.RegisterTagType<ConstructionBuilt>();
-            
             W.RegisterComponentType<ConstructionRef>();
         }
 

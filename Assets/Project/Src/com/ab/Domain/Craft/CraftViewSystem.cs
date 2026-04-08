@@ -69,10 +69,10 @@ namespace com.ab.domain.craft
             if (!IsActive())
                 return;
 
-            foreach (var ent in W.Query.Entities<All<CraftItemRef>, TagAll<Click>>())
+            foreach (var ent in W.Query.Entities<All<CraftItemRef>, TagAll<ClickTag>>())
             {
                 ent.ApplyTag<InventoryAdd>(true);
-                ent.ApplyTag<Click>(false);
+                ent.ApplyTag<ClickTag>(false);
             }
         }
 

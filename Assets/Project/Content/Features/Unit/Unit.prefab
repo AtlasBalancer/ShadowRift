@@ -365,9 +365,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3f3d3a0df9641bdafa57a8413c379d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Project.Src.com.ab.Domain.Harvest.HarvestCollectorMono
-  Radius: 0.2
+  Radius: 0.3
   Delay: 1
-  InteractionPoint: {fileID: 0}
+  InteractionPoint: {fileID: 7775086430743637612}
   WorkingPart: {fileID: 8080461673097189707}
 --- !u!114 &6489492101937547302
 MonoBehaviour:

@@ -19,13 +19,14 @@ namespace com.ab.common
         public void RegisterType()
         {
             W.RegisterTagType<ViewActive>();
-            W.RegisterTagType<Click>();
+            W.RegisterTagType<ClickTag>();
             W.RegisterTagType<ActiveTag>();
             W.RegisterTagType<AvailableTag>();
             W.RegisterTagType<TriggerEnterTag>();
 
             W.RegisterComponentType<ConfigRef>();
             W.RegisterComponentType<Timer>();
+            W.RegisterComponentType<BtnRef>();
 
             W.RegisterComponentType<EntRef>();
             W.RegisterComponentType<Destroy>();

@@ -1,8 +1,11 @@
 using System;
+using com.ab.common;
 using com.ab.common.Camera;
+using com.ab.common.LevelTransition;
 using com.ab.complexity;
 using com.ab.complexity.core;
 using com.ab.core;
+using com.ab.domain.price;
 using FFS.Libraries.StaticEcs;
 using Sirenix.Utilities;
 using UnityEngine;
@@ -79,10 +82,10 @@ namespace com.ab.domain.construct
         {
             foreach (var item in _def.StaticConstructions)
             {
-               if(item.Ent.HasAllOfTags<ConstructionBuilt>())
-                   continue;
+                if (item.Ent.HasAllOfTags<ConstructionBuilt>())
+                    continue;
 
-               item.ActiveUi(active);
+                item.ActiveUi(active);
             }
         }
 
@@ -94,6 +97,22 @@ namespace com.ab.domain.construct
                 items[i].Active(active);
         }
 
-        public void Update() { }
+        public void Update()
+        {
+            foreach (var ent in W.Query.Entities<All<ConstructionRef>, TagAll<ClickTag>>())
+            {
+                ent.ApplyTag<PriceBuyTag>(true);
+
+                var construction = ent.Ref<ConstructionRef>().Val;
+                construction.ActiveConstruction(true);
+                construction.ActiveUi(false);
+                
+                ent.ApplyTag<ConstructionBuilt>(true);
+                ent.ApplyTag<LevelTransitionAvailableTag>(true);
+                
+                ent.ApplyTag<LevelTransitionAvailableTag>(true);
+                ent.ApplyTag<ClickTag>(false);
+            }
+        }
     }
 }

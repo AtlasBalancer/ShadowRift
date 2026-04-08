@@ -13,16 +13,18 @@ namespace com.ab.domain.price
 
         public void RegisterType()
         {
-            W.RegisterTagType<PriceAvailable>();
-            W.RegisterTagType<PriceRegister>();
+            W.RegisterTagType<PriceAvailableTag>();
+            W.RegisterTagType<PriceRegisterTag>();
+            W.RegisterTagType<PriceBuyTag>();
 
             W.RegisterComponentType<PriceRef>();
         }
 
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new PriceCheckAvailableSystem());
             Sys.AddUpdate(new PriceRegisterSystem(Def.PriceRegisterSystem));
+            Sys.AddUpdate(new PriceCheckAvailableSystem());
+            Sys.AddUpdate(new PriceBuySystem());
         }
     }
 }

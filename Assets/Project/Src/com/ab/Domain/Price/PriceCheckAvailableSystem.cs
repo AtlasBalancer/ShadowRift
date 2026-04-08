@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace com.ab.domain.price
 {
-    public struct PriceCheckAvailableSystem : IUpdateSystem
+    public readonly struct PriceCheckAvailableSystem : IUpdateSystem
     {
         public void Update()
         {

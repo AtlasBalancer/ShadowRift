@@ -114,7 +114,7 @@ namespace com.ab.common
         }
 
         protected void OnClick() =>
-            Ent.ApplyTag<Click>(true);
+            Ent.ApplyTag<ClickTag>(true);
 
         void OnDestroy() =>
             UnSubscribe();

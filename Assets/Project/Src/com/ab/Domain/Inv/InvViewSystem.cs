@@ -87,7 +87,7 @@ namespace Project.Src.com.ab.Domain.Inventory
                 ent.Ref<InvItemRef>().Ref.UpdateAmount(amount);
             }
 
-            foreach (var ent in W.Query.Entities<All<InvItemRef>, TagAll<Click>>())
+            foreach (var ent in W.Query.Entities<All<InvItemRef>, TagAll<ClickTag>>())
             {
                 Debug.Log("PRESSED");
 
@@ -121,7 +121,7 @@ namespace Project.Src.com.ab.Domain.Inventory
 
                 // View.Card.Show(ent, cardDef.Icon, amount, cardDef.Title, cardDef.Decription, isEquipped);
 
-                ent.ApplyTag<Click>(false);
+                ent.ApplyTag<ClickTag>(false);
             }
 
             // foreach (var ent in W.Query.Entities<All<InventoryMaterial>, TagAll<Delete>>())

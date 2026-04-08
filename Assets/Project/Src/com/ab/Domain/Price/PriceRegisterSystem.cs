@@ -28,7 +28,7 @@ namespace com.ab.domain.price
 
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<All<PriceRef>, TagAll<PriceRegister>>())
+            foreach (var ent in W.Query.Entities<All<PriceRef>, TagAll<PriceRegisterTag>>())
             {
                 var priceDef = ent.GetConfigTable<PriceEntry>();
 
@@ -38,7 +38,7 @@ namespace com.ab.domain.price
                 foreach (var priceDefItem in priceDef.Price)
                     item.Items.Add(CreteItem(priceDefItem, item.ItemContainer));
 
-                ent.ApplyTag<PriceRegister>(false);
+                ent.ApplyTag<PriceRegisterTag>(false);
             }
         }
 
