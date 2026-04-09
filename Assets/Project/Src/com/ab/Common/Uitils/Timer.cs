@@ -40,7 +40,7 @@ namespace com.ab.common
 
         public static W.Entity SetTimer(this W.Entity source, float delay, bool beginningStart = false)
         {
-            source.Add(new Timer(delay, beginningStart));
+            source.Set(new Timer(delay, beginningStart));
             return source;
         }
     }

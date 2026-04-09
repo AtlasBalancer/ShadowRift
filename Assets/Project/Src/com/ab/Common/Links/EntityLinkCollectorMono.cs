@@ -1,5 +1,6 @@
 using System.Linq;
 using com.ab.complexity.core;
+using FFS.Libraries.StaticEcs;
 using UnityEngine;
 using Sirenix.Utilities;
 using Sirenix.OdinInspector;
@@ -16,7 +17,7 @@ namespace com.ab.common
 
         public void Init()
         {
-            var ent = W.Entity.New();
+            var ent = W.NewEntity<Default>();
             Links.ForEach(item => item.Init(ent, false));
         }
 

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Threading;
 using com.ab.common;
 using Cysharp.Threading.Tasks;
-using FFS.Libraries.StaticEcs.Unity;
 
 namespace com.ab.complexity.core
 {
@@ -14,30 +13,29 @@ namespace com.ab.complexity.core
     public class Startup : MonoBehaviour
     {
         [SerializeField] Settings _def;
+        [NonSerialized] bool _started = false;
 
         async void Awake()
         {
             // == CONFIGS === 
             WC.Create(WorldConfig.Default());
-            RegisterConfigTypes();
+            // RegisterConfigTypes();
+            WC.Types().RegisterAll();
             WC.Initialize();
-            
+
             // ============================================ MAIN INITIALIZATION ======================================================
             W.Create(WorldConfig.Default());
-            RegisterCoreTypes();
-            RegisterTypes();
-            RegisterTag();
+            // RegisterTypes();
+            // RegisterTag();
+            W.Types().RegisterAll();
             // W.RegisterComponentType<YourComponentType>();
             // W.RegisterTagType<YourTagType>();
             // WEvents.RegisterEventType<YourEventType>();
 
-            EcsDebug<WT>.AddWorld();
-            AutoRegister<WT>.Apply();
-            
             W.Initialize();
 
             // ============================================ CONTEXT INITIALIZATION ====================================================
-            W.Context<Settings>.Set(_def);
+            W.SetResource(_def);
             SetContext();
             CreateProtoEntities();
             // ============================================ MAIN SYSTEMS INITIALIZATION ===============================================
@@ -46,33 +44,31 @@ namespace com.ab.complexity.core
             RegisterInits();
             RegisterUpdates();
             // UpdateSystems.AddCallOnce(new YourInitOrAndDestroySystem());
-            // UpdateSystems.AddUpdate(new YourUpdateSystem1(), new YourUpdateSystem2(), new YourUpdateSystem3());
+            // UpdateSystems.Add(new YourUpdateSystem1(), new YourUpdateSystem2(), new YourUpdateSystem3());
 
             // === Initialization order === 
             InitializeConfig();
             await WaitPreInitLoads();
             Sys.Initialize();
-            
+
             CreateLastInitStage();
-            EcsDebug<WT>.AddSystem<SysT>();
+            _started = true;
         }
 
         async UniTask WaitPreInitLoads()
         {
             var cts = new CancellationTokenSource();
 
-            await W.Context<AtlasService>.Get().PreInitLoad(cts.Token);
-            
+            await W.GetResource<AtlasService>().PreInitLoad(cts.Token);
+
             var initLoadList = SysReg.All.OfType<IPreInitLoad>().ToList();
             if (initLoadList.Count == 0) return;
-            await UniTask.WhenAll(Enumerable.Select(initLoadList, 
+            await UniTask.WhenAll(Enumerable.Select(initLoadList,
                 item => item.PreInitLoad(cts.Token)));
         }
 
         void RegisterConfigTypes()
         {
-            WC.RegisterComponentType<ConfigRef>();
-            
             foreach (var item in _def.Configs)
                 if (item is IStaticRegisterTypeDef def)
                     def.RegisterType();
@@ -85,13 +81,11 @@ namespace com.ab.complexity.core
                     config.OpenEcsSession();
         }
 
-        void RegisterCoreTypes()
-        {
-            W.RegisterComponentType<Ref>();
-        }
-
         void Update()
         {
+            if(!_started)
+                return;
+            
             Sys.Update();
         }
 
@@ -99,11 +93,11 @@ namespace com.ab.complexity.core
         {
             Sys.Destroy();
             W.Destroy();
-            
+
             foreach (var item in _def.Configs)
                 if (item is IEcsTable config)
                     config.CloseEcsSession();
-            
+
             WC.Destroy();
         }
 
@@ -177,7 +171,7 @@ namespace com.ab.complexity.core
             var features = _def.GetFeatures<IStaticCreateProtoEntityDef>();
             features.ForEach(item => item.CreateProtoEntities());
         }
-        
+
         void CreateLastInitStage()
         {
             var modules = _def.Modules

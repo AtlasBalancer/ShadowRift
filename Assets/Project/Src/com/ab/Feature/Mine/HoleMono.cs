@@ -14,15 +14,15 @@ namespace Project.Src.com.ab.Feature.Mine
     public class HoleMono : EntityLink
     {
         protected override void Register() => 
-            Ent.Add(new HoleRef(this));
+            Ent.Set(new HoleRef(this));
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (!Ent.HasAllOfTags<AvailableTag>())
+            if (!Ent.Has<AvailableTag>())
                 return;
 
             if (other.TryGetComponent<PlayerMono>(out _))
-                Ent.ApplyTag<TriggerEnterTag>(true);
+                Ent.Apply<TriggerEnterTag>(true);
         }
     }
 }

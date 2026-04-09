@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 
 namespace com.ab.domain.equip
 {
-    public class EquipUnitSystem : IUpdateSystem
+    public class EquipUnitSystem : ISystem
     {
         [Serializable]
         public class Settings
@@ -27,11 +27,11 @@ namespace com.ab.domain.equip
         public EquipUnitSystem(Settings def)
         {
             _def = def;
-            _atlas = W.Context<AtlasService>.Get();
+            _atlas = W.GetResource<AtlasService>();
 
-            _setReceiver = W.Events.RegisterEventReceiver<EquipSetEvent>();
-            _unSetReceiver = W.Events.RegisterEventReceiver<EquipUnSetEvent>();
-            _registerReceiver = W.Events.RegisterEventReceiver<EquipUnitRegisterEvent>();
+            _setReceiver = W.RegisterEventReceiver<EquipSetEvent>();
+            _unSetReceiver = W.RegisterEventReceiver<EquipUnSetEvent>();
+            _registerReceiver = W.RegisterEventReceiver<EquipUnitRegisterEvent>();
         }
 
         public void Update()
@@ -48,7 +48,7 @@ namespace com.ab.domain.equip
                 slot.Render.sprite = _atlas.GetSprite(_def.ItemAtlas, itemDef.AKSprite);
                 slot.Render.enabled = true;
                 
-                slot.Ent.ApplyTag<EquipTag>(true);
+                slot.Ent.Apply<EquipTag>(true);
             }
             
             foreach (var @event in _unSetReceiver)
@@ -59,7 +59,7 @@ namespace com.ab.domain.equip
                 slot.Render.sprite = null;
                 slot.Render.enabled = false;
                 
-                slot.Ent.ApplyTag<EquipTag>(false);
+                slot.Ent.Apply<EquipTag>(false);
             }
         }
 

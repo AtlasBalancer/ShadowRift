@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace Project.Src.com.ab.Feature.Mine
 {
-    public class MineEntryDef : StaticEntryParamDef<MineEntryDef.Settings>, IStaticUpdateDef, IStaticRegisterTypeDef
+    public class MineEntryDef : StaticEntryParamDef<MineEntryDef.Settings>, IStaticUpdateDef
     {
         [Serializable]
         public class Settings
@@ -18,20 +18,15 @@ namespace Project.Src.com.ab.Feature.Mine
             public MineTransitionSystem.Settings MineTransitionSystem;
         }
 
-        public void RegisterType()
-        {
-            W.RegisterComponentType<HoleRef>();
-        }
-
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new MineInitLayerSystem(Def.MineInitLayerSystem));
-            Sys.AddUpdate(new MineHoleOpenSystem(Def.MineHoleOpenSystem));
-            Sys.AddUpdate(new MineTransitionSystem(Def.MineTransitionSystem));
+            Sys.Add(new MineInitLayerSystem(Def.MineInitLayerSystem));
+            Sys.Add(new MineHoleOpenSystem(Def.MineHoleOpenSystem));
+            Sys.Add(new MineTransitionSystem(Def.MineTransitionSystem));
         }
     }
 
-    public readonly struct MineTransitionSystem : IUpdateSystem
+    public readonly struct MineTransitionSystem : ISystem
     {
         [Serializable]
         public class Settings
@@ -45,12 +40,12 @@ namespace Project.Src.com.ab.Feature.Mine
         
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<All<HoleRef>, TagAll<AvailableTag, TriggerEnterTag>>()) 
+            foreach (var ent in W.Query<All<HoleRef, AvailableTag, TriggerEnterTag>>().Entities()) 
                 SceneManager.LoadScene(_def.SceneName);
         }
     }
 
-    public readonly struct MineHoleOpenSystem : IInitSystem, IUpdateSystem
+    public readonly struct MineHoleOpenSystem : ISystem
     {
         [Serializable]
         public class Settings
@@ -67,18 +62,18 @@ namespace Project.Src.com.ab.Feature.Mine
 
         public void Update()
         {
-            if (_def.Hole.Ent.HasAllOfTags<AvailableTag>())
+            if (_def.Hole.Ent.Has<AvailableTag>())
                 return;
 
-            if (W.Query.Entities<All<HarvRef>>().EntitiesCount() == 0)
+            if (W.Query<All<HarvRef>>().EntitiesCount() == 0)
             {
                 _def.Hole.Active();
-                _def.Hole.Ent.ApplyTag<AvailableTag>(true);
+                _def.Hole.Ent.Apply<AvailableTag>(true);
             }
         }
     }
 
-    public class MineInitLayerSystem : IInitSystem, IUpdateSystem
+    public class MineInitLayerSystem : ISystem
     {
         [Serializable]
         public class Settings

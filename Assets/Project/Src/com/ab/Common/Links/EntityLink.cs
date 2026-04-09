@@ -2,26 +2,27 @@ using System;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using com.ab.complexity.core;
+using FFS.Libraries.StaticEcs;
 using Unity.VisualScripting;
 
 namespace com.ab.common
 {
-    public class EntityLink : MonoBehaviour
+    public class EntityLink : MonoBehaviour 
     {
         [DoNotSerialize] protected bool _inited;
 
         [ShowInInspector, ShowIf("@UnityEngine.Application.isPlaying")]
-        public uint ID
+        public EntityGID ID
         {
             get
             {
 #if UNITY_EDITOR
                 if (!_inited || !Application.isPlaying)
-                    return UInt32.MinValue;
+                    return new EntityGID(UInt32.MinValue);
 
-                return Ent.Gid().Id;
+                return Ent.GID;
 #else
-                return   Ent.Gid().Id;
+                return   Ent.GID;
 #endif
             }
         }
@@ -45,8 +46,8 @@ namespace com.ab.common
             if (!_inited)
                 return;
 
-            if (!Ent.HasAllOfTags<ActiveTag>())
-                Ent.ApplyTag<ActiveTag>(true);
+            if (!Ent.Has<ActiveTag>())
+                Ent.Apply<ActiveTag>(true);
         }
 
         public void OnDisable()
@@ -54,9 +55,9 @@ namespace com.ab.common
             if (!_inited)
                 return;
 
-            if(!Ent.IsDestroyed())
-            if (Ent.HasAllOfTags<ActiveTag>())
-                Ent.ApplyTag<ActiveTag>(false);
+            if(!Ent.IsDestroyed)
+            if (Ent.Has<ActiveTag>())
+                Ent.Apply<ActiveTag>(false);
         }
 
         protected virtual void CollectInitLinks()
@@ -71,30 +72,32 @@ namespace com.ab.common
 
         public virtual W.Entity Init(WC.Entity entC, bool initRef = false)
         {
-            var ent = W.Entity.New();
-            ent.Add(new ConfigRef(entC.Gid().Id));
+            var ent = W.NewEntity<Default>();
+            ent.Set(new ConfigRef(entC));
             Init(ent, initRef);
 
             return ent;
         }
 
-        public virtual W.Entity Init(ConfigIDEntSo configID, bool initRef = false)
+        public virtual W.Entity Init<TEntity>(ConfigIDEntSo configID, bool initRef = false) 
+            where TEntity : struct, IEntityType
         {
-            var ent = Init(initRef);
+            var ent = Init<TEntity>(initRef);
             AddConfigID(Ent, configID);
             return ent;
         }
 
-        public uint GetConfigID() => Ent.Ref<ConfigRef>().Id;
-
-        public void AddConfigID(W.Entity ent, uint id) =>
-            ent.Add(new ConfigRef(id));
+        public void AddConfigID(W.Entity ent, EntityGID id) =>
+            ent.Set(new ConfigRef(id));
 
         public void AddConfigID(W.Entity ent, ConfigIDEntSo def) =>
-            ent.Add(new ConfigRef(def.RuntimeID));
+            ent.Set(new ConfigRef(def.RuntimeID));
 
-        public virtual W.Entity Init(bool rootInit = false) =>
-            Init(W.Entity.New(), rootInit);
+        public virtual W.Entity Init(bool rootInit = false) => 
+            Init(W.NewEntity<Default>(), rootInit);
+        
+        public virtual W.Entity Init<TEntity>(bool rootInit = false) where TEntity : struct, IEntityType => 
+            Init(W.NewEntity<TEntity>(), rootInit);
 
         public virtual W.Entity Init(W.Entity ent, bool rootInit = true)
         {
@@ -104,7 +107,7 @@ namespace com.ab.common
             Register();
 
             if (rootInit)
-                Ent.Add(new Ref(transform));
+                Ent.Set(new Ref(transform));
 
             if (rootInit)
                 CollectInitLinks();
@@ -114,7 +117,7 @@ namespace com.ab.common
         }
 
         protected void OnClick() =>
-            Ent.ApplyTag<ClickTag>(true);
+            Ent.Apply<ClickTag>(true);
 
         void OnDestroy() =>
             UnSubscribe();

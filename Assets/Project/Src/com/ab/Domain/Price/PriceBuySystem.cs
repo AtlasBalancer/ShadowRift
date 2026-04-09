@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace com.ab.domain.price
 {
-    public readonly struct PriceBuySystem : IUpdateSystem
+    public readonly struct PriceBuySystem : ISystem
     {
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<All<PriceRef>, TagAll<PriceBuyTag>>())
+            foreach (var ent in W.Query<All<PriceRef, PriceBuyTag>>().Entities())
             {
                 var price = ent.GetConfigTable<PriceEntry>().Price;
 
@@ -35,7 +35,7 @@ namespace com.ab.domain.price
                     amountRef.Val -= priceItem.Amount;
                 }
                 
-                ent.ApplyTag<PriceBuyTag>(false);
+                ent.Apply<PriceBuyTag>(false);
             }
         }
     }

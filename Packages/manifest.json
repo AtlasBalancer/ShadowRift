@@ -2,8 +2,6 @@
   "dependencies": {
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.felid-force-studios.static-ecs": "https://github.com/Felid-Force-Studios/StaticEcs.git",
-    "com.felid-force-studios.static-ecs-unity": "https://github.com/Felid-Force-Studios/StaticEcs-Unity.git",
-    "com.felid-force-studios.static-ecs-unity-mathematics": "https://github.com/Felid-Force-Studios/StaticEcs-Unity-Mathematics.git",
     "com.felid-force-studios.static-pack": "https://github.com/Felid-Force-Studios/StaticPack.git",
     "com.unity.2d.animation": "13.0.2",
     "com.unity.2d.aseprite": "3.0.1",

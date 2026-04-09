@@ -35,7 +35,7 @@ namespace com.ab.domain.craft
 
         protected override void Register()
         {
-            Ent.Add(new CraftItemRef(this));
+            Ent.Set(new CraftItemRef(this));
             base.Register();
         }
 

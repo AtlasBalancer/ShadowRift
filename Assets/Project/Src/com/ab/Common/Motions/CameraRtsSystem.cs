@@ -11,7 +11,7 @@ namespace com.ab.domain.camera
     ///   — 1 палец / ПКМ (editor) → панорамирование
     ///   — 2 пальца / колесо (editor) → масштаб (только если Camera != null)
     /// </summary>
-    public class CameraRtsSystem : IUpdateSystem
+    public class CameraRtsSystem : ISystem
     {
         readonly Settings _settings;
         float _prevPinchDistance;
@@ -20,7 +20,7 @@ namespace com.ab.domain.camera
 
         public void Update()
         {
-            var service = W.Context<CameraService>.Get();
+            var service = W.GetResource<CameraService>();
 
 #if UNITY_EDITOR
             UpdateEditor(service);

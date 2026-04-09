@@ -3,13 +3,13 @@ using FFS.Libraries.StaticEcs;
 
 namespace com.ab.common
 {
-    public class ResponseButtonSystem : IUpdateSystem
+    public class ResponseButtonSystem : ISystem
     {
         public int count = 0;
         
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<TagAll<ResponseClick>>())
+            foreach (var ent in W.Query<All<ResponseClick>>().Entities())
             {
                 if (count < 100)
                 {
@@ -21,7 +21,7 @@ namespace com.ab.common
                 
                 
                 ent.Ref<ResponseButtonRef>().Val.OnComplete();
-                ent.ApplyTag<ResponseClick>(false);
+                ent.Apply<ResponseClick>(false);
             }
         }
     }

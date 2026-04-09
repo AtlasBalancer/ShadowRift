@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 
 namespace com.ab.common.Camera
 {
-    public struct CameraZoomSystem : IUpdateSystem
+    public struct CameraZoomSystem : ISystem
     {
         readonly Settings _def;
         const float TOLERANCE = 0.01f;
@@ -23,7 +23,7 @@ namespace com.ab.common.Camera
         {
             var deltaTime = Time.deltaTime;
 
-            foreach (var ent in W.Query.Entities<All<CameraZoom>>())
+            foreach (var ent in W.Query<All<CameraZoom>>().Entities())
             {
                 ref var item = ref ent.Ref<CameraZoom>();
 
@@ -52,7 +52,7 @@ namespace com.ab.common.Camera
 
         protected override void Register()
         {
-            Ent.Add(ToComponent());
+            Ent.Set(ToComponent());
             base.Register();
         }
 

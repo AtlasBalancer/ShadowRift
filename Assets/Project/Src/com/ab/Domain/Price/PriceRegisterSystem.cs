@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace com.ab.domain.price
 {
-    public readonly struct PriceRegisterSystem : IUpdateSystem
+    public readonly struct PriceRegisterSystem : ISystem
     {
         [Serializable]
         public class Settings
@@ -22,13 +22,13 @@ namespace com.ab.domain.price
         public PriceRegisterSystem(Settings def)
         {
             _def = def;
-            _atlas = W.Context<AtlasService>.Get();
+            _atlas = W.GetResource<AtlasService>();
         }
 
 
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<All<PriceRef>, TagAll<PriceRegisterTag>>())
+            foreach (var ent in W.Query<All<PriceRef, PriceRegisterTag>>().Entities())
             {
                 var priceDef = ent.GetConfigTable<PriceEntry>();
 
@@ -38,7 +38,7 @@ namespace com.ab.domain.price
                 foreach (var priceDefItem in priceDef.Price)
                     item.Items.Add(CreteItem(priceDefItem, item.ItemContainer));
 
-                ent.ApplyTag<PriceRegisterTag>(false);
+                ent.Apply<PriceRegisterTag>(false);
             }
         }
 

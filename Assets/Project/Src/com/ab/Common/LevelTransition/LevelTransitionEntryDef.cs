@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace com.ab.common.LevelTransition
 {
-    public class LevelTransitionEntryDef : StaticEntryParamDef<LevelTransitionEntryDef.Settings>, IStaticUpdateDef,
-        IStaticRegisterTypeDef
+    public class LevelTransitionEntryDef : StaticEntryParamDef<LevelTransitionEntryDef.Settings>, IStaticUpdateDef
     {
         [Serializable]
         public class Settings
@@ -14,21 +13,13 @@ namespace com.ab.common.LevelTransition
             public LevelTransitionSystem.Settings LevelTransitionSystem;
         }
 
-        public void RegisterType()
-        {
-            W.RegisterTagType<LevelTransitionAvailableTag>();
-            W.RegisterTagType<LevelTransitionTag>();
-
-            W.RegisterComponentType<LevelTransitionRef>();
-        }
-
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new LevelTransitionSystem(Def.LevelTransitionSystem));
+            Sys.Add(new LevelTransitionSystem(Def.LevelTransitionSystem));
         }
     }
 
-    public readonly struct LevelTransitionSystem : IUpdateSystem
+    public readonly struct LevelTransitionSystem : ISystem
     {
         [Serializable]
         public class Settings
@@ -41,13 +32,16 @@ namespace com.ab.common.LevelTransition
 
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<All<LevelTransitionRef>,
-                         TagAll<LevelTransitionAvailableTag, LevelTransitionTag>>())
+            foreach (var ent in W.Query<All<
+                             LevelTransitionRef, 
+                             LevelTransitionAvailableTag, 
+                             LevelTransitionTag>>()
+                         .Entities())
             {
                 var leveTransition = ent.Ref<LevelTransitionRef>().Val;
                 SceneManager.LoadScene(leveTransition.LevelName);
-                
-                ent.ApplyTag<LevelTransitionTag>(false);
+
+                ent.Apply<LevelTransitionTag>(false);
             }
         }
     }

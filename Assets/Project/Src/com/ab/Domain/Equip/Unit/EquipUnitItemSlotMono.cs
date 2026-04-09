@@ -9,7 +9,7 @@ namespace com.ab.domain.equip
 
         public bool Equiped()
         {
-            return Ent.HasAllOfTags<EquipTag>();
+            return Ent.Has<EquipTag>();
         }
     }
 }

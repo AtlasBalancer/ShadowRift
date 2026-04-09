@@ -14,7 +14,7 @@ namespace com.ab.complexity
 
         protected override void Register()
         {
-            Ent.Add(this.ToComponent());
+            Ent.Set(this.ToComponent());
             base.Register();
         }
 

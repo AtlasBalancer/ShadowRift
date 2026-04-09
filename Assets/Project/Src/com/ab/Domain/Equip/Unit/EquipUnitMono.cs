@@ -1,6 +1,7 @@
 using System;
 using com.ab.common;
 using com.ab.complexity.core;
+using FFS.Libraries.StaticEcs;
 using Project.Src.com.ab.Common.Unity;
 using Sirenix.Utilities;
 
@@ -28,9 +29,9 @@ namespace com.ab.domain.equip
         {
             Slots.Init();
 
-            Ent.ApplyTag<EquipTag>(true);
-            Ent.Add(new EquipUnitRef(this));
-            W.Events.Send(new EquipUnitRegisterEvent(this));
+            Ent.Apply<EquipTag>(true);
+            Ent.Set(new EquipUnitRef(this));
+            W.SendEvent(new EquipUnitRegisterEvent(this));
         }
     }
 }

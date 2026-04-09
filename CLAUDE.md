@@ -12,163 +12,92 @@ Unity 6 (6000.3.3f1) idle/progression game. Player arrives on an island through 
 ---
 
 ## Architecture
+## StaticEcs ECS Framework
 
-### ECS Framework
+This project uses [StaticEcs](https://github.com/Felid-Force-Studios/StaticEcs) — a static generic ECS framework for C#. Namespace: `FFS.Libraries.StaticEcs`.
 
-Uses `com.felid-force-studios.static-ecs` (FFS StaticECS).
-
-Key types in `Core/Static/Integrations/`:
-- `W` — World singleton (`World<T>`)
-- `Sys` — Systems singleton (`W.Systems<SysT>`)
-- `T` — World type marker
-- `SysT` — Systems type marker
-
-### Module Registration Pattern
-
-Every game system has an `*EntryDef.cs` that implements one or more interfaces:
-
-| Interface | Method | Purpose |
-|-----------|--------|---------|
-| `IStaticRegisterTypeDef` | `RegisterType()` | Register components/events |
-| `IStaticTagDef` | `RegisterTag()` | Register tags |
-| `IStaticContextSetDef` | `SetContext()` | Set shared context data |
-| `IStaticInitDef` | `RegisterInit()` | One-time init systems |
-| `IStaticUpdateDef` | `RegisterUpdate()` | Per-frame update systems |
-| `IStaticCreateEntityDef` | `CreateEntities()` | Spawn initial entities |
-
-`Startup.cs` discovers all modules via `_def.Modules` (ScriptableObjects) and features via `_def.Features` (GameObjects), then calls each interface method in order.
-
-### Initialization Order (Startup.Awake)
-
-1. `W.Create()` → create world
-2. `RegisterCoreTypes()` → register `Ref` component
-3. `RegisterTypes()` + `RegisterTag()` → all module types
-4. `AutoRegister<T>.Apply()` + `W.Initialize()`
-5. `SetContext()` → populate `W.Context<T>` values
-6. `CreateEntities()` → spawn initial entities
-7. `Sys.Create()` → create systems container
-8. `RegisterInits()` + `RegisterUpdates()` → register systems
-9. `Sys.Initialize()` → finalize
-
-`Update()` calls `Sys.Update()` each frame. `OnDestroy()` tears down.
-
----
-
-## Directory Structure
-
-```
-Assets/Project/Src/com/ab/
-├── Common/          Shared components (Position, Velocity, Timer, AnimatorRef, etc.)
-├── Core/            ECS framework wrappers (W, Sys, Startup, extensions, interfaces)
-├── Domain/
-│   ├── Craft/       Crafting system
-│   ├── Equipment/   Tool equip/change system
-│   ├── Harvest/     Resource harvesting (trees, ore)
-│   ├── Inventory/   Item inventory management
-│   ├── ItemTable/   ScriptableObject item definitions
-│   ├── Placed/      Collectible item spawning
-│   └── Topdown/     Top-down movement systems
-├── Feature/
-│   └── Player/      Player entity creation and MonoBehaviour
-├── Interactions/    Input → ECS (joystick to movement)
-└── Mono/            Base MonoBehaviour helpers
-```
-
----
-
-## Naming Conventions
-
-| Suffix/Pattern | Example | Meaning |
-|----------------|---------|---------|
-| `*EntryDef` | `InventoryEntryDef` | Module registration entry point (ScriptableObject or plain class) |
-| `*System` | `MovementVelocitySystem` | ECS system (processes entities each frame) |
-| `*Mono` | `HarvestableMono` | MonoBehaviour — view or bridge to ECS |
-| `*Component` / plain struct | `Position`, `Velocity` | ECS component (data) |
-| `*Tag` | `PlayerTag`, `Equipped` | ECS tag (boolean flag) |
-| `*So` | `HarvestItemSo` | ScriptableObject data definition |
-| `*Table` | `HarvestItemTable` | Data lookup table MonoBehaviour/SO |
-| `*Command` | `EquipCommand`, `CraftCommand` | Action request component |
-| `*Service` | `InventoryService` | Context data class stored in `W.Context<T>` |
-
-**Namespaces:**
-- `com.ab.complexity.core` — ECS core wrappers
-- `com.ab.complexity.domain.*` — Domain systems
-- `com.ab.complexity.features.player` — Player feature
-- `com.ab.common` — Shared utilities
-
----
-
-## Adding a New System
-
-1. Create `*EntryDef.cs` implementing the needed interfaces.
-2. Add component/tag/event registrations in `RegisterType()` / `RegisterTag()`.
-3. Create system class(es) and add in `RegisterUpdate()` / `RegisterInit()`.
-4. Reference the EntryDef in `Startup._def.Modules` (SO) or `Startup._def.Features` (GO) in the scene.
-
-No need to modify `Startup.cs` — it auto-discovers via interface.
-
----
-
-## ECS Patterns
-
-### Creating an entity
+### Setup Pattern
 ```csharp
-var ent = W.Entity.New();
-ent.SetTag<PlayerTag>();
-ent.Add(new Position { Value = Vector2.zero });
+public struct WT : IWorldType { }
+public abstract class W : World<WT> { }           // type alias for world access
+public struct GameSystems : ISystemsType { }
+public abstract class GameSys : W.Systems<GameSystems> { }
 ```
 
-### Querying entities in a system
+### World Lifecycle (strict order)
+1. `W.Create(WorldConfig.Default())` — creates the world
+2. `W.Types().RegisterAll()` or manual registration `.Component<T>().Tag<T>().Event<T>()` — register ALL types (required!)
+3. `W.Initialize()` — after this, entity operations are available
+4. Work: create entities, run systems, iterate queries
+5. `W.Destroy()` — cleanup
+
+### Critical Rules
+- ALWAYS register component/tag/event/link types between Create() and Initialize(). Use `W.Types().RegisterAll()` to auto-register all types from the assembly, or register manually. Unregistered types cause runtime errors.
+- Entity is a 4-byte uint handle — NOT a persistent reference. NEVER store Entity in fields/collections across frames. Use EntityGID for persistent references.
+- `Add<T>()` without value is idempotent (if exists → returns ref, no hooks). `Set(value)` ALWAYS overwrites with OnDelete→OnAdd hook cycle.
+- `Ref<T>()` returns a ref to the component. Assumes component exists — check with `Has<T>()` first if uncertain.
+- For read-only components use `Read<T>()` (returns `ref readonly`) instead of `Ref<T>()`, and `in` instead of `ref` in query delegates.
+- Query filter types: `All<>` (require), `None<>` (exclude), `Any<>` (at least one). These filters work with both components and tags. Combine with `And<Filter1, Filter2>` (all must match) or `Or<Filter1, Filter2>` (any must match).
+- Default query mode is Strict — do NOT modify filtered component/tag types on OTHER entities during iteration. Use `EntitiesFlexible()` if needed.
+- During `ForParallel`, only modify the current entity. No structural changes.
+- Systems: `ISystem` with `Init()`, `Update()`, `UpdateIsActive()`, `Destroy()`. All methods have default empty implementations.
+
+### Common Patterns
 ```csharp
-// Typical pattern — use W.QueryEntities or foreach with masks
-foreach (var entity in W.QueryEntities<PlayerTag>()) { ... }
+// Create entity with components
+var entity = W.NewEntity<Default>().Set(new Position { Value = v }, new Velocity { Value = 1f });
+
+// Query iteration (foreach)
+foreach (var e in W.Query<All<Position, Velocity>>().Entities()) {
+    ref var pos = ref e.Ref<Position>();
+    ref readonly var vel = ref e.Read<Velocity>();
+    pos.Value += vel.Value;
+}
+
+// Query iteration (delegate — faster, zero-allocation)
+W.Query().For(static (ref Position p, in Velocity v) => {
+    p.Value += v.Value;
+});
+
+// Persistent reference
+EntityGID gid = entity.GID;
+if (gid.TryUnpack<WT>(out var resolved)) { /* resolved is alive */ }
+
+// Tags
+entity.Set<IsPlayer>();
+if (entity.Has<IsPlayer>()) { ... }
+
+// Multi-components (list of same-type values on an entity)
+ref var items = ref entity.Add<W.Multi<Item>>();
+items.Add(new Item { Id = 1 });
+items.Add(new Item { Id = 2 });
+foreach (ref var item in items) { item.Weight *= 2f; }
+
+// Relations (entity links)
+entity.Set(new W.Link<Parent>(parentEntity));           // single link
+ref var children = ref entity.Add<W.Links<Children>>(); // multi link
+children.TryAdd(childEntity.AsLink<Children>());
+
+// Systems
+public struct MoveSystem : ISystem {
+    public void Init() { /* called once on Initialize */ }
+    public void Update() {
+        W.Query().For(static (ref Position p, in Velocity v) => {
+            p.Value += v.Value;
+        });
+    }
+    public void Destroy() { /* called on Destroy */ }
+}
+GameSys.Create();
+GameSys.Add(new MoveSystem(), order: 0);
+GameSys.Initialize();
+// In game loop: GameSys.Update();
+
+// Resources
+W.SetResource(new GameConfig { ... });
+ref var config = ref W.GetResource<GameConfig>();
 ```
 
-### Shared state (context)
-```csharp
-// Set in SetContext():
-W.Context<InventoryService>.Set(new InventoryService());
-
-// Read anywhere:
-var inv = W.Context<InventoryService>.Get();
-```
-
-### Events
-```csharp
-// Register: WEvents.RegisterEventType<InventoryAddMaterial>();
-// Send: W.Event.Send(new InventoryAddMaterial { ... });
-```
-
----
-
-## Key Packages
-
-- `com.felid-force-studios.static-ecs` — core ECS
-- `com.felid-force-studios.static-ecs-unity` — Unity integration + `EcsDebug`, `AutoRegister`
-- `com.unity.inputsystem` — Input handling
-- `com.unity.2d.*` — 2D rendering, tilemaps, animation
-- `com.unity.render-pipelines.universal` — URP
-- Odin Inspector (`Sirenix.OdinInspector`) — editor tooling
-
----
-
-## Current Systems Status
-
-| System | Status |
-|--------|--------|
-| Topdown movement | Done |
-| Harvest (trees, ore) | Done (prototype) |
-| Inventory display | Done |
-| Crafting (pickaxes) | Done |
-| Equipment (equip/swap tools) | Done |
-| Save system | In progress (commit: "Before using claude") |
-| Idle progression mechanics | Pending |
-
----
-
-## Important Notes
-
-- **Inventory cells** should be implemented via ECS entities to support filters — noted 04.03.2026.
-- The game concept is an idle game (working title: **IdleRift**). Player goal: return home through the portal.
-- Mining is prototype-level; full progression loop not yet implemented.
-- Docs are at `Assets/Project/Docs/` — `dev-notes.md` (Russian), `tasks.md`, `ItemDefScheme.puml`.
+### Full documentation
+- Concise AI reference: https://felid-force-studios.github.io/StaticEcs/llms.txt
+- Full documentation: https://felid-force-studios.github.io/StaticEcs/en/features.html

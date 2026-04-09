@@ -55,6 +55,7 @@
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\Pupet\EquipPuppetRef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Craft\CraftItemMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Camera\CameraRef.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvItemEntity.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Mono\LogicRendererMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\EquipEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\TriggerEnterTag.cs" />
@@ -1090,14 +1091,8 @@
     <Reference Include="PsdPlugin">
       <HintPath>D:\Creation\Home\ShadowRift\ShadowRift\Library\ScriptAssemblies\PsdPlugin.dll</HintPath>
     </Reference>
-    <Reference Include="FFS.StaticEcs.Unity">
-      <HintPath>D:\Creation\Home\ShadowRift\ShadowRift\Library\ScriptAssemblies\FFS.StaticEcs.Unity.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Rendering.LightTransport.Editor">
       <HintPath>D:\Creation\Home\ShadowRift\ShadowRift\Library\ScriptAssemblies\Unity.Rendering.LightTransport.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="FFS.StaticEcs.Unity.Mathematics.Editor">
-      <HintPath>D:\Creation\Home\ShadowRift\ShadowRift\Library\ScriptAssemblies\FFS.StaticEcs.Unity.Mathematics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
       <HintPath>D:\Creation\Home\ShadowRift\ShadowRift\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
@@ -1252,14 +1247,11 @@
     <Reference Include="Unity.VisualScripting.State.Editor">
       <HintPath>D:\Creation\Home\ShadowRift\ShadowRift\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="FFS.StaticEcs.Unity.Editor">
-      <HintPath>D:\Creation\Home\ShadowRift\ShadowRift\Library\ScriptAssemblies\FFS.StaticEcs.Unity.Editor.dll</HintPath>
+    <Reference Include="Unity.Localization">
+      <HintPath>D:\Creation\Home\ShadowRift\ShadowRift\Library\ScriptAssemblies\Unity.Localization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
       <HintPath>D:\Creation\Home\ShadowRift\ShadowRift\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Localization">
-      <HintPath>D:\Creation\Home\ShadowRift\ShadowRift\Library\ScriptAssemblies\Unity.Localization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>D:\Creation\Home\ShadowRift\ShadowRift\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>

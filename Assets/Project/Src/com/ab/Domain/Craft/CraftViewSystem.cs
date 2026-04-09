@@ -13,13 +13,13 @@ using Project.Src.com.ab.Domain.Inventory;
 
 namespace com.ab.domain.craft
 {
-    public class CraftViewSystem : ViewPresenter<CraftMono>, IPreInitLoad, IInitSystem, IUpdateSystem
+    public class CraftViewSystem : ViewPresenter<CraftMono>, IPreInitLoad, ISystem
     {
         public CraftViewSystem(Settings def)
         {
             _def = def;
-            _atlas = W.Context<AtlasService>.Get();
-            _localization = W.Context<LocalizationService>.Get();
+            _atlas = W.GetResource<AtlasService>();
+            _localization = W.GetResource<LocalizationService>();
         }
 
         readonly Settings _def;
@@ -33,7 +33,7 @@ namespace com.ab.domain.craft
         {
             base.Init(_def.CraftPrefab, _def.Root, _def.CraftBtn);
 
-            foreach (var entC in WC.Query.Entities<All<CraftEntry>>())
+            foreach (var entC in WC.Query<All<CraftEntry>>().Entities())
             {
                 var item = UnityEngine.Object.Instantiate(_def.ItemPrefab);
                 var itemDef = entC.Ref<ItemEntry>();
@@ -60,8 +60,8 @@ namespace com.ab.domain.craft
 
         void ActiveCraftItems(bool active)
         {
-            foreach (var ent in W.Query.Entities<All<CraftItemRef>>()) 
-                ent.ApplyTag<ActiveTag>(active);
+            foreach (var ent in W.Query<All<CraftItemRef>>().Entities()) 
+                ent.Apply<ActiveTag>(active);
         }
 
         public void Update()
@@ -69,10 +69,10 @@ namespace com.ab.domain.craft
             if (!IsActive())
                 return;
 
-            foreach (var ent in W.Query.Entities<All<CraftItemRef>, TagAll<ClickTag>>())
+            foreach (var ent in W.Query<All<CraftItemRef, ClickTag>>().Entities())
             {
-                ent.ApplyTag<InventoryAdd>(true);
-                ent.ApplyTag<ClickTag>(false);
+                ent.Apply<InventoryAdd>(true);
+                ent.Apply<ClickTag>(false);
             }
         }
 

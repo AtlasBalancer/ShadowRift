@@ -20,7 +20,7 @@ namespace com.ab.domain.harv
                 Timer = new Timer { Max = Delay }
             };
 
-            Ent.Add(@ref);
+            Ent.Set(@ref);
         }
     }
 }

@@ -11,12 +11,12 @@ using com.ab.item;
 
 namespace Project.Src.com.ab.Domain.Collect
 {
-    public class PlacedSpawnSystem : IPreInitLoad, IInitSystem, IUpdateSystem
+    public class PlacedSpawnSystem : IPreInitLoad, ISystem 
     {
         public PlacedSpawnSystem(Settings def)
         {
             _def = def;
-            _atlas = W.Context<AtlasService>.Get();
+            _atlas = W.GetResource<AtlasService>();
         }
 
         readonly Settings _def;
@@ -31,7 +31,7 @@ namespace Project.Src.com.ab.Domain.Collect
 
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<TagAll<PlacedSpawnByDropTable>>())
+            foreach (var ent in W.Query<All<PlacedSpawnByDropTable>>().Entities())
             {
                 var @ref = ent.Ref<Ref>().Val;
                 int amount = ent.Ref<Amount>().Val;
@@ -44,7 +44,7 @@ namespace Project.Src.com.ab.Domain.Collect
 
                     item.PlaceSo.GetConfig<ItemEntry>(out var itemDef, out _);
                     var link = Object.Instantiate(_def.PlacedPrefab, _def.RootCollectables);
-                    var itemEnt = link.Init(item.PlaceSo, true);
+                    var itemEnt = link.Init<Default>(item.PlaceSo, true);
 
 
                     int dropAmount = item.AmountRange.Rand();
@@ -52,15 +52,15 @@ namespace Project.Src.com.ab.Domain.Collect
                     if (amount < dropAmount)
                         dropAmount = amount;
 
-                    itemEnt.Add(new Amount { Val = dropAmount });
-                    ent.Add(new AmountUpdate(-dropAmount));
+                    itemEnt.Set(new Amount { Val = dropAmount });
+                    ent.Set(new AmountUpdate(-dropAmount));
 
                     link.UpdateRender(_atlas.GetSprite(_def.AtlasKey, itemDef.AKSprite));
 
                     link.Drop(@ref.position);
                 }
 
-                ent.ApplyTag<PlacedSpawnByDropTable>(false);
+                ent.Apply<PlacedSpawnByDropTable>(false);
             }
         }
 

@@ -5,15 +5,15 @@ using UnityEngine;
 
 namespace com.ab.complexity
 {
-    public class MovementSamePositionSystem : IUpdateSystem
+    public class MovementSamePositionSystem : ISystem
     {
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<All<MovementSamePosition>>())
+            foreach (var ent in W.Query<All<MovementSamePosition>>().Entities())
             {
                 var item = ent.Ref<MovementSamePosition>();
 
-                if (ent.HasAllOf<MovementSamePositionSmoothChangeTarget>())
+                if (ent.Has<MovementSamePositionSmoothChangeTarget>())
                 {
                     var another = ent.Ref<MovementSamePositionSmoothChangeTarget>();
 

@@ -12,21 +12,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "d10c9f84a7896a67aa56aba1f123e3c27b8a37f9"
-    },
-    "com.felid-force-studios.static-ecs-unity": {
-      "version": "https://github.com/Felid-Force-Studios/StaticEcs-Unity.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "77cc5f35c87f53baa398f1bb87e407f481b9e547"
-    },
-    "com.felid-force-studios.static-ecs-unity-mathematics": {
-      "version": "https://github.com/Felid-Force-Studios/StaticEcs-Unity-Mathematics.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "baaebf3af9f29b82faf8115f54f8c69ace2a9ef8"
+      "hash": "aec8ed75f54149985987911df341d87b10d73e8a"
     },
     "com.felid-force-studios.static-pack": {
       "version": "https://github.com/Felid-Force-Studios/StaticPack.git",

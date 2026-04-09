@@ -13,17 +13,17 @@ using Object = UnityEngine.Object;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
-    public class InvViewSystem : ViewPresenter<InvMono>, IInitSystem, IUpdateSystem, IPreInitLoad
+    public class InvViewSystem : ViewPresenter<InvMono>, ISystem, IPreInitLoad
     {
         public InvViewSystem(Settings def)
         {
             _def = def;
             Register(_def.ViewRef, _def.InventoryButton);
 
-            _localization = W.Context<LocalizationService>.Get();
-            _atlas = W.Context<AtlasService>.Get();
+            _localization = W.GetResource<LocalizationService>();
+            _atlas = W.GetResource<AtlasService>();
 
-            W.Context<EquipPuppetMono>.Set(View.Puppet);
+            W.SetResource<EquipPuppetMono>(View.Puppet); // TODO: Tmp
         }
 
         readonly Settings _def;
@@ -50,11 +50,11 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         void CreateCategories()
         {
-            foreach (var entC in WC.Query.Entities<All<InvCategoryEntry>>())
+            foreach (var entC in WC.Query<All<InvCategoryEntry>>().Entities())
             {
                 var item = Object.Instantiate(_def.CategoryPrefab, View.CategoryRoot);
                 var ent = item.Init(entC, true);
-                ent.Add(new InvCategoryRef(item));
+                ent.Set(new InvCategoryRef(item));
 
                 var titleKey = entC.Ref<InvCategoryEntry>().LKTitle;
                 item.SetTitle(_localization.GetString(titleKey));
@@ -63,9 +63,9 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<TagAll<InvToUpdateTag>>())
+            foreach (var ent in W.Query<All<InvToUpdateTag>>().Entities())
             {
-                if (!ent.HasAllOf<InvItemRef>())
+                if (!ent.Has<InvItemRef>())
                 {
                     var itemEntry = ent.GetConfigTable<ItemEntry>();
 
@@ -73,10 +73,10 @@ namespace Project.Src.com.ab.Domain.Inventory
                     var item = Object.Instantiate(_def.ItemPrefab);
                     item.UpdateIcon(_atlas.GetSprite(_def.AtlasKey, itemEntry.AKSprite));
                     item.Init(ent);
-                    ent.Add(new InvItemRef(item));
+                    ent.Set(new InvItemRef(item));
 
-                    if (!ent.HasAllOf<Amount>())
-                        ent.Add(new Amount(1));
+                    if (!ent.Has<Amount>())
+                        ent.Set(new Amount(1));
 
                     itemEntry.Category.TryToFindRuntimeRef<InvCategoryRef>(out var entCategory, out _);
                     var categoryRef = entCategory.Ref<InvCategoryRef>().Ref;
@@ -87,7 +87,7 @@ namespace Project.Src.com.ab.Domain.Inventory
                 ent.Ref<InvItemRef>().Ref.UpdateAmount(amount);
             }
 
-            foreach (var ent in W.Query.Entities<All<InvItemRef>, TagAll<ClickTag>>())
+            foreach (var ent in W.Query<All<InvItemRef, ClickTag>>().Entities())
             {
                 Debug.Log("PRESSED");
 
@@ -101,7 +101,7 @@ namespace Project.Src.com.ab.Domain.Inventory
                         var icon = _atlas.GetSprite(_def.AtlasKey, itemDef.AKSprite);
                         var title = _localization.GetString(itemDef.LKTitle, _def.LocalizationTable);
                         var descr = _localization.GetString(itemDef.LKDescription, _def.LocalizationTable);
-                        bool equip = ent.HasAllOfTags<EquipTag>();
+                        bool equip = ent.Has<EquipTag>();
 
                         card.Card.Show(ent, equip, icon, amount, title, descr);
                     }
@@ -121,7 +121,7 @@ namespace Project.Src.com.ab.Domain.Inventory
 
                 // View.Card.Show(ent, cardDef.Icon, amount, cardDef.Title, cardDef.Decription, isEquipped);
 
-                ent.ApplyTag<ClickTag>(false);
+                ent.Apply<ClickTag>(false);
             }
 
             // foreach (var ent in W.Query.Entities<All<InventoryMaterial>, TagAll<Delete>>())

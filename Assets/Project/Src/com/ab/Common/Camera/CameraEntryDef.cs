@@ -3,8 +3,7 @@ using com.ab.complexity.core;
 
 namespace com.ab.common.Camera
 {
-    public class CameraEntryDef : StaticEntryParamDef<CameraEntryDef.Settings>, 
-        IStaticRegisterTypeDef, IStaticInitDef, IStaticUpdateDef
+    public class CameraEntryDef : StaticEntryParamDef<CameraEntryDef.Settings>, IStaticInitDef, IStaticUpdateDef
     {
         [Serializable]
         public class Settings
@@ -20,13 +19,7 @@ namespace com.ab.common.Camera
 
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new CameraZoomSystem(Def.CameraZoomSystem));
-        }
-
-        public void RegisterType()
-        {
-            W.RegisterComponentType<CameraRef>();
-            W.RegisterComponentType<CameraZoom>();
+            Sys.Add(new CameraZoomSystem(Def.CameraZoomSystem));
         }
     }
 }

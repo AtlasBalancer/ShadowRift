@@ -34,8 +34,8 @@ namespace com.ab.domain.price
             if (CustomID) 
                 AddConfigID(Ent, ItemID);
 
-            Ent.Add(new PriceRef(this));
-            Ent.ApplyTag<PriceRegisterTag>(true);
+            Ent.Set(new PriceRef(this));
+            Ent.Apply<PriceRegisterTag>(true);
             base.Register();
         }
 

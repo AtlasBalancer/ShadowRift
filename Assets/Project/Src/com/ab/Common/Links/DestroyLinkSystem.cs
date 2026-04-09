@@ -4,20 +4,20 @@ using UnityEngine;
 
 namespace com.ab.common
 {
-    public readonly struct DestroyLinkSystem : IUpdateSystem
+    public readonly struct DestroyLinkSystem : ISystem
     {
         public void Update()
         {
             float delta = Time.deltaTime;
 
-            foreach (var ent in W.Query.Entities<All<Destroy>>())
+            foreach (var ent in W.Query<All<Destroy>>().Entities())
             {
                 ref var item = ref ent.Ref<Destroy>();
 
                 if (!item.Timer.Next(delta))
                     continue;
 
-                if (ent.HasAllOf<Ref>())
+                if (ent.Has<Ref>())
                 {
                     Object.Destroy(ent.Ref<Ref>().Val.gameObject);
                 }

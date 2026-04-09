@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 namespace com.ab.complexity.core
 {
-    public struct JoystickToMovementSystem : IInitSystem, IUpdateSystem
+    public struct JoystickToMovementSystem : ISystem
     {
         Context _def;
         UltimateJoystick _joystick;
@@ -41,11 +41,7 @@ namespace com.ab.complexity.core
                 magnitude = 0;
             }
             
-            TagAll<JoystickAttachTag> all = default;
-            All<Direction, Velocity> filter = default;
-            var with = With.Create(all, filter);
-
-            foreach (var item in W.Query.Entities(with))
+            foreach (var item in W.Query<All<Direction, Velocity, JoystickAttachTag>>().Entities())
             {
                 // Debug.Log($"Input raw:{_joystick.GetVerticalAxisRaw()}");
 

@@ -5,7 +5,7 @@ using FFS.Libraries.StaticEcs;
 
 namespace com.ab.domain.harv
 {
-    public class HarvEntryDef : StaticEntryParamDef<HarvEntryDef.Settings>, IStaticRegisterTypeDef,
+    public class HarvEntryDef : StaticEntryParamDef<HarvEntryDef.Settings>,
         IStaticUpdateDef
     {
         [Serializable]
@@ -15,19 +15,10 @@ namespace com.ab.domain.harv
             public HarvCollectSystem.Settings HarvestCollectSystem;
         }
 
-        public void RegisterType()
-        {
-            W.RegisterComponentType<HarvCollectorRef>();
-            W.RegisterComponentType<HarvesterSpawner>();
-            W.RegisterComponentType<HarvSpawnLoop>();
-            W.RegisterComponentType<HarvAvailablePositions>();
-            W.RegisterComponentType<HarvRef>();
-        }
-
         public void RegisterUpdate()
         {
-            SysReg.AddUpdate(new HarvSpawnSystem(Def.HarvesterSpawnSystem));
-            SysReg.AddUpdate(new HarvCollectSystem(Def.HarvestCollectSystem));
+            SysReg.Add(new HarvSpawnSystem(Def.HarvesterSpawnSystem));
+            SysReg.Add(new HarvCollectSystem(Def.HarvestCollectSystem));
         }
     }
 

@@ -7,11 +7,11 @@ using UnityEngine;
 
 namespace com.ab.domain.price
 {
-    public readonly struct PriceCheckAvailableSystem : IUpdateSystem
+    public readonly struct PriceCheckAvailableSystem : ISystem
     {
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<All<PriceRef>, TagAll<ActiveTag>>())
+            foreach (var ent in W.Query<All<PriceRef, ActiveTag>>().Entities())
             {
                 var item = ent.Ref<PriceRef>().Val;
                 var price = ent.GetConfigTable<PriceEntry>().Price;

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace com.ab.domain.equip
 {
-    public class EquipPuppetSystem : ViewPresenter<EquipPuppetMono>, IUpdateSystem
+    public class EquipPuppetSystem : ViewPresenter<EquipPuppetMono>, ISystem
     {
         [Serializable]
         public class Settings
@@ -32,11 +32,11 @@ namespace com.ab.domain.equip
         public EquipPuppetSystem(Settings def)
         {
             _def = def;
-            _atlas = W.Context<AtlasService>.Get();
+            _atlas = W.GetResource<AtlasService>();
             Register(_def.ViewRef, _def.ShowButton);
 
-            _setReceiver = W.Events.RegisterEventReceiver<EquipSetEvent>();
-            _unSetReceiver = W.Events.RegisterEventReceiver<EquipUnSetEvent>();
+            _setReceiver = W.RegisterEventReceiver<EquipSetEvent>();
+            _unSetReceiver = W.RegisterEventReceiver<EquipUnSetEvent>();
             _slots = _def.EquipSlots.ToDictionary(item => item.Type, item => item);
         }
 
@@ -54,7 +54,7 @@ namespace com.ab.domain.equip
                 pair.PuppetSlot.Image.sprite = _atlas.GetSprite(_def.ItemAtlas, itemEntry.AKSprite);
                 pair.PuppetSlot.Image.enabled = true;
 
-                ent.ApplyTag<EquipTag>(true);
+                ent.Apply<EquipTag>(true);
             }
 
             foreach (var @event in _setReceiver)
@@ -68,7 +68,7 @@ namespace com.ab.domain.equip
                 pair.PuppetSlot.Image.sprite = null;
                 pair.PuppetSlot.Image.enabled = false;
                 
-                ent.ApplyTag<EquipTag>(false);
+                ent.Apply<EquipTag>(false);
             }
         }
 

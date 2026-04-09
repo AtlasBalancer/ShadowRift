@@ -5,7 +5,7 @@ using FFS.Libraries.StaticEcs;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
-    public class InvModelSystem : IUpdateSystem
+    public class InvModelSystem : ISystem
     {
         [Serializable]
         public class Settings
@@ -16,23 +16,23 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<TagAll<InvToUpdateTag>>())
-                ent.ApplyTag<InvToUpdateTag>(false);
+            foreach (var ent in W.Query<All<InvToUpdateTag>>().Entities())
+                ent.Apply<InvToUpdateTag>(false);
 
-            foreach (var addEnt in W.Query.Entities<TagAll<InventoryAdd>>())
+            foreach (var addEnt in W.Query<All<InventoryAdd>>().Entities())
             {
-                if (!addEnt.TryToFindRuntimeRefByTag<InvTag>(out var ent, out uint id))
+                if (!addEnt.TryToFindRuntimeRefByTag<InvTag>(out var ent, out var gid))
                 {
-                    ent = W.Entity.New();
-                    ent.Add(new ConfigRef(id));
-                    ent.Add(new Amount(0));
-                    ent.ApplyTag<InvTag>(true);
+                    ent = W.NewEntity<Default>();
+                    ent.Set(new ConfigRef(gid));
+                    ent.Set(new Amount(0));
+                    ent.Apply<InvTag>(true);
                 }
-                 
+
                 ent.Ref<Amount>().Increase(addEnt.GetAmount());
-                ent.ApplyTag<InvToUpdateTag>(true);
-                
-                addEnt.ApplyTag<InventoryAdd>(false);
+                ent.Apply<InvToUpdateTag>(true);
+
+                addEnt.Apply<InventoryAdd>(false);
             }
         }
     }

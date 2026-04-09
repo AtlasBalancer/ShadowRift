@@ -3,7 +3,7 @@ using com.ab.complexity.core;
 
 namespace com.ab.domain.price
 {
-    public class PriceEntryDef : StaticEntryParamDef<PriceEntryDef.Settings>, IStaticRegisterTypeDef, IStaticUpdateDef
+    public class PriceEntryDef : StaticEntryParamDef<PriceEntryDef.Settings>, IStaticUpdateDef
     {
         [Serializable]
         public class Settings
@@ -11,20 +11,11 @@ namespace com.ab.domain.price
             public PriceRegisterSystem.Settings PriceRegisterSystem;
         }
 
-        public void RegisterType()
-        {
-            W.RegisterTagType<PriceAvailableTag>();
-            W.RegisterTagType<PriceRegisterTag>();
-            W.RegisterTagType<PriceBuyTag>();
-
-            W.RegisterComponentType<PriceRef>();
-        }
-
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new PriceRegisterSystem(Def.PriceRegisterSystem));
-            Sys.AddUpdate(new PriceCheckAvailableSystem());
-            Sys.AddUpdate(new PriceBuySystem());
+            Sys.Add(new PriceRegisterSystem(Def.PriceRegisterSystem));
+            Sys.Add(new PriceCheckAvailableSystem());
+            Sys.Add(new PriceBuySystem());
         }
     }
 }

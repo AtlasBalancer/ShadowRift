@@ -18,7 +18,7 @@ namespace com.ab.domain.harv
         public SpriteRenderer SR;
 
         protected override void Register() => 
-            Ent.Add(new HarvRef(this));
+            Ent.Set(new HarvRef(this));
 
         public void SetSprite(Sprite sprite) => 
             SR.sprite = sprite;

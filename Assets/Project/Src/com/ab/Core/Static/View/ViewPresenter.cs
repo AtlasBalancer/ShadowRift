@@ -1,4 +1,5 @@
 using com.ab.domain.craft;
+using FFS.Libraries.StaticEcs;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,7 +40,7 @@ namespace com.ab.core
 
         protected void ViewActive()
         {
-            bool active = View.Ent.ToggleTag<ViewActive>();
+            bool active = View.Ent.Toggle<ViewActive>();
             View.Active(active);
 
             if (active)
@@ -53,6 +54,6 @@ namespace com.ab.core
         protected virtual void Hide() { }
 
         protected bool IsActive() =>
-            View.Ent.HasAllOfTags<ViewActive>();
+            View.Ent.Has<ViewActive>();
     }
 }

@@ -3,15 +3,16 @@ using UnityEngine;
 
 namespace com.ab.complexity.core
 {
-    public readonly struct MovementVelocitySystem : IUpdateSystem
+    public readonly struct MovementVelocitySystem : ISystem
     {
         public const float GAP = 0.01f;
 
         public void Update() =>
-            W.Query.For((W.Entity ent, ref Position pos, ref Velocity vel, ref Direction dir, ref MovementEntry def) =>
+            W.Query<All<Position, Velocity, Direction, MovementEntry>>()
+                .For((W.Entity ent, ref Position pos, ref Velocity vel, ref Direction dir, ref MovementEntry def) =>
             {
                 pos.Value += dir.Value * (vel.Magnitude * def.Speed * Time.deltaTime);
-                ent.ApplyTag<Movement>(vel.Magnitude > GAP);
+                ent.Apply<Movement>(vel.Magnitude > GAP);
             });
     }
 }

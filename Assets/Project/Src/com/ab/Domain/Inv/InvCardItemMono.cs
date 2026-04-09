@@ -34,13 +34,13 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         void SetEquip()
         {
-            W.Events.Send(new EquipSetEvent(ShowingEnt));
+            W.SendEvent(new EquipSetEvent(ShowingEnt));
             SetEquipButton(true);
         }
 
         void SetUnquip()
         {
-            W.Events.Send(new EquipUnSetEvent(ShowingEnt));
+            W.SendEvent(new EquipUnSetEvent(ShowingEnt));
             SetEquipButton(false);
         }
 

@@ -17,7 +17,7 @@ namespace com.ab.common
             Btn.transition = Selectable.Transition.None;
             Btn.onClick.AddListener(OnClick);
 
-            Ent.Add(new ResponseButtonRef(this));
+            Ent.Set(new ResponseButtonRef(this));
         }
 
         protected override void UnSubscribe()
@@ -27,17 +27,17 @@ namespace com.ab.common
 
         public void Attach(W.Entity ent)
         {
-            if (Ent.HasAllOf<AttachRef>())
+            if (Ent.Has<AttachRef>())
                 Ent.Ref<AttachRef>().Update(ent);
             else
-                Ent.Add(new AttachRef(ent));
+                Ent.Set(new AttachRef(ent));
         }
 
         public void OnClick()
         {
             Debug.Log($"{nameof(ResponseButtonMono)}:: Click");
 
-            Ent.ApplyTag<ResponseClick>(true);
+            Ent.Apply<ResponseClick>(true);
             Btn.interactable = false;
             WaitResponse?.Invoke(Btn);
         }

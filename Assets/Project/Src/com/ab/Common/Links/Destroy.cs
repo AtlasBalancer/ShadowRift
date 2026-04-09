@@ -14,6 +14,6 @@ namespace com.ab.common
     public static class DestroyExtensions
     {
         public static void Destr(this W.Entity source, float delay = 0) => 
-            source.Add(new Destroy(delay));
+            source.Set(new Destroy(delay));
     }
 }

@@ -20,8 +20,8 @@ namespace com.ab.domain.construct
 
         protected override void Register()
         {
-            Ent.Add(new ConstructionRef(this));
-            ActiveUi(Ent.HasAllOfTags<ConstructionBuilt>());
+            Ent.Set(new ConstructionRef(this));
+            ActiveUi(Ent.Has<ConstructionBuilt>());
         }
 
         public void ActiveConstruction(bool active)

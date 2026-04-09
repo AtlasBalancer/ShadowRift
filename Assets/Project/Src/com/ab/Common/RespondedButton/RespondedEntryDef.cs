@@ -4,7 +4,7 @@ using com.ab.complexity.core;
 namespace com.ab.common
 {
     public class RespondedEntryDef : StaticEntryParamDef<RespondedEntryDef.Settings>,
-        IStaticUpdateDef, IStaticRegisterTypeDef, IStaticCreateProtoEntityDef
+        IStaticUpdateDef, IStaticCreateProtoEntityDef
     {
         [Serializable]
         public class Settings
@@ -12,17 +12,9 @@ namespace com.ab.common
             public ResponseButtonRefMock Ref;
         }
 
-
-        public void RegisterType()
-        {
-            W.RegisterTagType<ResponseClick>();
-            W.RegisterComponentType<ResponseButtonRef>();
-            W.RegisterComponentType<AttachRef>();
-        }
-
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new ResponseButtonSystem());
+            Sys.Add(new ResponseButtonSystem());
         }
 
         public void CreateProtoEntities()

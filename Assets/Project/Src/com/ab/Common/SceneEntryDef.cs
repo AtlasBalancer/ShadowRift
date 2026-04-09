@@ -13,61 +13,31 @@ using Renderer = com.ab.complexity.core.Renderer;
 namespace com.ab.common
 {
     [CreateAssetMenu(fileName = "#Name#SceneEntryDef", menuName = "com.ab/scene/common")]
-    public class SceneEntryDef : StaticEntrySOParamDef<SceneEntryDef.Settings>,
-        IStaticRegisterTypeDef, IStaticInitDef, IStaticUpdateDef, IStaticContextSetDef, IPreInitLoad
+    public class SceneEntryDef : StaticEntrySOParamDef<SceneEntryDef.Settings>, 
+        IStaticInitDef, IStaticUpdateDef, IStaticContextSetDef, IPreInitLoad
     {
-        public void RegisterType()
-        {
-            W.RegisterTagType<ViewActive>();
-            W.RegisterTagType<ClickTag>();
-            W.RegisterTagType<ActiveTag>();
-            W.RegisterTagType<AvailableTag>();
-            W.RegisterTagType<TriggerEnterTag>();
-
-            W.RegisterComponentType<ConfigRef>();
-            W.RegisterComponentType<Timer>();
-            W.RegisterComponentType<BtnRef>();
-
-            W.RegisterComponentType<EntRef>();
-            W.RegisterComponentType<Destroy>();
-
-            W.RegisterComponentType<LogicRender>();
-            W.RegisterComponentType<Position>();
-            W.RegisterComponentType<Direction>();
-            W.RegisterComponentType<Velocity>();
-            W.RegisterComponentType<Renderer>();
-            W.RegisterComponentType<AnimatorRef>();
-
-            W.RegisterComponentType<Amount>();
-            W.RegisterComponentType<AmountUpdate>();
-            W.RegisterComponentType<ProgressBarRef>();
-
-            W.RegisterOneToManyRelationType<Parent, Childs>(defaultComponentCapacity: 4);
-        }
-
         public void RegisterInit()
         {
-            
         }
 
         public void RegisterUpdate()
         {
-            SysReg.AddUpdate(new DestroyLinkSystem());
-            SysReg.AddUpdate(new MovementVelocitySystem());
+            SysReg.Add(new DestroyLinkSystem());
+            SysReg.Add(new MovementVelocitySystem());
         }
 
         public void SetContext()
         {
             var addresable = new AddressableService();
 
-            W.Context<AddressableService>.Set(addresable);
-            W.Context<LocalizationService>.Set(new LocalizationService());
-            W.Context<AtlasService>.Set(new AtlasService(addresable, new[] {"MapAtlas"}));
-            W.Context<ItemService>.Set(new ItemService(Def.ItemTable, Def.DropTable));
+            W.SetResource(addresable);
+            W.SetResource(new LocalizationService());
+            W.SetResource(new AtlasService(addresable, new[] { "MapAtlas" }));
+            W.SetResource(new ItemService(Def.ItemTable, Def.DropTable));
         }
 
-        public UniTask PreInitLoad(CancellationToken ct) => 
-            W.Context<LocalizationService>.Get().InitializeAsync();
+        public UniTask PreInitLoad(CancellationToken ct) =>
+            W.GetResource<LocalizationService>().InitializeAsync();
 
         [Serializable]
         public class Settings

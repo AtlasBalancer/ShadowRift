@@ -3,8 +3,7 @@ using com.ab.complexity.core;
 
 namespace com.ab.domain.equip
 {
-    public class EquipEntryDef : StaticEntryParamDef<EquipEntryDef.Settings>,
-        IStaticRegisterTypeDef, IStaticUpdateDef
+    public class EquipEntryDef : StaticEntryParamDef<EquipEntryDef.Settings>, IStaticUpdateDef
     {
         [Serializable]
         public class Settings
@@ -13,22 +12,10 @@ namespace com.ab.domain.equip
             public EquipUnitSystem.Settings EquipUnitSystem;
         }
 
-        public void RegisterType()
-        {
-            W.RegisterTagType<EquipTag>();
-            
-            W.RegisterComponentType<EquipUnitRef>();
-
-            W.Events.RegisterEventType<EquipUnitRegisterEvent>();
-            W.Events.RegisterEventType<EquipUnSetEvent>();
-            W.Events.RegisterEventType<EquipSetEvent>();
-        }
-
         public void RegisterUpdate()
         {
-            SysReg.AddUpdate(new EquipPuppetSystem(Def.EquipPuppetSystem));
-            SysReg.AddUpdate(new EquipUnitSystem(Def.EquipUnitSystem));
-            
+            SysReg.Add(new EquipPuppetSystem(Def.EquipPuppetSystem));
+            SysReg.Add(new EquipUnitSystem(Def.EquipUnitSystem));
         }
     }
 }

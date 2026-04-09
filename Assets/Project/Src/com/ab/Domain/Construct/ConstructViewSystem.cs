@@ -13,7 +13,7 @@ using UnityEngine.UI;
 
 namespace com.ab.domain.construct
 {
-    public class ConstructViewSystem : ViewPresenter<ConstructView>, IInitSystem, IUpdateSystem
+    public class ConstructViewSystem : ViewPresenter<ConstructView>, ISystem
     {
         [Serializable]
         public class Settings
@@ -82,7 +82,7 @@ namespace com.ab.domain.construct
         {
             foreach (var item in _def.StaticConstructions)
             {
-                if (item.Ent.HasAllOfTags<ConstructionBuilt>())
+                if (item.Ent.Has<ConstructionBuilt>())
                     continue;
 
                 item.ActiveUi(active);
@@ -99,19 +99,19 @@ namespace com.ab.domain.construct
 
         public void Update()
         {
-            foreach (var ent in W.Query.Entities<All<ConstructionRef>, TagAll<ClickTag>>())
+            foreach (var ent in W.Query<All<ConstructionRef, ClickTag>>().Entities())
             {
-                ent.ApplyTag<PriceBuyTag>(true);
+                ent.Apply<PriceBuyTag>(true);
 
                 var construction = ent.Ref<ConstructionRef>().Val;
                 construction.ActiveConstruction(true);
                 construction.ActiveUi(false);
                 
-                ent.ApplyTag<ConstructionBuilt>(true);
-                ent.ApplyTag<LevelTransitionAvailableTag>(true);
+                ent.Apply<ConstructionBuilt>(true);
+                ent.Apply<LevelTransitionAvailableTag>(true);
                 
-                ent.ApplyTag<LevelTransitionAvailableTag>(true);
-                ent.ApplyTag<ClickTag>(false);
+                ent.Apply<LevelTransitionAvailableTag>(true);
+                ent.Apply<ClickTag>(false);
             }
         }
     }

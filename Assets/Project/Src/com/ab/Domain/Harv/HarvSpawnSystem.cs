@@ -13,12 +13,12 @@ using Object = UnityEngine.Object;
 
 namespace com.ab.domain.harv
 {
-    public class HarvSpawnSystem : IPreInitLoad, IInitSystem, IUpdateSystem
+    public class HarvSpawnSystem : IPreInitLoad, ISystem
     {
         public HarvSpawnSystem(Settings def)
         {
             _def = def;
-            _atlas = W.Context<AtlasService>.Get();
+            _atlas = W.GetResource<AtlasService>();
         }
 
         readonly Settings _def;
@@ -37,10 +37,10 @@ namespace com.ab.domain.harv
                 spawner.Layer.Active(false);
                 var timerDelay = spawner.DelayRange.Rand();
 
-                var ent = W.Entity.New();
+                var ent = W.NewEntity<Default>();
                 ent.SetTimer(timerDelay, true);
-                ent.Add(new HarvAvailablePositions { Positions = GetAvailablePositions(spawner.Layer) });
-                ent.Add(spawner);
+                ent.Set(new HarvAvailablePositions { Positions = GetAvailablePositions(spawner.Layer) });
+                ent.Set(spawner);
 
                 if (spawner.FillInit)
                     foreach (var _ in Enumerable.Range(0, ent.Ref<HarvAvailablePositions>().Positions.Count))
@@ -52,7 +52,7 @@ namespace com.ab.domain.harv
         {
             var deltaTime = Time.deltaTime;
 
-            foreach (var ent in W.Query.Entities<All<HarvSpawnLoop>>())
+            foreach (var ent in W.Query<All<HarvSpawnLoop>>().Entities())
             {
                 if (ent.Timer(deltaTime))
                     continue;
@@ -91,7 +91,7 @@ namespace com.ab.domain.harv
         void InitLayer(HarvestSpawnInitDef spawner)
         {
             var positions = GetAvailablePositions(spawner.OreSpawnLayer);
-            var spawnerEnt = W.Entity.New();
+            var spawnerEnt = W.NewEntity<Default>();
 
             foreach (var gridPosition in positions)
             {
@@ -113,12 +113,12 @@ namespace com.ab.domain.harv
             var sprite = _atlas.GetSprite(_def.AtlasKey, harvDef.AKSprite);
             harvLink.SetSprite(sprite);
 
-            harvLink.Init(id, true);
+            harvLink.Init<Default>(id, true);
 
             int amount = harvDef.AmountRange.Rand();
-            harvLink.Ent.Add(new Amount(amount));
+            harvLink.Ent.Set(new Amount(amount));
             harvLink.Ent.Ref<ProgressBarRef>().Val.SetMax(amount);
-            harvLink.Ent.SetLink<Parent>(spawnerEnt);
+            // harvLink.Ent.Set(new W.Link<Parrent>spawnerEnt);
             harvLink.ProgressBar.OffsetY(harvDef.ProgressBarOffset);
         }
 

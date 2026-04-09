@@ -4,7 +4,7 @@ using Project.Src.com.ab.Domain.Collect;
 
 namespace com.ab.domain.collect
 {
-    public class PlacedEntryDef : StaticEntryParamDef<PlacedEntryDef.Settings>, IStaticRegisterTypeDef,
+    public class PlacedEntryDef : StaticEntryParamDef<PlacedEntryDef.Settings>,
         IStaticUpdateDef, IStaticCreateProtoEntityDef, IStaticContextSetDef
     {
         [Serializable]
@@ -15,16 +15,10 @@ namespace com.ab.domain.collect
             public PlacedSpawnSystem.Settings CollectSpawnSystem;
         }
 
-        public void RegisterType()
-        {
-            W.RegisterComponentType<PlacedToInventory>();
-            W.RegisterTagType<PlacedSpawnByDropTable>();
-        }
-
         public void RegisterUpdate()
         {
-            SysReg.AddUpdate(new PlacedToInventorySystem(Def.CollectToInventorySystem));
-            SysReg.AddUpdate(new PlacedSpawnSystem(Def.CollectSpawnSystem));
+            SysReg.Add(new PlacedToInventorySystem(Def.CollectToInventorySystem));
+            SysReg.Add(new PlacedSpawnSystem(Def.CollectSpawnSystem));
         }
 
         public void SetContext()

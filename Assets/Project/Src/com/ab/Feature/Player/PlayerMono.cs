@@ -12,7 +12,7 @@ namespace com.ab.complexity.features.player
         [Button]
         public void SetTool()
         {
-            if (Ent.HasAllOf<Tool>())
+            if (Ent.Has<Tool>())
                 Ent.Delete<Tool>();
             else
                 Ent.Add<Tool>();
@@ -20,8 +20,8 @@ namespace com.ab.complexity.features.player
 
         protected override void Register()
         {
-            Ent.Add(new PlayerRef { Ref = this });
-            Ent.SetTag<PlayerTag>();
+            Ent.Set(new PlayerRef { Ref = this });
+            Ent.Set<PlayerTag>();
         }
     }
 }

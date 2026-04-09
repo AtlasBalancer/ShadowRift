@@ -3,7 +3,7 @@ using com.ab.complexity.core;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
-    public class InvEntryDef : StaticEntryParamDef<InvEntryDef.Settings>, IStaticRegisterTypeDef, IStaticContextSetDef,
+    public class InvEntryDef : StaticEntryParamDef<InvEntryDef.Settings>, IStaticContextSetDef,
         IStaticUpdateDef
     {
         [Serializable]
@@ -17,22 +17,10 @@ namespace Project.Src.com.ab.Domain.Inventory
             
         }
 
-        public void RegisterType()
-        {
-            W.RegisterTagType<InvTag>();
-            W.RegisterTagType<InventoryAdd>();
-            W.RegisterTagType<InvToUpdateTag>();
-            
-            W.RegisterComponentType<InventoryItem>();
-            W.RegisterComponentType<InvCategoryRef>();
-            
-            W.RegisterComponentType<InvItemRef>();
-        }
-
         public void RegisterUpdate()
         {
-            SysReg.AddUpdate(new InvModelSystem());
-            SysReg.AddUpdate(new InvViewSystem(Def.InventoryInitViewSystem));
+            SysReg.Add(new InvModelSystem());
+            SysReg.Add(new InvViewSystem(Def.InventoryInitViewSystem));
         }
     }
 

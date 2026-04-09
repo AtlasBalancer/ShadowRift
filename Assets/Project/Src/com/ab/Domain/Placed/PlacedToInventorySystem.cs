@@ -13,7 +13,7 @@ namespace Project.Src.com.ab.Domain.Collect
         public float Radius;
     }
 
-    public class PlacedToInventorySystem : IUpdateSystem
+    public class PlacedToInventorySystem : ISystem
     {
         [Serializable]
         public class Settings
@@ -31,7 +31,7 @@ namespace Project.Src.com.ab.Domain.Collect
         {
             var deltaTime = Time.deltaTime;
 
-            foreach (var ent in W.Query.Entities<All<Ref, PlacedToInventory>>())
+            foreach (var ent in W.Query<All<Ref, PlacedToInventory>>().Entities())
             {
                 ref var collector = ref ent.Ref<PlacedToInventory>();
 
@@ -46,7 +46,7 @@ namespace Project.Src.com.ab.Domain.Collect
                 if (item != null && item.TryGetComponent(out PlacedMono collect))
                 {
                     collect.PickUp(sourcePosition, _def.FlyDuration);
-                    collect.Ent.ApplyTag<InventoryAdd>(true);
+                    collect.Ent.Apply<InventoryAdd>(true);
                 }
             }
         }

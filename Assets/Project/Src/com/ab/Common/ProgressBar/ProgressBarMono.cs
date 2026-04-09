@@ -24,7 +24,7 @@ namespace com.ab.common.ProgressBar
         string AMOUNT_PATTERN = "{0}/{1}";
 
         protected override void Register() =>
-            Ent.Add(new ProgressBarRef(this));
+            Ent.Set(new ProgressBarRef(this));
 
         public void SetMax(int max) =>
             _maxAmount = max;

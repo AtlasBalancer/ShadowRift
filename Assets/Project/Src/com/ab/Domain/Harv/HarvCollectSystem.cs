@@ -9,7 +9,7 @@ using Project.Src.com.ab.Domain.Collect;
 
 namespace com.ab.domain.harv
 {
-    public class HarvCollectSystem : IUpdateSystem
+    public class HarvCollectSystem : ISystem
     {
         public HarvCollectSystem(Settings def) =>
             _def = def;
@@ -26,11 +26,11 @@ namespace com.ab.domain.harv
         {
             var delta = Time.deltaTime;
 
-            foreach (var ent in W.Query.Entities<All<Ref, HarvCollectorRef>>())
+            foreach (var ent in W.Query<All<Ref, HarvCollectorRef>>().Entities())
             {
                 var animator = ent.Ref<AnimatorRef>().Value;
 
-                if (ent.HasAllOfTags<Movement>())
+                if (ent.Has<Movement>())
                 {
                     animator.SetBool(HarvConst.HARVEST_KEY, false);
                     continue;
@@ -48,7 +48,7 @@ namespace com.ab.domain.harv
 
                 if (harvest && item.TryGetComponent<HarvMono>(out var harvRef))
                 {
-                    harvRef.Ent.ApplyTag<PlacedSpawnByDropTable>(true);
+                    harvRef.Ent.Apply<PlacedSpawnByDropTable>(true);
                 }
 
                 bool hasTool = harvestrer.Ref.WorkingPart.Equiped();
@@ -57,7 +57,7 @@ namespace com.ab.domain.harv
                 animator.SetBool(HarvConst.HARVEST_KEY, harvest);
             }
 
-            foreach (var ent in W.Query.Entities<All<HarvRef, ProgressBarRef, AmountUpdate>>())
+            foreach (var ent in W.Query<All<HarvRef, ProgressBarRef, AmountUpdate>>().Entities())
             {
                 int amountUpdate = ent.Ref<AmountUpdate>().Val;
                 ent.Delete<AmountUpdate>();

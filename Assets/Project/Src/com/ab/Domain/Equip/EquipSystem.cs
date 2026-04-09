@@ -4,7 +4,7 @@ using com.ab.complexity.features.player;
 
 namespace Project.Src.com.ab.Domain.Unit.Items
 {
-    public class EquipSystem : IInitSystem, IUpdateSystem
+    public class EquipSystem : ISystem
     {
         PlayerMono _player;
         EquipPuppetMono _puppet;
@@ -39,7 +39,7 @@ namespace Project.Src.com.ab.Domain.Unit.Items
                 // if (!_player.Ent.HasAllOf<Tool>())
                     // _player.Ent.Add<Tool>();
 
-                // ent.ApplyTag<Equip>(true);
+                // ent.Apply<Equip>(true);
                 // ent.Delete<EquipCommand>();
             }
 
@@ -55,7 +55,7 @@ namespace Project.Src.com.ab.Domain.Unit.Items
 
                 // _puppet.RemoveTool();
 
-                // ent.ApplyTag<Equip>(false);
+                // ent.Apply<Equip>(false);
                 // ent.Delete<UnEquipCommand>();
             // }
         // }

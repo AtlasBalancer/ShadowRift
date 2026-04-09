@@ -16,7 +16,7 @@ namespace com.ab.common
         [field: System.NonSerialized] public WC.Entity RuntimeID { get; private set; }
         [field: System.NonSerialized] bool _inited { get; set; }
 
-        [field: System.NonSerialized] public EntityGID Gid => RuntimeID.Gid();
+        [field: System.NonSerialized] public EntityGID Gid => RuntimeID.GID;
         
         public WC.Entity Init()
         {
@@ -24,8 +24,8 @@ namespace com.ab.common
                 return RuntimeID;
 
             _inited = true;
-            RuntimeID = WC.Entity.New();
-            RuntimeID.Add(new ConfigRef(RuntimeID));
+            RuntimeID = WC.NewEntity<Default>();
+            RuntimeID.Set(new ConfigRef(RuntimeID));
             return RuntimeID;
         }
 

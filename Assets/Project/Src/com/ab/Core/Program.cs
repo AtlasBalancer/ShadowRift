@@ -8,17 +8,12 @@ namespace com.ab.complexity.core
             // Creating world data
             W.Create(WorldConfig.Default());
             
-            // Registering components
-            W.RegisterComponentType<Position>();
-            W.RegisterComponentType<Direction>();
-            W.RegisterComponentType<Velocity>();
-            
             // Initializing the world
             W.Initialize();
             
             // Creating systems
             Sys.Create();
-            SysReg.AddUpdate(new MovementVelocitySystem());
+            SysReg.Add(new MovementVelocitySystem());
     
             // Initializing systems
             Sys.Initialize();

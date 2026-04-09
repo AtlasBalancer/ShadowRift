@@ -12,16 +12,10 @@ namespace com.ab.complexity.core
         static readonly List<ISystem> _registered = new();
         public static IReadOnlyList<ISystem> All => _registered;
 
-        public static void AddUpdate<T>(T system, short order = 0) where T : IUpdateSystem
+        public static void Add<T>(T system, short order = 0) where T : ISystem
         {
             _registered.Add(system);
-            Sys.AddUpdate(system, order);
-        }
-
-        public static void AddInit<T>(T system) where T : ICallOnceSystem
-        {
-            _registered.Add(system);
-            Sys.AddCallOnce(system);
+            Sys.Add(system, order);
         }
     }
 }

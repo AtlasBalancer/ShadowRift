@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace com.ab.common
 {
-    public class ConfigTableSo<TEntry> : SerializedScriptableObject, IEcsTable, IStaticRegisterTypeDef
+    public class ConfigTableSo<TEntry> : SerializedScriptableObject, IEcsTable
         where TEntry : struct, IComponent
     {
         [SerializeField, ShowInInspector] public Dictionary<ConfigIDEntSo, TEntry> Entries = new();
@@ -17,17 +17,11 @@ namespace com.ab.common
             foreach (var item in Entries)
             {
                 var ent = item.Key.Init();
-                ent.Add(item.Value);
+                ent.Set(item.Value);
             }
         }
 
         public void CloseEcsSession() => 
             Entries.ForEach(item => item.Key.End());
-
-        public void RegisterType()
-        {
-            if (!WC.Components<TEntry>.Value.IsRegistered())
-                WC.RegisterComponentType<TEntry>();
-        }
     }
 }

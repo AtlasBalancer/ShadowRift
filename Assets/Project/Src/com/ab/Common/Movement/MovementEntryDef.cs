@@ -4,26 +4,16 @@ using UnityEngine;
 namespace com.ab.complexity.core
 {
     [CreateAssetMenu(fileName = "#Name#MoveEntryDef", menuName = "com.ab/scene/move")]
-    public class MovementEntryDef : ScriptableObject, 
-        IStaticRegisterTypeDef, IStaticUpdateDef
+    public class MovementEntryDef : ScriptableObject, IStaticUpdateDef
     {
-        public void RegisterType()
-        {
-            W.RegisterComponentType<MovementEntry>();
-            W.RegisterComponentType<MovementSamePositionSmoothChangeTarget>();
-            W.RegisterComponentType<MovementSamePosition>();
-            
-            W.RegisterTagType<Movement>();
-        }
-
         public void RegisterUpdate()
         {
-            SysReg.AddUpdate(new MovementInitSystem());
-            SysReg.AddUpdate(new MovementVelocitySystem());
-            SysReg.AddUpdate(new MovementUpdatePositionSystem());
-            SysReg.AddUpdate(new MovementSamePositionSystem());
-            SysReg.AddUpdate(new MovementDirectionSystem());
-            SysReg.AddUpdate(new MovementAnimationLocomotionSystem());
+            SysReg.Add(new MovementInitSystem());
+            SysReg.Add(new MovementVelocitySystem());
+            SysReg.Add(new MovementUpdatePositionSystem());
+            SysReg.Add(new MovementSamePositionSystem());
+            SysReg.Add(new MovementDirectionSystem());
+            SysReg.Add(new MovementAnimationLocomotionSystem());
         }
     }
 }

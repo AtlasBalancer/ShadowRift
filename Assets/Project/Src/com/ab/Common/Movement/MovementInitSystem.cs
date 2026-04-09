@@ -4,26 +4,25 @@ using UnityEngine;
 
 namespace com.ab.complexity.core
 {
-    public class MovementInitSystem : IUpdateSystem
+    public class MovementInitSystem : ISystem
     {
         public void Update()
         {
-            All<MovementEntry> all = default;
-            None<Direction, Velocity, Position> filter = default;
-            var with = With.Create(all, filter);
-
-            foreach (var entity in W.Query.Entities(with))
+            foreach (var entity in W.Query<
+                         All<MovementEntry>, 
+                         None<Direction, Velocity, Position>>()
+                         .Entities())
             {
                 var @ref = entity.Ref<Ref>();
                 var def = entity.Ref<MovementEntry>();
 
-                if (!entity.HasAllOf<Position>())
+                if (!entity.Has<Position>())
                     entity.Add<Position>().Value = @ref.Val.position;
 
-                if (!entity.HasAllOf<Velocity>())
+                if (!entity.Has<Velocity>())
                     entity.Add<Velocity>();
 
-                if (!entity.HasAllOf<Direction>())
+                if (!entity.Has<Direction>())
                     entity.Add<Direction>().Value = Vector3.zero;
             }
         }

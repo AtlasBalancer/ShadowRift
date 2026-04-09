@@ -9,6 +9,6 @@ namespace Project.Src.com.ab.Complexity.Core.Static.Mono
         public Transform Renderer;
 
         protected override void Register() => 
-            Ent.Add(new LogicRender(Renderer));
+            Ent.Set(new LogicRender(Renderer));
     }
 }

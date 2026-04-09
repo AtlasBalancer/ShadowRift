@@ -17,12 +17,12 @@ namespace com.ab.common.LevelTransition
         
         protected override void Register()
         {
-            Ent.Add(new LevelTransitionRef(this));
+            Ent.Set(new LevelTransitionRef(this));
         }
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            Ent.ApplyTag<LevelTransitionTag>(true);
+            Ent.Apply<LevelTransitionTag>(true);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace com.ab.common.Camera
 
         protected override void Register()
         {
-            Ent.Add(new CameraRef(this));
+            Ent.Set(new CameraRef(this));
             base.Register();
         }
     }

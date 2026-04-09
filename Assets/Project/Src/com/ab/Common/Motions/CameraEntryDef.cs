@@ -26,7 +26,7 @@ namespace com.ab.domain.camera
                 ? Def.Camera.orthographicSize
                 : (Def.RtsSystem.MinZoom + Def.RtsSystem.MaxZoom) * 0.5f;
 
-            W.Context<CameraService>.Set(new CameraService
+            W.SetResource<CameraService>(new CameraService
             {
                 Target   = Def.Target,
                 Camera   = Def.Camera,
@@ -36,7 +36,7 @@ namespace com.ab.domain.camera
 
         public void RegisterUpdate()
         {
-            SysReg.AddUpdate(new CameraRtsSystem(Def.RtsSystem));
+            SysReg.Add(new CameraRtsSystem(Def.RtsSystem));
         }
     }
 }

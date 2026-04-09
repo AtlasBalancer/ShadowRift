@@ -16,6 +16,6 @@ namespace com.ab.common
     public static class AmountExtensions
     {
         public static int GetAmount(this W.Entity source) => 
-            source.HasAllOf<Amount>() ? source.Ref<Amount>().Val : 1;
+            source.Has<Amount>() ? source.Ref<Amount>().Val : 1;
     }
 }

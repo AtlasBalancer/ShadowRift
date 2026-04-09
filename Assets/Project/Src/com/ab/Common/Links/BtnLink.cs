@@ -17,7 +17,7 @@ namespace com.ab.common
 
         protected override void Register()
         {
-            Ent.Add(new BtnRef(this));
+            Ent.Set(new BtnRef(this));
         }
 
         protected override void Subscribe() => 

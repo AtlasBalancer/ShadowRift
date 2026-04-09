@@ -3,8 +3,7 @@ using com.ab.complexity.core;
 
 namespace com.ab.domain.construct
 {
-    public class ConstructEntryDef : StaticEntryParamDef<ConstructEntryDef.Settings>,
-        IStaticRegisterTypeDef, IStaticUpdateDef
+    public class ConstructEntryDef : StaticEntryParamDef<ConstructEntryDef.Settings>, IStaticUpdateDef
     {
         [Serializable]
         public class Settings
@@ -12,15 +11,9 @@ namespace com.ab.domain.construct
             public ConstructViewSystem.Settings ConstructViewSystem;
         }
 
-        public void RegisterType()
-        {
-            W.RegisterTagType<ConstructionBuilt>();
-            W.RegisterComponentType<ConstructionRef>();
-        }
-
         public void RegisterUpdate()
         {
-            Sys.AddUpdate(new ConstructViewSystem(Def.ConstructViewSystem));
+            Sys.Add(new ConstructViewSystem(Def.ConstructViewSystem));
         }
     }
 }
