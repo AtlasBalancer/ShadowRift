@@ -7,7 +7,24 @@ using Unity.VisualScripting;
 
 namespace com.ab.common
 {
-    public class EntityLink : MonoBehaviour 
+    public class EntityLink<TTypeEntity> : EntityLink where TTypeEntity : struct, IEntityType
+    {
+        public virtual W.Entity Init(WC.Entity entC, bool initRef = false)
+        {
+            var ent = W.NewEntity<TTypeEntity>();
+            ent.Set(new ConfigRef(entC));
+            return Init(ent, initRef);
+        }
+
+        public virtual W.Entity Init(ConfigIDEntSo configID, bool initRef = false)
+        {
+            var ent = Init<TTypeEntity>(initRef);
+            AddConfigID(Ent, configID);
+            return ent;
+        }
+    }
+
+    public class EntityLink : MonoBehaviour
     {
         [DoNotSerialize] protected bool _inited;
 
@@ -18,7 +35,7 @@ namespace com.ab.common
             {
 #if UNITY_EDITOR
                 if (!_inited || !Application.isPlaying)
-                    return new EntityGID(UInt32.MinValue);
+                    return new EntityGID();
 
                 return Ent.GID;
 #else
@@ -55,9 +72,9 @@ namespace com.ab.common
             if (!_inited)
                 return;
 
-            if(!Ent.IsDestroyed)
-            if (Ent.Has<ActiveTag>())
-                Ent.Apply<ActiveTag>(false);
+            if (!Ent.IsDestroyed)
+                if (Ent.Has<ActiveTag>())
+                    Ent.Apply<ActiveTag>(false);
         }
 
         protected virtual void CollectInitLinks()
@@ -79,7 +96,7 @@ namespace com.ab.common
             return ent;
         }
 
-        public virtual W.Entity Init<TEntity>(ConfigIDEntSo configID, bool initRef = false) 
+        public virtual W.Entity Init<TEntity>(ConfigIDEntSo configID, bool initRef = false)
             where TEntity : struct, IEntityType
         {
             var ent = Init<TEntity>(initRef);
@@ -93,10 +110,10 @@ namespace com.ab.common
         public void AddConfigID(W.Entity ent, ConfigIDEntSo def) =>
             ent.Set(new ConfigRef(def.RuntimeID));
 
-        public virtual W.Entity Init(bool rootInit = false) => 
+        public virtual W.Entity Init(bool rootInit = false) =>
             Init(W.NewEntity<Default>(), rootInit);
-        
-        public virtual W.Entity Init<TEntity>(bool rootInit = false) where TEntity : struct, IEntityType => 
+
+        public virtual W.Entity Init<TEntity>(bool rootInit = false) where TEntity : struct, IEntityType =>
             Init(W.NewEntity<TEntity>(), rootInit);
 
         public virtual W.Entity Init(W.Entity ent, bool rootInit = true)

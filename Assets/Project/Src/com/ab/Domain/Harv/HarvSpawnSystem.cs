@@ -113,12 +113,12 @@ namespace com.ab.domain.harv
             var sprite = _atlas.GetSprite(_def.AtlasKey, harvDef.AKSprite);
             harvLink.SetSprite(sprite);
 
-            harvLink.Init<Default>(id, true);
+            harvLink.Init(id, true);
 
             int amount = harvDef.AmountRange.Rand();
             harvLink.Ent.Set(new Amount(amount));
             harvLink.Ent.Ref<ProgressBarRef>().Val.SetMax(amount);
-            // harvLink.Ent.Set(new W.Link<Parrent>spawnerEnt);
+            harvLink.Ent.Set(new W.Link<Parent>(spawnerEnt));
             harvLink.ProgressBar.OffsetY(harvDef.ProgressBarOffset);
         }
 

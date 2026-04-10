@@ -17,7 +17,7 @@ namespace com.ab.complexity.core
                 var def = entity.Ref<MovementEntry>();
 
                 if (!entity.Has<Position>())
-                    entity.Add<Position>().Value = @ref.Val.position;
+                    entity.Add<Position>().Val = @ref.Val.position;
 
                 if (!entity.Has<Velocity>())
                     entity.Add<Velocity>();

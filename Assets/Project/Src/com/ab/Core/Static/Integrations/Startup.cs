@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using com.ab.common;
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 
 namespace com.ab.complexity.core
 {
@@ -184,6 +185,15 @@ namespace com.ab.complexity.core
             features.ForEach(item => item.LastInit());
         }
 
+        [Button]
+        public void Test()
+        {
+            foreach (var ent in W.Query<All<Position>>().Entities())
+            {
+                Debug.Log("DDDD");
+            }
+        }
+        
         [Serializable]
         public class Settings
         {

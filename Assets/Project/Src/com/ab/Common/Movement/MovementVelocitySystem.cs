@@ -11,7 +11,7 @@ namespace com.ab.complexity.core
             W.Query<All<Position, Velocity, Direction, MovementEntry>>()
                 .For((W.Entity ent, ref Position pos, ref Velocity vel, ref Direction dir, ref MovementEntry def) =>
             {
-                pos.Value += dir.Value * (vel.Magnitude * def.Speed * Time.deltaTime);
+                pos.Val += dir.Value * (vel.Magnitude * def.Speed * Time.deltaTime);
                 ent.Apply<Movement>(vel.Magnitude > GAP);
             });
     }

@@ -2,7 +2,7 @@ using FFS.Libraries.StaticEcs;
 
 namespace com.ab.domain.harv
 {
-    public struct HarvItemEntity : IEntityType
+    public struct HarvEntity : IEntityType
     {
         public static readonly byte Id = 1;
 

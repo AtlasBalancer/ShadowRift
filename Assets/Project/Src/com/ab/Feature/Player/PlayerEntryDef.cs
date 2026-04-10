@@ -17,6 +17,7 @@ namespace com.ab.complexity.features.player
         public class Settings
         {
             public Transform Root;
+            public Transform SpawnPoint;
             public MovementSamePositionMono MainCamera;
             public PlayerMono PlayerPrefab;
         }
@@ -34,8 +35,7 @@ namespace com.ab.complexity.features.player
         public void LastInit()
         {
             var player = Instantiate(Def.PlayerPrefab, Def.Root);
-
-            var playerRef = player.transform;
+            player.transform.position = Def.SpawnPoint.position;
 
             var ent = player.Init(true);
 

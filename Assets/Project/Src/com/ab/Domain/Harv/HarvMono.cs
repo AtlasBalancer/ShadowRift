@@ -12,7 +12,7 @@ namespace com.ab.domain.harv
         public HarvRef(HarvMono val) => Val = val;
     }
     
-    public class HarvMono : EntityLink
+    public class HarvMono : EntityLink<HarvEntity>
     {
         public ProgressBarMono ProgressBar;
         public SpriteRenderer SR;
