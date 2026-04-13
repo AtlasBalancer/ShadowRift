@@ -1,4 +1,4 @@
-namespace com.ab.complexity.core
+namespace com.ab.core
 {
     public interface IStaticCreateProtoEntityDef
     {

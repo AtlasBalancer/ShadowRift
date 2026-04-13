@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using com.ab.common;
+using com.ab.core;
 using com.ab.domain.craft;
 using com.ab.domain.equip;
 using UnityEngine;

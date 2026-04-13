@@ -1,4 +1,4 @@
-using com.ab.domain.craft;
+using com.ab.core;
 using UnityEngine;
 using UnityEngine.UI;
 

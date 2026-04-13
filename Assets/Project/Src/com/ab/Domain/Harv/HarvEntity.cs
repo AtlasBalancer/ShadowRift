@@ -2,7 +2,12 @@ using FFS.Libraries.StaticEcs;
 
 namespace com.ab.domain.harv
 {
-    public struct HarvEntity : IEntityType
+    public readonly struct HarvSpawnerEntity : IEntityType
+    {
+        public static readonly byte Id = 2;
+    }
+    
+    public readonly struct HarvEntity : IEntityType
     {
         public static readonly byte Id = 1;
 

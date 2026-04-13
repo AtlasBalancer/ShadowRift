@@ -1,21 +1,15 @@
 using System;
-using UnityEngine;
-using Sirenix.OdinInspector;
 using com.ab.complexity.core;
+using com.ab.core;
 using FFS.Libraries.StaticEcs;
+using Sirenix.OdinInspector;
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace com.ab.common
 {
     public class EntityLink<TTypeEntity> : EntityLink where TTypeEntity : struct, IEntityType
     {
-        public virtual W.Entity Init(WC.Entity entC, bool initRef = false)
-        {
-            var ent = W.NewEntity<TTypeEntity>();
-            ent.Set(new ConfigRef(entC));
-            return Init(ent, initRef);
-        }
-
         public virtual W.Entity Init(ConfigIDEntSo configID, bool initRef = false)
         {
             var ent = Init<TTypeEntity>(initRef);
@@ -24,7 +18,7 @@ namespace com.ab.common
         }
     }
 
-    public class EntityLink : MonoBehaviour
+    public class EntityLink : MonoBehaviour, IPooled, IDisposable
     {
         [DoNotSerialize] protected bool _inited;
 
@@ -87,10 +81,11 @@ namespace com.ab.common
             collector.Init(this);
         }
 
-        public virtual W.Entity Init(WC.Entity entC, bool initRef = false)
+        public virtual W.Entity Init(World<WCT>.Entity entC, bool initRef = false)
         {
             var ent = W.NewEntity<Default>();
-            ent.Set(new ConfigRef(entC));
+            var configID = entC.Ref<ConfigRef>();
+            ent.Set(configID);
             Init(ent, initRef);
 
             return ent;
@@ -104,11 +99,8 @@ namespace com.ab.common
             return ent;
         }
 
-        public void AddConfigID(W.Entity ent, EntityGID id) =>
-            ent.Set(new ConfigRef(id));
-
         public void AddConfigID(W.Entity ent, ConfigIDEntSo def) =>
-            ent.Set(new ConfigRef(def.RuntimeID));
+            ent.Set(new ConfigRef(def.RuntimeID, def.ID));
 
         public virtual W.Entity Init(bool rootInit = false) =>
             Init(W.NewEntity<Default>(), rootInit);
@@ -138,5 +130,14 @@ namespace com.ab.common
 
         void OnDestroy() =>
             UnSubscribe();
+
+        public void Dispose()
+        {
+            
+        }
+
+        public virtual void Reset() { }
+
+        public virtual void Cleanup() { }
     }
 }

@@ -1,6 +1,6 @@
 using Sirenix.OdinInspector;
 
-namespace com.ab.complexity.core
+namespace com.ab.core
 {
     public class StaticEntrySODef : SerializedScriptableObject
     {

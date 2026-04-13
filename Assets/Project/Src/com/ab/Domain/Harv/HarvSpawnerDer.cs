@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 namespace com.ab.domain.harv
 {
     [Serializable]
-    public struct HarvSpawnLoop : IComponent
+    public struct HarvSpawnerDer : IComponent
     {
         public bool FillInit;
         public Vector2 DelayRange;

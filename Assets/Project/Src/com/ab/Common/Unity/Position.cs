@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using FFS.Libraries.StaticEcs;
 using FFS.Libraries.StaticPack;
@@ -7,6 +8,10 @@ namespace com.ab.complexity.core
     public struct Position : IComponent
     {
         public Vector2 Val;
+
+        public static readonly ComponentTypeConfig<Position> Config = new(
+            guid: new Guid("346a1ca4076a4e6291526c1de698b454")
+        );
 
         public Position(Vector3 val) => Val = val;
 

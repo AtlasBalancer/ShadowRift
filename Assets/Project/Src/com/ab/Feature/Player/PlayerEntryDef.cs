@@ -1,11 +1,10 @@
 using System;
 using com.ab.common;
-using UnityEngine;
 using com.ab.complexity.core;
-using com.ab.complexity.player;
-using FFS.Libraries.StaticEcs;
+using com.ab.core;
 using Project.Src.com.ab.Domain.Collect;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace com.ab.complexity.features.player
 {

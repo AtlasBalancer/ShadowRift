@@ -1,5 +1,5 @@
 using System;
-using com.ab.complexity.core;
+using com.ab.core;
 using UnityEngine;
 
 namespace com.ab.domain.camera
@@ -36,7 +36,7 @@ namespace com.ab.domain.camera
 
         public void RegisterUpdate()
         {
-            SysReg.Add(new CameraRtsSystem(Def.RtsSystem));
+            Sys.Add(new CameraRtsSystem(Def.RtsSystem));
         }
     }
 }

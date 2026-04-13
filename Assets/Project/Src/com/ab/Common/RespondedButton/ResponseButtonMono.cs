@@ -1,7 +1,8 @@
 using System;
+using com.ab.core;
+using FFS.Libraries.StaticEcs;
 using UnityEngine;
 using UnityEngine.UI;
-using com.ab.complexity.core;
 
 namespace com.ab.common
 {
@@ -25,7 +26,7 @@ namespace com.ab.common
             Btn.onClick.RemoveListener(OnClick);
         }
 
-        public void Attach(W.Entity ent)
+        public void Attach(World<WT>.Entity ent)
         {
             if (Ent.Has<AttachRef>())
                 Ent.Ref<AttachRef>().Update(ent);

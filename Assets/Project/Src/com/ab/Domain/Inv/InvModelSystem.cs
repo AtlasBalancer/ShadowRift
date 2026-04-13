@@ -1,6 +1,7 @@
 using System;
 using com.ab.common;
 using com.ab.complexity.core;
+using com.ab.core;
 using FFS.Libraries.StaticEcs;
 
 namespace Project.Src.com.ab.Domain.Inventory
@@ -21,10 +22,10 @@ namespace Project.Src.com.ab.Domain.Inventory
 
             foreach (var addEnt in W.Query<All<InventoryAdd>>().Entities())
             {
-                if (!addEnt.TryToFindRuntimeRefByTag<InvTag>(out var ent, out var gid))
+                if (!addEnt.TryToFindRuntimeRefByTag<InvTag>(out var ent, out var config))
                 {
                     ent = W.NewEntity<Default>();
-                    ent.Set(new ConfigRef(gid));
+                    ent.Set(config);
                     ent.Set(new Amount(0));
                     ent.Apply<InvTag>(true);
                 }

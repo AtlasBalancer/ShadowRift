@@ -1,4 +1,5 @@
 using System;
+using com.ab.core;
 
 namespace com.ab.complexity.core
 {
@@ -18,7 +19,7 @@ namespace com.ab.complexity.core
 
         public void RegisterUpdate()
         {
-            SysReg.Add(new JoystickToMovementSystem());
+            Sys.Add(new JoystickToMovementSystem());
         }
 
         public void CreateProtoEntities()

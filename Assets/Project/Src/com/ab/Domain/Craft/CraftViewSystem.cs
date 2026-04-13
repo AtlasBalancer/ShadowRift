@@ -13,20 +13,21 @@ using Project.Src.com.ab.Domain.Inventory;
 
 namespace com.ab.domain.craft
 {
-    public class CraftViewSystem : ViewPresenter<CraftMono>, IPreInitLoad, ISystem
+    public class CraftViewSystem : ViewPresenter<CraftMono>, IPreInitWait, ISystem
     {
         public CraftViewSystem(Settings def)
         {
             _def = def;
             _atlas = W.GetResource<AtlasService>();
             _localization = W.GetResource<LocalizationService>();
+            IPreInitWaitRegistry.AddPreInit(this);
         }
 
         readonly Settings _def;
         readonly AtlasService _atlas;
         readonly LocalizationService _localization;
 
-        public UniTask PreInitLoad(CancellationToken ct) =>
+        public UniTask PreInitWait(CancellationToken ct) =>
             _atlas.LoadAtlas(_def.AtlasKey);
 
         public void Init()
@@ -38,7 +39,7 @@ namespace com.ab.domain.craft
                 var item = UnityEngine.Object.Instantiate(_def.ItemPrefab);
                 var itemDef = entC.Ref<ItemEntry>();
 
-                item.Init(entC, true);
+                item.Init(entC,  true);
                 item.UpdateIcon(_atlas.GetSprite(_def.AtlasKey, itemDef.AKSprite));
                 item.UpdateTile(_localization.GetString(itemDef.LKTitle, _def.LocalizationTable));
                 item.UpdateDescription(_localization.GetString(itemDef.LKDescription, _def.LocalizationTable));

@@ -1,5 +1,6 @@
 using System;
 using com.ab.complexity.core;
+using com.ab.core;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
@@ -19,8 +20,8 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         public void RegisterUpdate()
         {
-            SysReg.Add(new InvModelSystem());
-            SysReg.Add(new InvViewSystem(Def.InventoryInitViewSystem));
+            Sys.Add(new InvModelSystem());
+            Sys.Add(new InvViewSystem(Def.InventoryInitViewSystem));
         }
     }
 

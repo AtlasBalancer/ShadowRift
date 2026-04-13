@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using com.ab.core;
 using Cysharp.Threading.Tasks;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -7,7 +9,7 @@ using UnityEngine.Localization.Tables;
 
 namespace com.ab.common
 {
-    public class LocalizationService
+    public class LocalizationService : IPreInitWait
     {
         const string TABLE = "Default";
         
@@ -16,9 +18,13 @@ namespace com.ab.common
         public LocalizationService()
         {
             LocalizationSettings.SelectedLocaleChanged += _ => OnLocaleChanged?.Invoke();
+            IPreInitWaitRegistry.AddPreInit(this);
         }
 
         // ── Инициализация ────────────────────────────────────────────────────
+
+        public UniTask PreInitWait(CancellationToken ct) => 
+            InitializeAsync();
 
         public async UniTask InitializeAsync()
         {

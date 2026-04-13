@@ -1,5 +1,6 @@
 using System;
 using com.ab.complexity.core;
+using com.ab.core;
 
 namespace com.ab.domain.craft
 {
@@ -13,7 +14,7 @@ namespace com.ab.domain.craft
 
         public void RegisterUpdate()
         {
-            SysReg.Add(new CraftViewSystem(Def.CraftViewSystem));
+            Sys.Add(new CraftViewSystem(Def.CraftViewSystem));
         }
     }
 }

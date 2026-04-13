@@ -1,3 +1,4 @@
+using com.ab.core;
 using UnityEngine;
 
 namespace com.ab.domain.craft

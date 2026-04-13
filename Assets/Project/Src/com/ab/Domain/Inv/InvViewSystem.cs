@@ -13,7 +13,7 @@ using Object = UnityEngine.Object;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
-    public class InvViewSystem : ViewPresenter<InvMono>, ISystem, IPreInitLoad
+    public class InvViewSystem : ViewPresenter<InvMono>, ISystem, IPreInitWait
     {
         public InvViewSystem(Settings def)
         {
@@ -23,6 +23,7 @@ namespace Project.Src.com.ab.Domain.Inventory
             _localization = W.GetResource<LocalizationService>();
             _atlas = W.GetResource<AtlasService>();
 
+            IPreInitWaitRegistry.AddPreInit(this);
             W.SetResource<EquipPuppetMono>(View.Puppet); // TODO: Tmp
         }
 
@@ -30,7 +31,7 @@ namespace Project.Src.com.ab.Domain.Inventory
         readonly LocalizationService _localization;
         readonly AtlasService _atlas;
 
-        public UniTask PreInitLoad(CancellationToken ct) =>
+        public UniTask PreInitWait(CancellationToken ct) =>
             _localization.PreloadStringTableAsync(_def.LocalizationTable);
 
         public void Init()

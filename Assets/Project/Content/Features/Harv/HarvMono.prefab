@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 8334523777114623297}
   - component: {fileID: 2490201667797439767}
   m_Layer: 6
-  m_Name: Harv
+  m_Name: HarvMono
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

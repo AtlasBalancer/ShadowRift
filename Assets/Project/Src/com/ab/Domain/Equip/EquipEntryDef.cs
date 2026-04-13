@@ -1,5 +1,6 @@
 using System;
 using com.ab.complexity.core;
+using com.ab.core;
 
 namespace com.ab.domain.equip
 {
@@ -14,8 +15,8 @@ namespace com.ab.domain.equip
 
         public void RegisterUpdate()
         {
-            SysReg.Add(new EquipPuppetSystem(Def.EquipPuppetSystem));
-            SysReg.Add(new EquipUnitSystem(Def.EquipUnitSystem));
+            Sys.Add(new EquipPuppetSystem(Def.EquipPuppetSystem));
+            Sys.Add(new EquipUnitSystem(Def.EquipUnitSystem));
         }
     }
 }

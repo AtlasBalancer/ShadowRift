@@ -1,4 +1,4 @@
-using com.ab.complexity.core;
+using com.ab.core;
 using FFS.Libraries.StaticEcs;
 
 namespace com.ab.common
@@ -15,7 +15,7 @@ namespace com.ab.common
     
     public static class AmountExtensions
     {
-        public static int GetAmount(this W.Entity source) => 
+        public static int GetAmount(this World<WT>.Entity source) => 
             source.Has<Amount>() ? source.Ref<Amount>().Val : 1;
     }
 }

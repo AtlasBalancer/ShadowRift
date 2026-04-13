@@ -16,10 +16,15 @@ MonoBehaviour:
   m_GUID: 9c855db3ac4316b4fad28cd84eda98ff
   m_SerializeEntries:
   - m_GUID: 6fd7d9e409be83f408a5fe30ea1a3fe3
-    m_Address: HarvestAtlas
+    m_Address: HarvAtlas
     m_ReadOnly: 0
     m_SerializedLabels:
     - Atlas
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c2ebd0e16a553094c9cadb529a46ae8c
+    m_Address: HarvMono
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ac1421c65b32a8e41841ee35da847a13, type: 2}

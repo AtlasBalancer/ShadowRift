@@ -1,5 +1,6 @@
 using System;
 using com.ab.complexity.core;
+using com.ab.core;
 using Project.Src.com.ab.Domain.Collect;
 
 namespace com.ab.domain.collect
@@ -17,8 +18,8 @@ namespace com.ab.domain.collect
 
         public void RegisterUpdate()
         {
-            SysReg.Add(new PlacedToInventorySystem(Def.CollectToInventorySystem));
-            SysReg.Add(new PlacedSpawnSystem(Def.CollectSpawnSystem));
+            Sys.Add(new PlacedToInventorySystem(Def.CollectToInventorySystem));
+            Sys.Add(new PlacedSpawnSystem(Def.CollectSpawnSystem));
         }
 
         public void SetContext()
@@ -26,8 +27,6 @@ namespace com.ab.domain.collect
             // W.Context<ItemTable>.Set(Def.ItemTable);
         }
 
-        public void CreateProtoEntities()
-        {
-        }
+        public void CreateProtoEntities() { }
     }
 }

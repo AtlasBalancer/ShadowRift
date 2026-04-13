@@ -1,5 +1,6 @@
 using com.ab.common;
 using com.ab.complexity.core;
+using com.ab.core;
 using com.ab.domain.equip;
 using TMPro;
 using UnityEngine;

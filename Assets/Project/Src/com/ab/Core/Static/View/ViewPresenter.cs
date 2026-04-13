@@ -1,5 +1,3 @@
-using com.ab.domain.craft;
-using FFS.Libraries.StaticEcs;
 using UnityEngine;
 using UnityEngine.UI;
 

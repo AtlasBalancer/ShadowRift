@@ -6,11 +6,20 @@ namespace com.ab.common
 {
     public readonly struct ConfigRef : IComponent, IEquatable<ConfigRef>
     {
+        public readonly string PersistenId;
         public readonly EntityGID Gid;
 
-        public ConfigRef(EntityGID gid) => Gid = gid;
-        
-        public ConfigRef(WC.Entity wcEnt) => Gid = wcEnt.GID;
+        public ConfigRef(EntityGID gid, string persistenId)
+        {
+            Gid = gid;
+            PersistenId = persistenId;
+        }
+
+        public ConfigRef(WC.Entity wcEnt, string persistenId)
+        {
+            Gid = wcEnt.GID;
+            PersistenId = persistenId;
+        }
 
         public WC.Entity Unpack() => Gid.Unpack<WCT>();
 

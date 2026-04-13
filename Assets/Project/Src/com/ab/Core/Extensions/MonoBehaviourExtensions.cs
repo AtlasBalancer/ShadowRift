@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace com.ab.complexity.core
+namespace com.ab.core
 {
     public static class MonoBehaviourExtensions
     {

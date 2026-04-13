@@ -1,6 +1,7 @@
 using System;
-using com.ab.complexity.core;
+using com.ab.core;
 using FFS.Libraries.StaticEcs;
+using UnityEngine;
 
 namespace com.ab.common
 {
@@ -32,13 +33,19 @@ namespace com.ab.common
 
     public static class TimerExtensions
     {
-        public static bool Timer(this W.Entity source, float deltaTime)
+        public static bool Timer(this World<WT>.Entity source, float deltaTime)
         {
             ref var timer = ref source.Ref<Timer>();
             return !timer.Next(deltaTime);
         }
 
-        public static W.Entity SetTimer(this W.Entity source, float delay, bool beginningStart = false)
+        public static World<WT>.Entity SetTimer(this World<WT>.Entity source, Vector2 rangeDelay, bool beginningStart = false)
+        {
+            source.Set(new Timer(rangeDelay.Rand(), beginningStart));
+            return source;
+        }
+        
+        public static World<WT>.Entity SetTimer(this World<WT>.Entity source, float delay, bool beginningStart = false)
         {
             source.Set(new Timer(delay, beginningStart));
             return source;

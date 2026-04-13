@@ -1,6 +1,7 @@
 using System;
 using com.ab.common.Persistent;
 using com.ab.complexity.core;
+using com.ab.core;
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -19,11 +20,13 @@ namespace com.ab.domain.harv
 
         readonly Settings _def;
         readonly PersistentService _persistent;
+        readonly HarvFactory _factory;
 
         public HarvLoadSystem(Settings def)
         {
             _def = def;
             _persistent = W.GetResource<PersistentService>();
+            _factory = W.GetResource<HarvFactory>();
         }
 
         public void Init()
@@ -32,7 +35,7 @@ namespace com.ab.domain.harv
 
             var mono = Object.Instantiate(_def.Prefab);
             mono.transform.position = _def.PosPoint.position;
-            ent.Set<HarvRef>(new HarvRef(mono));
+            // ent.Set<HarvRef>(new HarvRef(mono));
             ent.Set<Position>(new Position(_def.PosPoint.position));
 
             using var writer = W.Serializer.CreateEntitiesSnapshotWriter();

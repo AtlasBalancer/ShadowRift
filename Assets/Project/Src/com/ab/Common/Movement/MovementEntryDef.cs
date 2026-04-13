@@ -1,4 +1,4 @@
-using Project.Src.com.ab.Common.Movement;
+using com.ab.core;
 using UnityEngine;
 
 namespace com.ab.complexity.core
@@ -8,12 +8,12 @@ namespace com.ab.complexity.core
     {
         public void RegisterUpdate()
         {
-            SysReg.Add(new MovementInitSystem());
-            SysReg.Add(new MovementVelocitySystem());
-            SysReg.Add(new MovementUpdatePositionSystem());
-            SysReg.Add(new MovementSamePositionSystem());
-            SysReg.Add(new MovementDirectionSystem());
-            SysReg.Add(new MovementAnimationLocomotionSystem());
+            Sys.Add(new MovementInitSystem());
+            Sys.Add(new MovementVelocitySystem());
+            Sys.Add(new MovementUpdatePositionSystem());
+            Sys.Add(new MovementSamePositionSystem());
+            Sys.Add(new MovementDirectionSystem());
+            Sys.Add(new MovementAnimationLocomotionSystem());
         }
     }
 }

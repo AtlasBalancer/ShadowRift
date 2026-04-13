@@ -5,6 +5,7 @@ using System.Threading;
 using com.ab.common;
 using com.ab.common.ProgressBar;
 using com.ab.complexity.core;
+using com.ab.core;
 using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
@@ -13,37 +14,29 @@ using Object = UnityEngine.Object;
 
 namespace com.ab.domain.harv
 {
-    public class HarvSpawnSystem : IPreInitLoad, ISystem
+    public class HarvSpawnSystem : ISystem
     {
         public HarvSpawnSystem(Settings def)
         {
             _def = def;
-            _atlas = W.GetResource<AtlasService>();
+            _factory = W.GetResource<HarvFactory>();
         }
 
         readonly Settings _def;
-        readonly AtlasService _atlas;
-
-        public async UniTask PreInitLoad(CancellationToken ct) =>
-            await _atlas.LoadAtlas(_def.AtlasKey);
+        readonly HarvFactory _factory;
 
         public void Init()
         {
             foreach (var spawner in _def.InitSpawners)
                 InitLayer(spawner);
 
-            foreach (var spawner in _def.LoopSpawners)
+            foreach (var spawnerDef in _def.LoopSpawners)
             {
-                spawner.Layer.Active(false);
-                var timerDelay = spawner.DelayRange.Rand();
-
-                var ent = W.NewEntity<Default>();
-                ent.SetTimer(timerDelay, true);
-                ent.Set(new HarvAvailablePositions { Positions = GetAvailablePositions(spawner.Layer) });
-                ent.Set(spawner);
-
-                if (spawner.FillInit)
-                    foreach (var _ in Enumerable.Range(0, ent.Ref<HarvAvailablePositions>().Positions.Count))
+                var ent = _factory.CreateSpawner(spawnerDef);
+                
+                spawnerDef.Layer.Active(false);
+                if (spawnerDef.FillInit)
+                    foreach (var _ in Enumerable.Range(0, ent.Ref<HarvAvailablePositions>().Val.Count))
                         SpawnItem(ent);
             }
         }
@@ -52,7 +45,7 @@ namespace com.ab.domain.harv
         {
             var deltaTime = Time.deltaTime;
 
-            foreach (var ent in W.Query<All<HarvSpawnLoop>>().Entities())
+            foreach (var ent in W.Query<All<HarvSpawnerDer>>().Entities())
             {
                 if (ent.Timer(deltaTime))
                     continue;
@@ -63,34 +56,23 @@ namespace com.ab.domain.harv
 
         void SpawnItem(W.Entity spawnerEnt)
         {
-            List<Vector3Int> availablePosition = spawnerEnt.Ref<HarvAvailablePositions>().Positions;
+            List<Vector3Int> availablePosition = spawnerEnt.Ref<HarvAvailablePositions>().Val;
             if (availablePosition.Count == 0)
                 return;
 
             var gridPosition = availablePosition.RandAndRemove();
 
-            var spawner = spawnerEnt.Ref<HarvSpawnLoop>();
+            var spawner = spawnerEnt.Ref<HarvSpawnerDer>();
             var position = spawner.Layer.CellToWorld(gridPosition);
             var harDef = spawner.ItemTable.Entries.RandVal();
 
-            CreateHarvestMono(harDef.Item1, spawnerEnt, position);
+            _factory.CreateLink(harDef.Item1, spawnerEnt, position);
         }
 
-        List<Vector3Int> GetAvailablePositions(Tilemap map)
-        {
-            List<Vector3Int> positions = new List<Vector3Int>();
-            foreach (var pos in map.cellBounds.allPositionsWithin)
-            {
-                if (map.HasTile(pos))
-                    positions.Add(pos);
-            }
-
-            return positions;
-        }
 
         void InitLayer(HarvestSpawnInitDef spawner)
         {
-            var positions = GetAvailablePositions(spawner.OreSpawnLayer);
+            var positions = spawner.OreSpawnLayer.GetPositions();
             var spawnerEnt = W.NewEntity<Default>();
 
             foreach (var gridPosition in positions)
@@ -98,41 +80,17 @@ namespace com.ab.domain.harv
                 var position = spawner.OreSpawnLayer.CellToWorld(gridPosition);
 
                 var vein = spawner.ItemTable.Rand();
-                CreateHarvestMono(vein, spawnerEnt, position);
+                _factory.CreateLink(vein, spawnerEnt, position);
             }
 
             spawner.OreSpawnLayer.gameObject.SetActive(false);
         }
 
-        void CreateHarvestMono(ConfigIDEntSo id, W.Entity spawnerEnt, Vector3 position)
-        {
-            var harvLink = Object.Instantiate(_def.HarvPrefab, _def.SpawnContainer);
-            harvLink.transform.position = position;
-
-            id.GetConfig<HarvItemEntry>(out var harvDef, out _);
-            var sprite = _atlas.GetSprite(_def.AtlasKey, harvDef.AKSprite);
-            harvLink.SetSprite(sprite);
-
-            harvLink.Init(id, true);
-
-            int amount = harvDef.AmountRange.Rand();
-            harvLink.Ent.Set(new Amount(amount));
-            harvLink.Ent.Ref<ProgressBarRef>().Val.SetMax(amount);
-            harvLink.Ent.Set(new W.Link<Parent>(spawnerEnt));
-            harvLink.ProgressBar.OffsetY(harvDef.ProgressBarOffset);
-        }
-
         [Serializable]
         public class Settings
         {
-            public HarvMono HarvPrefab;
-            public Vector3 TileOffset;
-
-            public Transform SpawnContainer;
-            public string AtlasKey;
-
             public List<HarvestSpawnInitDef> InitSpawners;
-            public List<HarvSpawnLoop> LoopSpawners;
+            public List<HarvSpawnerDer> LoopSpawners;
         }
 
         [Serializable]

@@ -3,6 +3,7 @@ using System.Threading;
 using com.ab.common;
 using UnityEngine;
 using com.ab.complexity.core;
+using com.ab.core;
 using com.ab.domain.item;
 using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs;
@@ -11,23 +12,23 @@ using com.ab.item;
 
 namespace Project.Src.com.ab.Domain.Collect
 {
-    public class PlacedSpawnSystem : IPreInitLoad, ISystem 
+    public class PlacedSpawnSystem : IPreInitWait, ISystem 
     {
         public PlacedSpawnSystem(Settings def)
         {
             _def = def;
             _atlas = W.GetResource<AtlasService>();
+            
+            IPreInitWaitRegistry.AddPreInit(this);
         }
 
         readonly Settings _def;
         readonly AtlasService _atlas;
 
-        public UniTask PreInitLoad(CancellationToken ct) =>
+        public UniTask PreInitWait(CancellationToken ct) =>
             _atlas.LoadAtlas(_def.AtlasKey);
 
-        public void Init()
-        {
-        }
+        public void Init() { }
 
         public void Update()
         {

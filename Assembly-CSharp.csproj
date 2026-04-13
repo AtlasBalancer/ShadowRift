@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Integrations\WT.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Construct\ConstructionMono.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Common\Persistent\PersistentEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\Unit\EquipUnitItemSlotMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\View\ViewPresenter.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Defs\IStaticRegisterTypeDef.cs" />
@@ -55,7 +56,6 @@
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\Pupet\EquipPuppetRef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Craft\CraftItemMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Camera\CameraRef.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvItemEntity.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Mono\LogicRendererMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\EquipEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\TriggerEnterTag.cs" />
@@ -70,7 +70,6 @@
     <Compile Include="Assets\Project\Src\com\ab\Core\Extensions\ComponentExtensions.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Feature\Player\PlayerTag.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Localization\LocalizationService.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Core\Program.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Extensions\DictionaryExtensions.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvCategoryRef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Movement\MovementSamePositionMono.cs" />
@@ -80,15 +79,18 @@
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvCategoryView.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvCardItemMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\SceneEntryDef.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Core\Extensions\TilemapExtensions.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Defs\IStaticContextSetDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\EquipSystem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\Unit\EquipUnitSystem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvAvailablePositions.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Core\Static\Lifecycle\IPreInitWait.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Joystick\JoystickAttachMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\Unit\EquipUnitRef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\Pupet\EquipPuppetSlotMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvCollectorRef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Price\PriceCheckAvailableSystem.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvSpawnerDer.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Extensions\Vector2Extensions.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Craft\CraftEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Extensions\MonoBehaviourExtensions.cs" />
@@ -99,6 +101,8 @@
     <Compile Include="Assets\Project\Src\com\ab\Common\Movement\MovementInitSystem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvPartLayoutAutoHeightMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\GridSelectionAutoHeight.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Common\Factory\PrefabFactoryPooled.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvEntity.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\Event\EquipSetEvent.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Entrys\StaticEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\ActiveTag.cs" />
@@ -107,6 +111,7 @@
     <Compile Include="Assets\Project\Src\com\ab\Domain\Craft\CraftViewSystem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Config\WC.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\RespondedButton\RespondedEntryDef.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Common\ServiceEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Unity\Direction.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InventoryAdd.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Uitils\Timer.cs" />
@@ -115,7 +120,7 @@
     <Compile Include="Assets\Project\Src\com\ab\Common\Movement\MovementSamePositionSystem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\LevelTransition\LevelTransitionMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\Pupet\EquipPuppetSystem.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvSpawnLoop.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Common\Factory\PrefabFactory.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Unity\AnimatorRef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\ProgressBar\ProgressBarMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvCategoryTable.cs" />
@@ -123,6 +128,8 @@
     <Compile Include="Assets\Project\Src\com\ab\Domain\Price\PriceTable.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Price\PriceRegisterTag.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Movement\MovementEntry.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Common\Links\IPooled.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvFactory.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\RespondedButton\ResponseButtonRef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvViewSystem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\IEcsTable.cs" />
@@ -143,6 +150,7 @@
     <Compile Include="Assets\Project\Src\com\ab\Common\RespondedButton\ResponseButtonMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Unity\LogicRender.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Construct\ConstructEntryDef.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Core\Static\Lifecycle\Startup.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Defs\IStaticInitDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Entrys\StaticEntrySODef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\RespondedButton\ResponseButtonSystem.cs" />
@@ -158,7 +166,6 @@
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Entrys\StaticEntryParamDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Joystick\JoystickAttachTag.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Unity\Position.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Domain\ItemTable\ItemService.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\Pupet\EquipPuppetMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Placed\PlacedSpawnByDropTable.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\LevelTransition\LevelTransitionEntryDef.cs" />
@@ -174,7 +181,6 @@
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\ClickTag.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Equip\Event\EquipUnSetEvent.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Feature\Player\PlayerMono.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Core\Static\Integrations\IPreInitLoad.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Config\ConfigTableSo.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvItemMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvMono.cs" />
@@ -184,13 +190,12 @@
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Defs\IStaticTagDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\ItemTable\DropTable.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Static\Defs\IStaticContextDef.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvItemArch.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\RespondedButton\ResponseButtonRefMock.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Extensions\Vector2IntExtensions.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvLoadSystem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Motions\CameraEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\GridAutoCellSizeMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Construct\ConstructView.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Core\Const.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InventoryItem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Price\PriceAvailableTag.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Unity\SerializableMap.cs" />
@@ -201,7 +206,6 @@
     <Compile Include="Assets\Project\Src\com\ab\Feature\Player\PlayerEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Movement\MovementSamePosition.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Placed\PlacedMono.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Core\Static\Integrations\Startup.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Movement\Movement.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvConst.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvModelSystem.cs" />
@@ -229,6 +233,7 @@
     <Compile Include="Assets\Project\Src\com\ab\Common\Links\DestroyLinkSystem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Core\Extensions\ListExtensions.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Construct\ConstructionBuilt.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\PrefabFactory.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />

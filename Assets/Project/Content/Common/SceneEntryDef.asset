@@ -22,8 +22,6 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Def:
-    ItemTable:
-    - {fileID: 11400000, guid: c6d3afb0366b7bd40b0ba7da00187e3e, type: 2}
-    - {fileID: 11400000, guid: 6232e37938179984e88d40ffc29ad2ed, type: 2}
-    DropTable:
-    - {fileID: 11400000, guid: 918836f408d04074488979c5d199783e, type: 2}
+    AtlasService:
+      PrelaodAtals:
+      - MapAtlas

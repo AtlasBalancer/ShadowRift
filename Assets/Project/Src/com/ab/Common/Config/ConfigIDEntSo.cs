@@ -25,7 +25,7 @@ namespace com.ab.common
 
             _inited = true;
             RuntimeID = WC.NewEntity<Default>();
-            RuntimeID.Set(new ConfigRef(RuntimeID));
+            RuntimeID.Set(new ConfigRef(RuntimeID, ID));
             return RuntimeID;
         }
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using com.ab.common;
 using com.ab.complexity.core;
+using com.ab.core;
 using FFS.Libraries.StaticEcs;
 
 namespace com.ab.domain.construct

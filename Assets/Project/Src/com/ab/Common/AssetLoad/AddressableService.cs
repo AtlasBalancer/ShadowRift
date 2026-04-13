@@ -9,12 +9,23 @@ namespace com.ab.common
 {
     public class AddressableService
     {
-        private readonly Dictionary<string, AsyncOperationHandle> _handles = new();
+        readonly Dictionary<string, AsyncOperationHandle> _handles = new();
+
+        public async UniTask<T> LoadPrefabAsync<T>(string key) where T : class
+        {
+            var go = await LoadAsync<GameObject>(key);
+
+            if (!go.TryGetComponent<T>(out var item))
+                throw new Exception($"{nameof(AddressableService)}::{nameof(LoadPrefabAsync)}:: " +
+                                    $"Can't load {key}");
+
+            return item;
+        }
 
         public async UniTask<T> LoadAsync<T>(string key) where T : class
         {
             Debug.Log($"{nameof(AddressableService)}:: load: {key}");
-            
+
             if (_handles.TryGetValue(key, out var cached))
             {
                 if (!cached.IsDone)

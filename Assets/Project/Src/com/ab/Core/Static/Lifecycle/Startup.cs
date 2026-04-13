@@ -5,10 +5,11 @@ using FFS.Libraries.StaticEcs;
 using System.Collections.Generic;
 using System.Threading;
 using com.ab.common;
+using com.ab.complexity.core;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
-namespace com.ab.complexity.core
+namespace com.ab.core
 {
     [Serializable]
     public class Startup : MonoBehaviour
@@ -49,23 +50,20 @@ namespace com.ab.complexity.core
 
             // === Initialization order === 
             InitializeConfig();
-            await WaitPreInitLoads();
+            await WaitPreInitWaits();
             Sys.Initialize();
 
             CreateLastInitStage();
             _started = true;
         }
 
-        async UniTask WaitPreInitLoads()
+        async UniTask WaitPreInitWaits()
         {
             var cts = new CancellationTokenSource();
 
-            await W.GetResource<AtlasService>().PreInitLoad(cts.Token);
-
-            var initLoadList = SysReg.All.OfType<IPreInitLoad>().ToList();
-            if (initLoadList.Count == 0) return;
-            await UniTask.WhenAll(Enumerable.Select(initLoadList,
-                item => item.PreInitLoad(cts.Token)));
+            var items = IPreInitWaitRegistry.EachPreInit();
+            await UniTask.WhenAll(Enumerable.Select(items,
+                item => item.PreInitWait(cts.Token)));
         }
 
         void RegisterConfigTypes()
@@ -84,9 +82,9 @@ namespace com.ab.complexity.core
 
         void Update()
         {
-            if(!_started)
+            if (!_started)
                 return;
-            
+
             Sys.Update();
         }
 
@@ -104,26 +102,27 @@ namespace com.ab.complexity.core
 
         void SetContext()
         {
-            var features = _def.GetFeatures<IStaticContextSetDef>();
-            features.ForEach(item => item.SetContext());
-
             var modules = _def.Modules
                 .OfType<IStaticContextSetDef>()
                 .ToList();
 
             modules.ForEach(item => item.SetContext());
+            
+            
+            var features = _def.GetFeatures<IStaticContextSetDef>();
+            features.ForEach(item => item.SetContext());
         }
 
         void RegisterTag()
         {
-            var features = _def.GetFeatures<IStaticTagDef>();
-            features.ForEach(item => item.RegisterTag());
-
             var modules = _def.Modules
                 .OfType<IStaticTagDef>()
                 .ToList();
 
             modules.ForEach(item => item.RegisterTag());
+            
+            var features = _def.GetFeatures<IStaticTagDef>();
+            features.ForEach(item => item.RegisterTag());
         }
 
         void RegisterTypes()
@@ -133,7 +132,7 @@ namespace com.ab.complexity.core
                 .ToList();
 
             modules.ForEach(item => item.RegisterType());
-
+            
             var features = _def.GetFeatures<IStaticRegisterTypeDef>();
             features.ForEach(item => item.RegisterType());
         }
@@ -193,7 +192,7 @@ namespace com.ab.complexity.core
                 Debug.Log("DDDD");
             }
         }
-        
+
         [Serializable]
         public class Settings
         {

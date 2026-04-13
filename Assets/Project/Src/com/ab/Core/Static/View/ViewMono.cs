@@ -1,7 +1,7 @@
 using com.ab.common;
 using UnityEngine.UI;
 
-namespace com.ab.domain.craft
+namespace com.ab.core
 {
     public abstract class ViewMono : EntityLink
     {

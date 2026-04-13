@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace com.ab.complexity.core
+namespace com.ab.core
 {
     public static class ListExtensions
     {

@@ -1,4 +1,5 @@
 using com.ab.complexity.core;
+using com.ab.core;
 using FFS.Libraries.StaticEcs;
 
 namespace com.ab.common
@@ -40,13 +41,11 @@ namespace com.ab.common
             return TryToFindRuntimeRefByTag<TTag>(@ref, out findingEnt);
         }
 
-        public static bool TryToFindRuntimeRefByTag<TTag>(this W.Entity source, out W.Entity findingEnt, out EntityGID gid)
+        public static bool TryToFindRuntimeRefByTag<TTag>(this W.Entity source, out W.Entity findingEnt, out ConfigRef config)
             where TTag : struct, ITag
         {
-            var @ref = source.Ref<ConfigRef>();
-            gid = @ref.Gid;
-
-            return TryToFindRuntimeRefByTag<TTag>(@ref, out findingEnt);
+            config = source.Ref<ConfigRef>();
+            return TryToFindRuntimeRefByTag<TTag>(config, out findingEnt);
         }
 
 

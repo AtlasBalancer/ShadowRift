@@ -1,11 +1,11 @@
 using System;
-using com.ab.common;
 using com.ab.complexity.core;
+using com.ab.core;
 
 namespace com.ab.domain.harv
 {
     public class HarvEntryDef : StaticEntryParamDef<HarvEntryDef.Settings>,
-        IStaticUpdateDef
+        IStaticUpdateDef, IStaticContextSetDef
     {
         [Serializable]
         public class Settings
@@ -13,13 +13,19 @@ namespace com.ab.domain.harv
             public HarvLoadSystem.Settings HarvLoadSystem;
             public HarvSpawnSystem.Settings HarvesterSpawnSystem;
             public HarvCollectSystem.Settings HarvestCollectSystem;
+            public HarvFactory.Settings HarvFactory;
         }
 
         public void RegisterUpdate()
         {
-            SysReg.Add(new HarvLoadSystem(Def.HarvLoadSystem));
-            // SysReg.Add(new HarvSpawnSystem(Def.HarvesterSpawnSystem));
+            Sys.Add(new HarvLoadSystem(Def.HarvLoadSystem));
+            Sys.Add(new HarvSpawnSystem(Def.HarvesterSpawnSystem));
             // SysReg.Add(new HarvCollectSystem(Def.HarvestCollectSystem));
+        }
+
+        public void SetContext()
+        {
+            W.SetResource(new HarvFactory(Def.HarvFactory));
         }
     }
 }

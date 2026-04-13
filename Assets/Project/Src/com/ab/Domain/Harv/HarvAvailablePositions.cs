@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace com.ab.domain.harv
 {
-    public struct HarvAvailablePositions : IComponent
+    public readonly struct HarvAvailablePositions : IComponent
     {
-        public List<Vector3Int> Positions;
+        public readonly List<Vector3Int> Val;
+
+        public HarvAvailablePositions(List<Vector3Int> val) => Val = val;
     }
 }

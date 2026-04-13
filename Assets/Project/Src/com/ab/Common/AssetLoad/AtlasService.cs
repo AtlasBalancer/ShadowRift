@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using com.ab.complexity.core;
+using com.ab.core;
 using com.ab.domain.item;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -9,16 +10,24 @@ using UnityEngine.U2D;
 
 namespace com.ab.common
 {
-    public class AtlasService : IDisposable, IPreInitLoad
+    public class AtlasService : IDisposable, IPreInitWait
     {
-        readonly AddressableService _addressables;
-        readonly IReadOnlyList<string> _atlasKeys;
-
-        public AtlasService(AddressableService addressables, IReadOnlyList<string> atlasKeys)
+        [Serializable]
+        public class Settings
         {
-            _addressables = addressables;
-            _atlasKeys = atlasKeys;
+            public List<string> PrelaodAtals;
+        }
+
+        readonly Settings _def;
+        readonly AddressableService _addressables;
+
+        public AtlasService(Settings def)
+        {
+            _def = def;
+            _addressables = W.GetResource<AddressableService>();
             SpriteAtlasManager.atlasRequested += OnAtlasRequested;
+            
+            IPreInitWaitRegistry.AddPreInit(this);
         }
 
         public UniTask LoadAtlas(string atlasKey) =>
@@ -37,23 +46,21 @@ namespace com.ab.common
             return null;
         }
 
-        public UniTask PreInitLoad(CancellationToken ct) =>
+        public UniTask PreInitWait(CancellationToken ct) =>
             InitAsync();
 
         public async UniTask InitAsync()
         {
-            var tasks = new UniTask<SpriteAtlas>[_atlasKeys.Count];
-            for (var i = 0; i < _atlasKeys.Count; i++)
-                tasks[i] = _addressables.LoadAsync<SpriteAtlas>(_atlasKeys[i]);
+            var atlases = _def.PrelaodAtals;
+            
+            var tasks = new UniTask<SpriteAtlas>[atlases.Count];
+            for (var i = 0; i < atlases.Count; i++)
+                tasks[i] = _addressables.LoadAsync<SpriteAtlas>(atlases[i]);
 
             await UniTask.WhenAll(tasks);
         }
 
-        // tag — это SpriteAtlas.tag из инспектора, не Addressable-ключ.
-
-        // Убедись что они совпадают, либо добавь маппинг.
-
-        private void OnAtlasRequested(string tag, Action<SpriteAtlas> callback)
+        void OnAtlasRequested(string tag, Action<SpriteAtlas> callback)
         {
             if (_addressables.TryGet<SpriteAtlas>(tag, out var cached))
             {
