@@ -16,6 +16,7 @@ namespace com.ab.common
             public Transform SpawnContainer;
         }
 
+        protected TLink _prefab;
         readonly protected Settings _def;
         readonly protected AddressableService _addresable;
 
@@ -31,7 +32,7 @@ namespace com.ab.common
         }
 
         public virtual UniTask PreInitWait(CancellationToken ct) =>
-            _addresable.LoadPrefabAsync<TLink>(_def.PrefabKey);
+            _addresable.LoadAsync<GameObject>(_def.PrefabKey);
 
         public TLink CreateLink()
         {
@@ -46,14 +47,25 @@ namespace com.ab.common
 
         protected virtual TLink GetPrefab()
         {
-            if (!_addresable.TryGet<TLink>(_def.PrefabKey, out var prefab))
+            if (_prefab != null)
+                return _prefab;
+            
+            if (!_addresable.TryGet<GameObject>(_def.PrefabKey, out var prefab))
             {
                 throw new TypeLoadException($"{nameof(this.GetType)}::{nameof(CreateLink)}:" +
-                                            $"Can't create prefab: {_def.PrefabKey}. " +
-                                            $"Can't get from {nameof(AddressableService)}");
+                                            $"Can't get prefab key: {_def.PrefabKey} " +
+                                            $"from {nameof(AddressableService)}");
             }
 
-            return prefab;
+            if (!prefab.TryGetComponent<TLink>(out var prefabLink))
+            {
+                throw new TypeLoadException($"{nameof(this.GetType)}::{nameof(CreateLink)}:" +
+                                            $"Can't find type: {nameof(TLink)} with key: {_def.PrefabKey} " +
+                                            $"in prefab: {prefabLink.name}");
+            }
+
+            _prefab = prefabLink;
+            return prefabLink;
         }
     }
 }

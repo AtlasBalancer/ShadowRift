@@ -11,17 +11,6 @@ namespace com.ab.common
     {
         readonly Dictionary<string, AsyncOperationHandle> _handles = new();
 
-        public async UniTask<T> LoadPrefabAsync<T>(string key) where T : class
-        {
-            var go = await LoadAsync<GameObject>(key);
-
-            if (!go.TryGetComponent<T>(out var item))
-                throw new Exception($"{nameof(AddressableService)}::{nameof(LoadPrefabAsync)}:: " +
-                                    $"Can't load {key}");
-
-            return item;
-        }
-
         public async UniTask<T> LoadAsync<T>(string key) where T : class
         {
             Debug.Log($"{nameof(AddressableService)}:: load: {key}");

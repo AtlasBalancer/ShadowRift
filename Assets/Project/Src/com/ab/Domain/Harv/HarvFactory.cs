@@ -24,14 +24,17 @@ namespace com.ab.domain.harv
             _atlas = W.GetResource<AtlasService>();
         }
 
-        public W.Entity CreateSpawner(HarvSpawnerDer def)
+        public W.Entity CreateSpawner(HarvSpawnerDef def, bool loop = false)
         {
             var ent = W.NewEntity<HarvSpawnerEntity>();
 
             ent.Set(def);
             ent.SetTimer(def.DelayRange, true);
             ent.Set(new HarvAvailablePositions(def.Layer.GetPositions()));
-
+            
+            if (loop)
+                ent.Set<UpdateTag>();
+            
             return ent;
         }
 
@@ -43,6 +46,7 @@ namespace com.ab.domain.harv
                                             $"Can't find def from {nameof(HarvItemEntry)}");
 
             var link = base.CreateLink();
+            link.transform.SetParent(_def.SpawnContainer);
             link.transform.position = position;
 
             var sprite = _atlas.GetSprite(_def.AtlasKey, harvDef.AKSprite);
@@ -53,6 +57,7 @@ namespace com.ab.domain.harv
             link.Ent.Set(new Amount(amount));
             link.Ent.Ref<ProgressBarRef>().Val.SetMax(amount);
             link.Ent.Set(new W.Link<Parent>(spawnerEnt));
+            
             link.ProgressBar.OffsetY(harvDef.ProgressBarOffset);
 
             return link;

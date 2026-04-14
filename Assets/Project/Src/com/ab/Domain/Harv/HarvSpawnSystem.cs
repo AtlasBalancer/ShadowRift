@@ -32,8 +32,8 @@ namespace com.ab.domain.harv
 
             foreach (var spawnerDef in _def.LoopSpawners)
             {
-                var ent = _factory.CreateSpawner(spawnerDef);
-                
+                var ent = _factory.CreateSpawner(spawnerDef, true);
+
                 spawnerDef.Layer.Active(false);
                 if (spawnerDef.FillInit)
                     foreach (var _ in Enumerable.Range(0, ent.Ref<HarvAvailablePositions>().Val.Count))
@@ -45,7 +45,9 @@ namespace com.ab.domain.harv
         {
             var deltaTime = Time.deltaTime;
 
-            foreach (var ent in W.Query<All<HarvSpawnerDer>>().Entities())
+            foreach (var ent in W.Query<
+                         EntityIs<HarvEntity>, 
+                         All<UpdateTag>>().Entities())
             {
                 if (ent.Timer(deltaTime))
                     continue;
@@ -62,42 +64,35 @@ namespace com.ab.domain.harv
 
             var gridPosition = availablePosition.RandAndRemove();
 
-            var spawner = spawnerEnt.Ref<HarvSpawnerDer>();
+            var spawner = spawnerEnt.Ref<HarvSpawnerDef>();
             var position = spawner.Layer.CellToWorld(gridPosition);
-            var harDef = spawner.ItemTable.Entries.RandVal();
+            var harvID = spawner.SpawnedItems.Rand();
 
-            _factory.CreateLink(harDef.Item1, spawnerEnt, position);
+            _factory.CreateLink(harvID, spawnerEnt, position);
         }
 
 
-        void InitLayer(HarvestSpawnInitDef spawner)
+        void InitLayer(HarvSpawnerDef spawnerDef)
         {
-            var positions = spawner.OreSpawnLayer.GetPositions();
-            var spawnerEnt = W.NewEntity<Default>();
+            var positions = spawnerDef.Layer.GetPositions();
+            var spawnerEnt = _factory.CreateSpawner(spawnerDef);
 
             foreach (var gridPosition in positions)
             {
-                var position = spawner.OreSpawnLayer.CellToWorld(gridPosition);
+                var position = spawnerDef.Layer.CellToWorld(gridPosition);
 
-                var vein = spawner.ItemTable.Rand();
+                var vein = spawnerDef.SpawnedItems.Rand();
                 _factory.CreateLink(vein, spawnerEnt, position);
             }
 
-            spawner.OreSpawnLayer.gameObject.SetActive(false);
+            spawnerDef.Layer.gameObject.SetActive(false);
         }
 
         [Serializable]
         public class Settings
         {
-            public List<HarvestSpawnInitDef> InitSpawners;
-            public List<HarvSpawnerDer> LoopSpawners;
-        }
-
-        [Serializable]
-        public struct HarvestSpawnInitDef
-        {
-            public Tilemap OreSpawnLayer;
-            public List<ConfigIDEntSo> ItemTable;
+            public List<HarvSpawnerDef> InitSpawners;
+            public List<HarvSpawnerDef> LoopSpawners;
         }
     }
 }

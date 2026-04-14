@@ -30,6 +30,9 @@ namespace com.ab.core
             // RegisterTypes();
             // RegisterTag();
             W.Types().RegisterAll();
+
+            // W.Types().Link<Parent>();
+            // W.Types().Links<Childs>();
             // W.RegisterComponentType<YourComponentType>();
             // W.RegisterTagType<YourTagType>();
             // WEvents.RegisterEventType<YourEventType>();

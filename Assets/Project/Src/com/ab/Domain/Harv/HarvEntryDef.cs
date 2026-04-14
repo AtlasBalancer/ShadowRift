@@ -1,6 +1,7 @@
 using System;
 using com.ab.complexity.core;
 using com.ab.core;
+using Sirenix.OdinInspector;
 
 namespace com.ab.domain.harv
 {
@@ -16,16 +17,31 @@ namespace com.ab.domain.harv
             public HarvFactory.Settings HarvFactory;
         }
 
+        HarvLoadSystem load;
+
         public void RegisterUpdate()
         {
-            Sys.Add(new HarvLoadSystem(Def.HarvLoadSystem));
+            load = new HarvLoadSystem(Def.HarvLoadSystem);
+            Sys.Add(load);
             Sys.Add(new HarvSpawnSystem(Def.HarvesterSpawnSystem));
-            // SysReg.Add(new HarvCollectSystem(Def.HarvestCollectSystem));
+            Sys.Add(new HarvCollectSystem(Def.HarvestCollectSystem));
         }
 
         public void SetContext()
         {
             W.SetResource(new HarvFactory(Def.HarvFactory));
+        }
+
+        [Button]
+        public void Save()
+        {
+            load.Save();
+        }
+
+        [Button]
+        public void Load()
+        {
+            load.Load();
         }
     }
 }
