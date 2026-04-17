@@ -1,4 +1,5 @@
 using System;
+using com.ab.common;
 using Sirenix.OdinInspector;
 
 namespace com.ab.domain.harv
@@ -8,17 +9,17 @@ namespace com.ab.domain.harv
     {
         HarvLoadSystem load;
 
+        public void SetContext()
+        {
+            W.SetResource(new HarvFactory(Def.HarvFactory));
+        }
+
         public void RegisterUpdate()
         {
             load = new HarvLoadSystem(Def.HarvLoadSystem);
             Sys.Add(load);
             Sys.Add(new HarvSpawnSystem(Def.HarvesterSpawnSystem));
             Sys.Add(new HarvCollectSystem(Def.HarvestCollectSystem));
-        }
-
-        public void SetContext()
-        {
-            W.SetResource(new HarvFactory(Def.HarvFactory));
         }
 
         [Button]

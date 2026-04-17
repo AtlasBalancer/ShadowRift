@@ -1,8 +1,7 @@
-using com.ab.common;
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
 
-namespace com.ab.complexity.core
+namespace com.ab.common
 {
     public class MovementInitSystem : ISystem
     {

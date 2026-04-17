@@ -1,7 +1,7 @@
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
 
-namespace com.ab.complexity.core
+namespace com.ab.common
 {
     public readonly struct MovementAnimationLocomotionSystem : ISystem
     {

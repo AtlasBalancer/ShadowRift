@@ -3,7 +3,7 @@ using FFS.Libraries.StaticEcs;
 using FFS.Libraries.StaticPack;
 using UnityEngine;
 
-namespace com.ab.complexity.core
+namespace com.ab.common
 {
     public struct Position : IComponent
     {

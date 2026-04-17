@@ -1,7 +1,6 @@
-using com.ab.common;
 using FFS.Libraries.StaticEcs;
 
-namespace com.ab.complexity.core
+namespace com.ab.common
 {
     public struct MovementUpdatePositionSystem : ISystem
     {

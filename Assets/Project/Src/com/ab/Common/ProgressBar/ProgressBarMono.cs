@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace com.ab.common.ProgressBar
+namespace com.ab.common
 {
     public readonly struct ProgressBarRef : IComponent
     {

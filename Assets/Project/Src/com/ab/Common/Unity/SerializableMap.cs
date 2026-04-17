@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Project.Src.com.ab.Common.Unity
+namespace com.ab.common
 {
     [Serializable]
     public class TransformByString : SerializableMap<string, Transform>

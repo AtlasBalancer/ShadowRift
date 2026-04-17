@@ -1,7 +1,7 @@
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
 
-namespace com.ab.complexity.features.player
+namespace com.ab.common
 {
     public readonly struct LogicRender : IComponent
     {

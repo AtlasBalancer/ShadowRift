@@ -1,7 +1,6 @@
-using com.ab.common;
-using com.ab.common.ProgressBar;
-using FFS.Libraries.StaticEcs;
 using UnityEngine;
+using com.ab.common;
+using FFS.Libraries.StaticEcs;
 
 namespace com.ab.domain.harv
 {

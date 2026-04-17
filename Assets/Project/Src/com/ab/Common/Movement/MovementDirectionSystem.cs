@@ -1,8 +1,7 @@
-using com.ab.complexity.features.player;
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
 
-namespace com.ab.complexity.core
+namespace com.ab.common
 {
     public class MovementDirectionSystem : ISystem
     {

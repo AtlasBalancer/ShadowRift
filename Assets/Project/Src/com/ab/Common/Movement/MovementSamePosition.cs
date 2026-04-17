@@ -1,7 +1,7 @@
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
 
-namespace com.ab.complexity
+namespace com.ab.common
 {
     public struct MovementSamePosition : IComponent
     {

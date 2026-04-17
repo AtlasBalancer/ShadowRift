@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
+using UnityEngine;
 using System.Text;
 using com.ab.common;
-using com.ab.common.Persistent;
 using FFS.Libraries.StaticEcs;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace com.ab.domain.harv
 {
@@ -91,7 +90,7 @@ namespace com.ab.domain.harv
         public void Load()
         {
             var loadedSnapshot = _persistent.Load(_def.PersistKey);
-            World<WT>.Serializer.LoadEntitiesSnapshot(loadedSnapshot, false);
+            World<WT>.Serializer.LoadEntitiesSnapshot(loadedSnapshot);
 
             foreach (var ent in W.Query<All<World<WT>.Link<Parent>>>().Entities())
             {

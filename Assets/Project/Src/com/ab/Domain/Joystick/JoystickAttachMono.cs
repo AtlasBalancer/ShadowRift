@@ -1,6 +1,7 @@
 using com.ab.common;
+using com.ab.complexity.core;
 
-namespace com.ab.complexity.core
+namespace com.ab.domain.joystick
 {
     public class JoystickAttachMono : EntityLink
     {

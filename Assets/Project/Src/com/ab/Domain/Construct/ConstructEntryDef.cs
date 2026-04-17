@@ -1,4 +1,5 @@
 using System;
+using com.ab.common;
 
 namespace com.ab.domain.construct
 {

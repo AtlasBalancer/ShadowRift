@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace com.ab.complexity.core
+namespace com.ab.common
 {
     [CreateAssetMenu(fileName = "#Name#MoveEntryDef", menuName = "com.ab/scene/move")]
     public class MovementEntryDef : ScriptableObject, IStaticUpdateDef

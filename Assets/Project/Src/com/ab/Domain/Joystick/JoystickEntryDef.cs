@@ -1,7 +1,7 @@
 using System;
 using com.ab.common;
 
-namespace com.ab.complexity.core
+namespace com.ab.domain.joystick
 {
     public class JoystickEntryDef : StaticEntryParamDef<JoystickEntryDef.Settings>,
         IStaticUpdateDef, IStaticCreateProtoEntityDef, IStaticContextSetDef

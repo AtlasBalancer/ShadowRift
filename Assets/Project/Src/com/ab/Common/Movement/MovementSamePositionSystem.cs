@@ -1,8 +1,8 @@
+using com.ab.core;
 using FFS.Libraries.StaticEcs;
-using Project.Src.com.ab.Common.Movement;
 using UnityEngine;
 
-namespace com.ab.complexity
+namespace com.ab.common
 {
     public class MovementSamePositionSystem : ISystem
     {

@@ -4,7 +4,7 @@ using FFS.Libraries.StaticEcs;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace com.ab.complexity.core
+namespace com.ab.domain.joystick
 {
     public struct JoystickToMovementSystem : ISystem
     {

@@ -1,8 +1,7 @@
-using com.ab.common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace com.ab.complexity
+namespace com.ab.common
 {
     public class MovementSamePositionMono : EntityLink
     {

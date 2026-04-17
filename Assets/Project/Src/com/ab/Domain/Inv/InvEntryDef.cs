@@ -1,4 +1,5 @@
 using System;
+using com.ab.common;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
