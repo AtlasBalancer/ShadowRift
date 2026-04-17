@@ -1,20 +1,18 @@
 using System;
-using com.ab.core;
+using com.ab.common;
 
 namespace com.ab.complexity.core
 {
-    public class JoystickEntryDef : StaticEntryParamDef<JoystickEntryDef.Settings>, 
+    public class JoystickEntryDef : StaticEntryParamDef<JoystickEntryDef.Settings>,
         IStaticUpdateDef, IStaticCreateProtoEntityDef, IStaticContextSetDef
     {
-        [Serializable]
-        public class Settings
-        {
-            public JoystickToMovementSystem.Context JoystickToDirectionSys;
-        }
-        
         public void SetContext()
         {
             JoystickToMovementSystem.Context.ContextSet(Def.JoystickToDirectionSys);
+        }
+
+        public void CreateProtoEntities()
+        {
         }
 
         public void RegisterUpdate()
@@ -22,9 +20,10 @@ namespace com.ab.complexity.core
             Sys.Add(new JoystickToMovementSystem());
         }
 
-        public void CreateProtoEntities()
+        [Serializable]
+        public class Settings
         {
-            
+            public JoystickToMovementSystem.Context JoystickToDirectionSys;
         }
     }
 }

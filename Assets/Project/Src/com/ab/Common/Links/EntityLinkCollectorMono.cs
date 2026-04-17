@@ -1,10 +1,8 @@
 using System.Linq;
-using com.ab.complexity.core;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
-using UnityEngine;
-using Sirenix.Utilities;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
+using UnityEngine;
 
 namespace com.ab.common
 {
@@ -13,8 +11,10 @@ namespace com.ab.common
         public EntityLink[] Links;
 
         [Button]
-        public void GrabSameLevel() =>
+        public void GrabSameLevel()
+        {
             Links = gameObject.GetComponents<EntityLink>();
+        }
 
         public void Init()
         {

@@ -1,20 +1,24 @@
 using System;
-using UnityEngine;
-using com.ab.core;
-using com.ab.common;
-using UnityEngine.UI;
 using System.Threading;
-using com.ab.domain.item;
-using com.ab.domain.equip;
+using com.ab.common;
 using com.ab.complexity.core;
+using com.ab.domain.equip;
+using com.ab.domain.item;
 using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs;
+using UnityEngine;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
     public class InvViewSystem : ViewPresenter<InvMono>, ISystem, IPreInitWait
     {
+        readonly AtlasService _atlas;
+
+        readonly Settings _def;
+        readonly LocalizationService _localization;
+
         public InvViewSystem(Settings def)
         {
             _def = def;
@@ -24,42 +28,18 @@ namespace Project.Src.com.ab.Domain.Inventory
             _atlas = W.GetResource<AtlasService>();
 
             IPreInitWaitRegistry.AddPreInit(this);
-            W.SetResource<EquipPuppetMono>(View.Puppet); // TODO: Tmp
+            W.SetResource(View.Puppet); // TODO: Tmp
         }
 
-        readonly Settings _def;
-        readonly LocalizationService _localization;
-        readonly AtlasService _atlas;
-
-        public UniTask PreInitWait(CancellationToken ct) =>
-            _localization.PreloadStringTableAsync(_def.LocalizationTable);
+        public UniTask PreInitWait(CancellationToken ct)
+        {
+            return _localization.PreloadStringTableAsync(_def.LocalizationTable);
+        }
 
         public void Init()
         {
             InitCards();
             CreateCategories();
-        }
-
-        void InitCards()
-        {
-            View.Cards.ForEach(item =>
-            {
-                item.Card.Subscribe();
-                item.Card.Hide();
-            });
-        }
-
-        void CreateCategories()
-        {
-            foreach (var entC in WC.Query<All<InvCategoryEntry>>().Entities())
-            {
-                var item = Object.Instantiate(_def.CategoryPrefab, View.CategoryRoot);
-                var ent = item.Init(entC, true);
-                ent.Set(new InvCategoryRef(item));
-
-                var titleKey = entC.Ref<InvCategoryEntry>().LKTitle;
-                item.SetTitle(_localization.GetString(titleKey));
-            }
         }
 
         public void Update()
@@ -93,16 +73,15 @@ namespace Project.Src.com.ab.Domain.Inventory
                 Debug.Log("PRESSED");
 
                 var itemDef = ent.GetConfigTable<ItemEntry>();
-                int amount = ent.Ref<Amount>().Val;
+                var amount = ent.Ref<Amount>().Val;
 
                 foreach (var card in View.Cards)
-                {
                     if (card.Category.Equals(itemDef.Category))
                     {
                         var icon = _atlas.GetSprite(_def.AtlasKey, itemDef.AKSprite);
                         var title = _localization.GetString(itemDef.LKTitle, _def.LocalizationTable);
                         var descr = _localization.GetString(itemDef.LKDescription, _def.LocalizationTable);
-                        bool equip = ent.Has<EquipTag>();
+                        var equip = ent.Has<EquipTag>();
 
                         card.Card.Show(ent, equip, icon, amount, title, descr);
                     }
@@ -110,7 +89,6 @@ namespace Project.Src.com.ab.Domain.Inventory
                     {
                         card.Card.gameObject.SetActive(false);
                     }
-                }
 
                 // ItemDefID id = ent.Ref<InventoryItem>().ID;
                 // int amount = ent.Ref<InventoryAmount>().Value;
@@ -150,6 +128,28 @@ namespace Project.Src.com.ab.Domain.Inventory
             // foreach (var @event in _addItemReceiver)
             {
                 // UpdateItem(@event.Value.ID);
+            }
+        }
+
+        void InitCards()
+        {
+            View.Cards.ForEach(item =>
+            {
+                item.Card.Subscribe();
+                item.Card.Hide();
+            });
+        }
+
+        void CreateCategories()
+        {
+            foreach (var entC in WC.Query<All<InvCategoryEntry>>().Entities())
+            {
+                var item = Object.Instantiate(_def.CategoryPrefab, View.CategoryRoot);
+                var ent = item.Init(entC, true);
+                ent.Set(new InvCategoryRef(item));
+
+                var titleKey = entC.Ref<InvCategoryEntry>().LKTitle;
+                item.SetTitle(_localization.GetString(titleKey));
             }
         }
 

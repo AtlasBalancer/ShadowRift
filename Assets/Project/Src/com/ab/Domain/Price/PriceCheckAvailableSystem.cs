@@ -1,10 +1,6 @@
 using com.ab.common;
-using com.ab.complexity.core;
-using com.ab.core;
-using com.ab.domain.craft;
 using FFS.Libraries.StaticEcs;
 using Project.Src.com.ab.Domain.Inventory;
-using UnityEngine;
 
 namespace com.ab.domain.price
 {
@@ -17,7 +13,7 @@ namespace com.ab.domain.price
                 var item = ent.Ref<PriceRef>().Val;
                 var price = ent.GetConfigTable<PriceEntry>().Price;
 
-                bool available = true;
+                var available = true;
 
                 foreach (var craftAmount in price)
                 {

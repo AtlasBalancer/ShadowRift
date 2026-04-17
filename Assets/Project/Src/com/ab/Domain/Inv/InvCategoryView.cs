@@ -9,10 +9,14 @@ namespace Project.Src.com.ab.Domain.Inventory
         public TMP_Text Title;
         public RectTransform ItemRoot;
 
-        public void SetTitle(string title) => 
+        public void SetTitle(string title)
+        {
             Title.SetText(title);
+        }
 
-        public void AddItem(Transform item) => 
+        public void AddItem(Transform item)
+        {
             item.SetParent(ItemRoot, false);
+        }
     }
 }

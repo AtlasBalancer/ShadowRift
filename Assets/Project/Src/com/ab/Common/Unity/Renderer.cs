@@ -1,5 +1,5 @@
-using UnityEngine;
 using FFS.Libraries.StaticEcs;
+using UnityEngine;
 
 namespace com.ab.complexity.core
 {

@@ -1,41 +1,45 @@
 using System;
 using System.Threading;
 using com.ab.common;
-using UnityEngine;
-using com.ab.complexity.core;
 using com.ab.core;
 using com.ab.domain.item;
+using com.ab.item;
 using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs;
+using UnityEngine;
 using Object = UnityEngine.Object;
-using com.ab.item;
 
 namespace Project.Src.com.ab.Domain.Collect
 {
-    public class PlacedSpawnSystem : IPreInitWait, ISystem 
+    public class PlacedSpawnSystem : IPreInitWait, ISystem
     {
+        readonly AtlasService _atlas;
+
+        readonly Settings _def;
+
         public PlacedSpawnSystem(Settings def)
         {
             _def = def;
             _atlas = W.GetResource<AtlasService>();
-            
+
             IPreInitWaitRegistry.AddPreInit(this);
         }
 
-        readonly Settings _def;
-        readonly AtlasService _atlas;
+        public UniTask PreInitWait(CancellationToken ct)
+        {
+            return _atlas.LoadAtlas(_def.AtlasKey);
+        }
 
-        public UniTask PreInitWait(CancellationToken ct) =>
-            _atlas.LoadAtlas(_def.AtlasKey);
-
-        public void Init() { }
+        public void Init()
+        {
+        }
 
         public void Update()
         {
             foreach (var ent in W.Query<All<PlacedSpawnByDropTable>>().Entities())
             {
                 var @ref = ent.Ref<Ref>().Val;
-                int amount = ent.Ref<Amount>().Val;
+                var amount = ent.Ref<Amount>().Val;
                 var dropTable = ent.GetConfigTable<DropEntry>().Items;
 
                 foreach (var item in dropTable)
@@ -48,7 +52,7 @@ namespace Project.Src.com.ab.Domain.Collect
                     var itemEnt = link.Init<Default>(item.PlaceSo, true);
 
 
-                    int dropAmount = item.AmountRange.Rand();
+                    var dropAmount = item.AmountRange.Rand();
 
                     if (amount < dropAmount)
                         dropAmount = amount;
@@ -74,5 +78,4 @@ namespace Project.Src.com.ab.Domain.Collect
             public string AtlasKey = "ItemsAtlas";
         }
     }
-
 }

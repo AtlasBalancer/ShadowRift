@@ -15,17 +15,35 @@ namespace com.ab.common
             PersistenId = persistenId;
         }
 
-        public ConfigRef(WC.Entity wcEnt, string persistenId)
+        public ConfigRef(World<WCT>.Entity wcEnt, string persistenId)
         {
             Gid = wcEnt.GID;
             PersistenId = persistenId;
         }
 
-        public WC.Entity Unpack() => Gid.Unpack<WCT>();
+        public World<WCT>.Entity Unpack()
+        {
+            return Gid.Unpack<WCT>();
+        }
 
-        public bool Equals(ConfigRef other) => Gid == other.Gid;
-        public static bool operator ==(ConfigRef a, ConfigRef b) => a.Gid == b.Gid;
-        public static bool operator !=(ConfigRef a, ConfigRef b) => a.Gid != b.Gid;
-        public override int GetHashCode() => Gid.GetHashCode();
+        public bool Equals(ConfigRef other)
+        {
+            return Gid == other.Gid;
+        }
+
+        public static bool operator ==(ConfigRef a, ConfigRef b)
+        {
+            return a.Gid == b.Gid;
+        }
+
+        public static bool operator !=(ConfigRef a, ConfigRef b)
+        {
+            return a.Gid != b.Gid;
+        }
+
+        public override int GetHashCode()
+        {
+            return Gid.GetHashCode();
+        }
     }
 }

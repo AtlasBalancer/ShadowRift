@@ -1,8 +1,7 @@
-using UnityEngine;
 using com.ab.common;
-using com.ab.complexity.core;
 using com.ab.core;
 using FFS.Libraries.StaticEcs;
+using UnityEngine;
 
 namespace com.ab.domain.construct
 {
@@ -10,9 +9,12 @@ namespace com.ab.domain.construct
     {
         public readonly ConstructionMono Val;
 
-        public ConstructionRef(ConstructionMono val) => Val = val;
+        public ConstructionRef(ConstructionMono val)
+        {
+            Val = val;
+        }
     }
-    
+
     public class ConstructionMono : EntityLink
     {
         public Collider2D Collider;
@@ -30,7 +32,7 @@ namespace com.ab.domain.construct
             Collider.enabled = active;
             Renderer.Active(active);
         }
-        
+
         public void ActiveUi(bool active)
         {
             ConstructUi.Active(active);

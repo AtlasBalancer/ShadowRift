@@ -4,6 +4,5 @@ namespace com.ab.common
 {
     public readonly struct ResponseClick : ITag
     {
-        
     }
 }

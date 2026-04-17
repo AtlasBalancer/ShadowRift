@@ -6,6 +6,9 @@ namespace com.ab.common
     {
         public readonly ResponseButtonMono Val;
 
-        public ResponseButtonRef(ResponseButtonMono val) => Val = val;
+        public ResponseButtonRef(ResponseButtonMono val)
+        {
+            Val = val;
+        }
     }
 }

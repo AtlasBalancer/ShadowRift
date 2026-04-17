@@ -1,5 +1,3 @@
-using com.ab.complexity.core;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 using Project.Src.com.ab.Common.Movement;
 using UnityEngine;
@@ -23,7 +21,7 @@ namespace com.ab.complexity
                         ent.Delete<MovementSamePositionSmoothChangeTarget>();
                         continue;
                     }
-                    
+
                     var newPosition = Vector3.MoveTowards(item.UpdateSource.position, another.Target.position,
                         another.Speed * Time.deltaTime);
 

@@ -9,18 +9,25 @@ namespace com.ab.domain.harv
     {
         public readonly HarvMono Val;
 
-        public HarvRef(HarvMono val) => Val = val;
+        public HarvRef(HarvMono val)
+        {
+            Val = val;
+        }
     }
-    
+
     public class HarvMono : EntityLink<HarvEntity>
     {
         public ProgressBarMono ProgressBar;
         public SpriteRenderer SR;
 
-        protected override void Register() => 
+        protected override void Register()
+        {
             Ent.Set(new HarvRef(this));
+        }
 
-        public void SetSprite(Sprite sprite) => 
+        public void SetSprite(Sprite sprite)
+        {
             SR.sprite = sprite;
+        }
     }
 }

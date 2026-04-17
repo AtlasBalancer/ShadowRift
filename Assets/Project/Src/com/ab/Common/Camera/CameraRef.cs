@@ -6,6 +6,9 @@ namespace com.ab.common.Camera
     {
         public readonly CameraRefMono Val;
 
-        public CameraRef(CameraRefMono val) => Val = val;
+        public CameraRef(CameraRefMono val)
+        {
+            Val = val;
+        }
     }
 }

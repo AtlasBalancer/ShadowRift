@@ -6,7 +6,9 @@ namespace com.ab.domain.equip
     {
         public readonly EquipUnitMono Val;
 
-        public EquipUnitRef(EquipUnitMono val) =>
+        public EquipUnitRef(EquipUnitMono val)
+        {
             Val = val;
+        }
     }
 }

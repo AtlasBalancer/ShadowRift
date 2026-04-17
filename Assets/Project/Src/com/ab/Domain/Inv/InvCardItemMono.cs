@@ -1,7 +1,6 @@
 using com.ab.common;
-using com.ab.complexity.core;
-using com.ab.core;
 using com.ab.domain.equip;
+using FFS.Libraries.StaticEcs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +10,6 @@ namespace Project.Src.com.ab.Domain.Inventory
     public class InvCardItemMono : MonoBehaviour
     {
         [Header("Configuration")] public bool HasEquip;
-        [Header("Refs")] public W.Entity ShowingEnt;
 
         public TMP_Text Title;
 
@@ -25,6 +23,7 @@ namespace Project.Src.com.ab.Domain.Inventory
         public Button BackButton;
 
         public ResponseButtonMono Btn;
+        [Header("Refs")] public World<WT>.Entity ShowingEnt;
 
         public void Subscribe()
         {
@@ -45,7 +44,8 @@ namespace Project.Src.com.ab.Domain.Inventory
             SetEquipButton(false);
         }
 
-        public void Show(W.Entity refEnt, bool equip, Sprite sprite, int amount, string title, string description)
+        public void Show(World<WT>.Entity refEnt, bool equip, Sprite sprite, int amount, string title,
+            string description)
         {
             // Btn.Subscribe(ent);
 

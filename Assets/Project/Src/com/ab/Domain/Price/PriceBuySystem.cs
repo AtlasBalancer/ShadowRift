@@ -1,6 +1,4 @@
 using com.ab.common;
-using com.ab.complexity.core;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 using Project.Src.com.ab.Domain.Inventory;
 using UnityEngine;
@@ -35,7 +33,7 @@ namespace com.ab.domain.price
 
                     amountRef.Val -= priceItem.Amount;
                 }
-                
+
                 ent.Apply<PriceBuyTag>(false);
             }
         }

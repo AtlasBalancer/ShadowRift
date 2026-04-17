@@ -4,6 +4,5 @@ namespace com.ab.complexity.core
 {
     public struct Movement : ITag
     {
-        
     }
 }

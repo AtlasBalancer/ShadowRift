@@ -8,7 +8,7 @@ namespace com.ab.common
         public Image BtnBg;
         public Color Wait;
         public Color Complete;
-        
+
         public ResponseButtonMono Btn;
 
         protected override void Subscribe()
@@ -16,7 +16,7 @@ namespace com.ab.common
             Btn.WaitResponse += OnWaitResponse;
             Btn.Complete += OnComplete;
             BtnBg.color = Complete;
-            
+
             Btn.Init();
             Btn.Attach(Ent);
         }

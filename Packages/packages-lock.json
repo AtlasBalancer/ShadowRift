@@ -12,14 +12,20 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "aec8ed75f54149985987911df341d87b10d73e8a"
+      "hash": "2367eebd0cf4bb7d581758c8951311d5cce1c47b"
+    },
+    "com.felid-force-studios.static-ecs-unity": {
+      "version": "file:com.felid-force-studios.static-ecs-unity",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.felid-force-studios.static-pack": {
       "version": "https://github.com/Felid-Force-Studios/StaticPack.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "72ce8b993593e5cfd24c6a9289a4b132305ef493"
+      "hash": "bee2fd4eea9803c6bdfc89593d69d70ca417cbca"
     },
     "com.tivadar.best.http": {
       "version": "file:com.tivadar.best.http",
@@ -31,11 +37,11 @@
       }
     },
     "com.unity.2d.animation": {
-      "version": "13.0.2",
+      "version": "13.0.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.2d.common": "12.0.1",
+        "com.unity.2d.common": "12.0.2",
         "com.unity.2d.sprite": "1.0.0",
         "com.unity.collections": "2.4.3",
         "com.unity.modules.animation": "1.0.0",
@@ -57,7 +63,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.2d.common": {
-      "version": "12.0.1",
+      "version": "12.0.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -216,7 +222,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.localization": {
-      "version": "1.5.10",
+      "version": "1.5.11",
       "depth": 0,
       "source": "registry",
       "dependencies": {

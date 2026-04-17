@@ -1,19 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using com.ab.core;
 using Cysharp.Threading.Tasks;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
+using Object = UnityEngine.Object;
 
 namespace com.ab.common
 {
     public class LocalizationService : IPreInitWait
     {
         const string TABLE = "Default";
-        
-        public event Action OnLocaleChanged;
+        readonly Dictionary<string, AssetTable> _assetTables = new();
+
+        // ── Загрузка таблиц ──────────────────────────────────────────────────
+
+        readonly Dictionary<string, StringTable> _stringTables = new();
 
         public LocalizationService()
         {
@@ -21,20 +24,23 @@ namespace com.ab.common
             IPreInitWaitRegistry.AddPreInit(this);
         }
 
+        // ── Локаль ───────────────────────────────────────────────────────────
+
+        public Locale CurrentLocale => LocalizationSettings.SelectedLocale;
+
         // ── Инициализация ────────────────────────────────────────────────────
 
-        public UniTask PreInitWait(CancellationToken ct) => 
-            InitializeAsync();
+        public UniTask PreInitWait(CancellationToken ct)
+        {
+            return InitializeAsync();
+        }
+
+        public event Action OnLocaleChanged;
 
         public async UniTask InitializeAsync()
         {
             await LocalizationSettings.InitializationOperation.ToUniTask();
         }
-
-        // ── Загрузка таблиц ──────────────────────────────────────────────────
-
-        readonly Dictionary<string, StringTable> _stringTables = new();
-        readonly Dictionary<string, AssetTable>  _assetTables  = new();
 
         /// <summary>Предзагружает String Table по имени и кэширует её.</summary>
         public async UniTask PreloadStringTableAsync(string table)
@@ -56,20 +62,22 @@ namespace com.ab.common
         public StringTable GetStringTable(string table)
         {
             if (_stringTables.TryGetValue(table, out var t)) return t;
-            throw new InvalidOperationException($"{nameof(LocalizationService)}:: String table '{table}' not preloaded. Call PreloadStringTableAsync first.");
+            throw new InvalidOperationException(
+                $"{nameof(LocalizationService)}:: String table '{table}' not preloaded. Call PreloadStringTableAsync first.");
         }
 
         /// <summary>Возвращает закэшированную Asset Table (должна быть предзагружена).</summary>
         public AssetTable GetAssetTable(string table)
         {
             if (_assetTables.TryGetValue(table, out var t)) return t;
-            throw new InvalidOperationException($"{nameof(LocalizationService)}:: Asset table '{table}' not preloaded. Call PreloadAssetTableAsync first.");
+            throw new InvalidOperationException(
+                $"{nameof(LocalizationService)}:: Asset table '{table}' not preloaded. Call PreloadAssetTableAsync first.");
         }
 
         // ── Строки ───────────────────────────────────────────────────────────
 
         /// <summary>Возвращает локализованную строку синхронно (только если таблица уже загружена).</summary>
-        public string GetString( string key, string table = TABLE)
+        public string GetString(string key, string table = TABLE)
         {
             return LocalizationSettings.StringDatabase.GetLocalizedString(table, key);
         }
@@ -84,15 +92,11 @@ namespace com.ab.common
         // ── Ассеты ───────────────────────────────────────────────────────────
 
         /// <summary>Возвращает локализованный ассет асинхронно.</summary>
-        public async UniTask<T> GetAssetAsync<T>(string key, string table = TABLE) where T : UnityEngine.Object
+        public async UniTask<T> GetAssetAsync<T>(string key, string table = TABLE) where T : Object
         {
             var op = LocalizationSettings.AssetDatabase.GetLocalizedAssetAsync<T>(table, key);
             return await op.ToUniTask();
         }
-
-        // ── Локаль ───────────────────────────────────────────────────────────
-
-        public Locale CurrentLocale => LocalizationSettings.SelectedLocale;
 
         /// <summary>Меняет язык по коду (например "ru", "en").</summary>
         public void SetLocale(string localeCode)

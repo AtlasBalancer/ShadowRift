@@ -2,5 +2,7 @@ using FFS.Libraries.StaticEcs;
 
 namespace com.ab.common
 {
-    public readonly struct AvailableTag : ITag { }
+    public readonly struct AvailableTag : ITag
+    {
+    }
 }

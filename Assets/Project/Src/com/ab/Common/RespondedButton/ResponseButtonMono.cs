@@ -1,5 +1,4 @@
 using System;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +8,14 @@ namespace com.ab.common
     public class ResponseButtonMono : EntityLink
     {
         public Button Btn;
+        public Action<Button> Complete;
 
         public Action<Button> WaitResponse;
-        public Action<Button> Complete;
+
+        void OnDestroy()
+        {
+            Btn.onClick.RemoveListener(OnClick);
+        }
 
         protected override void Subscribe()
         {
@@ -46,14 +50,9 @@ namespace com.ab.common
         public void OnComplete()
         {
             Debug.Log($"{nameof(ResponseButtonMono)}:: Complete");
-            
+
             Btn.interactable = true;
             Complete?.Invoke(Btn);
-        }
-
-        void OnDestroy()
-        {
-            Btn.onClick.RemoveListener(OnClick);
         }
     }
 }

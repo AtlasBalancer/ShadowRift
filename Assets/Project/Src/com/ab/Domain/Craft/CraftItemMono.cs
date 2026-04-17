@@ -1,10 +1,10 @@
 using com.ab.common;
 using DG.Tweening;
 using FFS.Libraries.StaticEcs;
-using UnityEngine;
-using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace com.ab.domain.craft
 {
@@ -14,7 +14,7 @@ namespace com.ab.domain.craft
 
         public TMP_Text Title;
         public TMP_Text Description;
-        
+
         public Button Button;
         public Image Bg;
         public Image Icon;
@@ -45,7 +45,7 @@ namespace com.ab.domain.craft
                 return;
 
             OnClick();
-            
+
             Button.interactable = false;
             Button.transform.DOScale(0.95f, 0.1f)
                 .OnComplete(() =>
@@ -56,21 +56,36 @@ namespace com.ab.domain.craft
         }
 
         [Button]
-        public void Deactive() => UpdateCraftAvailable(false);
+        public void Deactive()
+        {
+            UpdateCraftAvailable(false);
+        }
 
         [Button]
-        public void Active() => UpdateCraftAvailable(true);
+        public void Active()
+        {
+            UpdateCraftAvailable(true);
+        }
 
         public void AddPrice(Transform price)
         {
             price.transform.SetParent(PriceRoot, false);
         }
 
-        public void UpdateIcon(Sprite sprite) => Icon.sprite = sprite;
+        public void UpdateIcon(Sprite sprite)
+        {
+            Icon.sprite = sprite;
+        }
 
-        public void UpdateTile(string title) => Title.SetText(title);
+        public void UpdateTile(string title)
+        {
+            Title.SetText(title);
+        }
 
-        public void UpdateDescription(string description) => Description.SetText(description);
+        public void UpdateDescription(string description)
+        {
+            Description.SetText(description);
+        }
 
         public void UpdateCraftAvailable(bool available)
         {
@@ -86,6 +101,10 @@ namespace com.ab.domain.craft
     public readonly struct CraftItemRef : IComponent
     {
         public readonly CraftItemMono Val;
-        public CraftItemRef(CraftItemMono val) => Val = val;
+
+        public CraftItemRef(CraftItemMono val)
+        {
+            Val = val;
+        }
     }
 }

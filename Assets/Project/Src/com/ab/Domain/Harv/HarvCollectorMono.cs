@@ -10,7 +10,7 @@ namespace com.ab.domain.harv
         public float Delay;
         public Transform InteractionPoint;
         public EquipUnitItemSlotMono WorkingPart;
-        
+
         protected override void Register()
         {
             var @ref = new HarvCollectorRef

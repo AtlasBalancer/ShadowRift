@@ -1,9 +1,7 @@
 using System;
-using UnityEngine;
-using com.ab.complexity.core;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace com.ab.common.Camera
 {
@@ -18,7 +16,10 @@ namespace com.ab.common.Camera
             public float Speed;
         }
 
-        public CameraZoomSystem(Settings def) => _def = def;
+        public CameraZoomSystem(Settings def)
+        {
+            _def = def;
+        }
 
         public void Update()
         {
@@ -33,7 +34,7 @@ namespace com.ab.common.Camera
 
                 var camera = ent.Ref<CameraRef>().Val.Camera;
 
-                float move = Mathf.MoveTowards(item.From, item.To, _def.Speed * deltaTime);
+                var move = Mathf.MoveTowards(item.From, item.To, _def.Speed * deltaTime);
 
                 camera.orthographicSize = move;
                 item.From = move;
@@ -59,10 +60,10 @@ namespace com.ab.common.Camera
 
         public CameraZoom ToComponent()
         {
-            return new()
+            return new CameraZoom
             {
-                From = this.To,
-                To = this.To
+                From = To,
+                To = To
             };
         }
 
@@ -70,7 +71,7 @@ namespace com.ab.common.Camera
         public void ChangeZoom()
         {
             ref var item = ref Ent.Ref<CameraZoom>();
-            item.To = this.To;
+            item.To = To;
         }
 
         public void UpdateZoom(float to)

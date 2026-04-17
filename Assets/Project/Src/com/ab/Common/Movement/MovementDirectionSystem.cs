@@ -1,7 +1,6 @@
-using UnityEngine;
-using FFS.Libraries.StaticEcs;
 using com.ab.complexity.features.player;
-using com.ab.core;
+using FFS.Libraries.StaticEcs;
+using UnityEngine;
 
 namespace com.ab.complexity.core
 {
@@ -13,7 +12,7 @@ namespace com.ab.complexity.core
             {
                 var dir = ent.Read<Direction>();
                 var @ref = ent.Read<LogicRender>();
-                
+
                 if (dir.Value.x != 0)
                     @ref.Value.transform.localScale = new Vector3(dir.Value.x, 1, 1);
             }

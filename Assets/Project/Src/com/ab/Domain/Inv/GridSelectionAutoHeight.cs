@@ -6,9 +6,9 @@ namespace Project.Src.com.ab.Domain.Inventory
     [RequireComponent(typeof(LayoutElement))]
     public class GridSectionAutoHeight : MonoBehaviour
     {
-        [SerializeField] private GridLayoutGroup grid;
-        [SerializeField] private int fixedColumns = 0; // 0 => брать из constraint
-        private LayoutElement le;
+        [SerializeField] GridLayoutGroup grid;
+        [SerializeField] int fixedColumns; // 0 => брать из constraint
+        LayoutElement le;
 
         void Awake()
         {
@@ -16,14 +16,21 @@ namespace Project.Src.com.ab.Domain.Inventory
             if (!grid) grid = GetComponentInChildren<GridLayoutGroup>();
         }
 
-        void OnEnable() => Rebuild();
-        void OnTransformChildrenChanged() => Rebuild();
+        void OnEnable()
+        {
+            Rebuild();
+        }
+
+        void OnTransformChildrenChanged()
+        {
+            Rebuild();
+        }
 
         public void Rebuild()
         {
-            int childCount = grid.transform.childCount;
+            var childCount = grid.transform.childCount;
 
-            int columns = fixedColumns;
+            var columns = fixedColumns;
             if (columns <= 0)
             {
                 if (grid.constraint == GridLayoutGroup.Constraint.FixedColumnCount)
@@ -32,14 +39,14 @@ namespace Project.Src.com.ab.Domain.Inventory
                     columns = 1; // если не фикс колонки — лучше явно настроить constraint
             }
 
-            int rows = Mathf.CeilToInt(childCount / (float)columns);
+            var rows = Mathf.CeilToInt(childCount / (float)columns);
             rows = Mathf.Max(rows, 1); // чтобы пустая секция не схлопнулась в 0 при желании
 
-            float cellH = grid.cellSize.y;
-            float spacingY = grid.spacing.y;
+            var cellH = grid.cellSize.y;
+            var spacingY = grid.spacing.y;
             float paddingY = grid.padding.top + grid.padding.bottom;
 
-            float height = paddingY + rows * cellH + Mathf.Max(0, rows - 1) * spacingY;
+            var height = paddingY + rows * cellH + Mathf.Max(0, rows - 1) * spacingY;
 
             le.preferredHeight = height;
 

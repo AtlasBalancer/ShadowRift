@@ -8,6 +8,9 @@ namespace com.ab.domain.harv
     {
         public readonly List<Vector3Int> Val;
 
-        public HarvAvailablePositions(List<Vector3Int> val) => Val = val;
+        public HarvAvailablePositions(List<Vector3Int> val)
+        {
+            Val = val;
+        }
     }
 }

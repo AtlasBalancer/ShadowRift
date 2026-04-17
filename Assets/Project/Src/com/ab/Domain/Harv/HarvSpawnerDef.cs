@@ -11,7 +11,7 @@ namespace com.ab.domain.harv
     public struct HarvSpawnerDef : IComponent
     {
         public string id;
-        
+
         public bool FillInit;
         public Tilemap Layer;
         public Vector2 DelayRange;

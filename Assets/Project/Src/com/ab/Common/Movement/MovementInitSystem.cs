@@ -1,5 +1,4 @@
 using com.ab.common;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
 
@@ -10,8 +9,8 @@ namespace com.ab.complexity.core
         public void Update()
         {
             foreach (var entity in W.Query<
-                         All<MovementEntry>, 
-                         None<Direction, Velocity, Position>>()
+                             All<MovementEntry>,
+                             None<Direction, Velocity, Position>>()
                          .Entities())
             {
                 var @ref = entity.Ref<Ref>();

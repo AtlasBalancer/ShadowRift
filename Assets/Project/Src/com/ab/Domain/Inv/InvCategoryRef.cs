@@ -6,7 +6,9 @@ namespace Project.Src.com.ab.Domain.Inventory
     {
         public readonly InvCategoryView Ref;
 
-        public InvCategoryRef(InvCategoryView @ref) =>
+        public InvCategoryRef(InvCategoryView @ref)
+        {
             Ref = @ref;
+        }
     }
 }

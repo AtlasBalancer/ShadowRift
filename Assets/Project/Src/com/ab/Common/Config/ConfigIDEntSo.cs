@@ -1,24 +1,24 @@
 using System;
-using UnityEditor;
-using UnityEngine;
-using Sirenix.OdinInspector;
 using com.ab.complexity.core;
 using FFS.Libraries.StaticEcs;
+using Sirenix.OdinInspector;
+using UnityEditor;
+using UnityEngine;
 
 namespace com.ab.common
 {
     [CreateAssetMenu(fileName = "ID#Name#", menuName = "com.ab/id")]
     public class ConfigIDEntSo : SerializedScriptableObject
     {
-        [SerializeField, ReadOnly] string _id;
+        [SerializeField] [ReadOnly] string _id;
         public string ID => _id;
 
-        [field: System.NonSerialized] public WC.Entity RuntimeID { get; private set; }
-        [field: System.NonSerialized] bool _inited { get; set; }
+        [field: NonSerialized] public World<WCT>.Entity RuntimeID { get; private set; }
+        [field: NonSerialized] bool _inited { get; set; }
 
-        [field: System.NonSerialized] public EntityGID Gid => RuntimeID.GID;
-        
-        public WC.Entity Init()
+        [field: NonSerialized] public EntityGID Gid => RuntimeID.GID;
+
+        public World<WCT>.Entity Init()
         {
             if (_inited)
                 return RuntimeID;
@@ -29,11 +29,16 @@ namespace com.ab.common
             return RuntimeID;
         }
 
-        public void End() => 
+        public void End()
+        {
             _inited = false;
+        }
 
 #if UNITY_EDITOR
-        void OnValidate() => EnsureId();
+        void OnValidate()
+        {
+            EnsureId();
+        }
 
         [Button]
         void RegenerateId()
@@ -66,7 +71,7 @@ namespace com.ab.common
 
         static bool HasDuplicateId(string candidateId, ConfigIDEntSo self)
         {
-            var guids = AssetDatabase.FindAssets($"t:{nameof(common.ConfigIDEntSo)}");
+            var guids = AssetDatabase.FindAssets($"t:{nameof(ConfigIDEntSo)}");
 
             foreach (var guid in guids)
             {
@@ -85,7 +90,8 @@ namespace com.ab.common
 
         [InfoBox("ID is empty", InfoMessageType.Error, nameof(IsIdEmpty))]
         [InfoBox("Duplicate ID detected", InfoMessageType.Error, nameof(HasDuplicate))]
-        [ShowInInspector, Sirenix.OdinInspector.ReadOnly]
+        [ShowInInspector]
+        [ReadOnly]
         string DebugID =>
             _id;
 

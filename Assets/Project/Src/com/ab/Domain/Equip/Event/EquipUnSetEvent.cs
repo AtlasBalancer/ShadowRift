@@ -1,4 +1,3 @@
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 
 namespace com.ab.domain.equip
@@ -7,6 +6,9 @@ namespace com.ab.domain.equip
     {
         public readonly W.Entity Ent;
 
-        public EquipUnSetEvent(W.Entity ent) => Ent = ent;
+        public EquipUnSetEvent(W.Entity ent)
+        {
+            Ent = ent;
+        }
     }
 }

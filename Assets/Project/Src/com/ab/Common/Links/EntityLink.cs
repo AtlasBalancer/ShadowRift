@@ -1,6 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Text;
 using com.ab.complexity.core;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
@@ -10,7 +11,7 @@ namespace com.ab.common
 {
     public class EntityLink<TTypeEntity> : EntityLink where TTypeEntity : struct, IEntityType
     {
-        public virtual W.Entity Init(ConfigIDEntSo configID, bool initRef = false)
+        public virtual World<WT>.Entity Init(ConfigIDEntSo configID, bool initRef = false)
         {
             var ent = Init<TTypeEntity>(initRef);
             AddConfigID(Ent, configID);
@@ -22,7 +23,8 @@ namespace com.ab.common
     {
         [DoNotSerialize] protected bool _inited;
 
-        [ShowInInspector, ShowIf("@UnityEngine.Application.isPlaying")]
+        [ShowInInspector]
+        [ShowIf("@UnityEngine.Application.isPlaying")]
         public EntityGID ID
         {
             get
@@ -38,19 +40,7 @@ namespace com.ab.common
             }
         }
 
-        public W.Entity Ent { get; private set; }
-
-        protected virtual void Subscribe()
-        {
-        }
-
-        protected virtual void UnSubscribe()
-        {
-        }
-
-        protected virtual void Register()
-        {
-        }
+        public World<WT>.Entity Ent { get; private set; }
 
         public void OnEnable()
         {
@@ -71,6 +61,36 @@ namespace com.ab.common
                     Ent.Apply<ActiveTag>(false);
         }
 
+        void OnDestroy()
+        {
+            UnSubscribe();
+        }
+
+        public void Dispose()
+        {
+        }
+
+
+        public virtual void Reset()
+        {
+        }
+
+        public virtual void Cleanup()
+        {
+        }
+
+        protected virtual void Subscribe()
+        {
+        }
+
+        protected virtual void UnSubscribe()
+        {
+        }
+
+        protected virtual void Register()
+        {
+        }
+
         protected virtual void CollectInitLinks()
         {
             var collector = gameObject.GetComponent<EntityLinkCollectorMono>();
@@ -81,7 +101,7 @@ namespace com.ab.common
             collector.Init(this);
         }
 
-        public virtual W.Entity Init(World<WCT>.Entity entC, bool initRef = false)
+        public virtual World<WT>.Entity Init(World<WCT>.Entity entC, bool initRef = false)
         {
             var ent = W.NewEntity<Default>();
             var configID = entC.Ref<ConfigRef>();
@@ -91,7 +111,7 @@ namespace com.ab.common
             return ent;
         }
 
-        public virtual W.Entity Init<TEntity>(ConfigIDEntSo configID, bool initRef = false)
+        public virtual World<WT>.Entity Init<TEntity>(ConfigIDEntSo configID, bool initRef = false)
             where TEntity : struct, IEntityType
         {
             var ent = Init<TEntity>(initRef);
@@ -99,16 +119,22 @@ namespace com.ab.common
             return ent;
         }
 
-        public void AddConfigID(W.Entity ent, ConfigIDEntSo def) =>
+        public void AddConfigID(World<WT>.Entity ent, ConfigIDEntSo def)
+        {
             ent.Set(new ConfigRef(def.RuntimeID, def.ID));
+        }
 
-        public virtual W.Entity Init(bool rootInit = false) =>
-            Init(W.NewEntity<Default>(), rootInit);
+        public virtual World<WT>.Entity Init(bool rootInit = false)
+        {
+            return Init(W.NewEntity<Default>(), rootInit);
+        }
 
-        public virtual W.Entity Init<TEntity>(bool rootInit = false) where TEntity : struct, IEntityType =>
-            Init(W.NewEntity<TEntity>(), rootInit);
+        public virtual World<WT>.Entity Init<TEntity>(bool rootInit = false) where TEntity : struct, IEntityType
+        {
+            return Init(W.NewEntity<TEntity>(), rootInit);
+        }
 
-        public virtual W.Entity Init(W.Entity ent, bool rootInit = true)
+        public virtual World<WT>.Entity Init(World<WT>.Entity ent, bool rootInit = true)
         {
             Ent = ent;
 
@@ -125,19 +151,29 @@ namespace com.ab.common
             return ent;
         }
 
-        protected void OnClick() =>
-            Ent.Apply<ClickTag>(true);
-
-        void OnDestroy() =>
-            UnSubscribe();
-
-        public void Dispose()
+        protected void OnClick()
         {
-            
+            Ent.Apply<ClickTag>(true);
         }
 
-        public virtual void Reset() { }
+        #region REPORTS
 
-        public virtual void Cleanup() { }
+        readonly StringBuilder _reportSB = new();
+
+
+        [Button]
+        public void ComponentReport()
+        {
+            _reportSB.Clear();
+            _reportSB.Append($"Entity: {Ent.EntityType}, {Ent.GID.EntityID}\n \tComponents list:");
+
+            List<IComponent> result = new();
+            Ent.GetAllComponents(result);
+            result.ForEach(item => _reportSB.Append($"\n\t\t{item}"));
+
+            Debug.Log(_reportSB);
+        }
+
+        #endregion
     }
 }

@@ -1,7 +1,6 @@
-using System;
+using System.Collections.Generic;
 using com.ab.common;
 using FFS.Libraries.StaticEcs;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +11,10 @@ namespace com.ab.domain.price
     {
         public readonly PriceMono Val;
 
-        public PriceRef(PriceMono val) => Val = val;
+        public PriceRef(PriceMono val)
+        {
+            Val = val;
+        }
     }
 
     public class PriceMono : EntityLink
@@ -31,7 +33,7 @@ namespace com.ab.domain.price
 
         protected override void Register()
         {
-            if (CustomID) 
+            if (CustomID)
                 AddConfigID(Ent, ItemID);
 
             Ent.Set(new PriceRef(this));

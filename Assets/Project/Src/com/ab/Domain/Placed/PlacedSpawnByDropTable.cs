@@ -9,6 +9,5 @@ namespace Project.Src.com.ab.Domain.Collect
      */
     public struct PlacedSpawnByDropTable : ITag
     {
-        
     }
 }

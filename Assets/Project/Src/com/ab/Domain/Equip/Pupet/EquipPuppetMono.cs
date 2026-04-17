@@ -1,4 +1,3 @@
-using com.ab.core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,16 +5,16 @@ namespace com.ab.domain.equip
 {
     public class EquipPuppetMono : ViewMono
     {
-        public RectTransform ToolSlotRoot;
+        public Image ToolPuppetIcon;
         public RectTransform ToolPuppetRoot;
 
         public Image ToolSlotIcon;
-        public Image ToolPuppetIcon;
+        public RectTransform ToolSlotRoot;
 
         public void SetTool(Image icon)
         {
             RemoveTool();
-            
+
             ToolSlotIcon = Instantiate(icon, ToolSlotRoot);
             ToolPuppetIcon = Instantiate(icon, ToolPuppetRoot);
         }

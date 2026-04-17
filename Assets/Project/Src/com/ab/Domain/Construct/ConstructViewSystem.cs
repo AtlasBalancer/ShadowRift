@@ -3,7 +3,6 @@ using com.ab.common;
 using com.ab.common.Camera;
 using com.ab.common.LevelTransition;
 using com.ab.complexity;
-using com.ab.complexity.core;
 using com.ab.core;
 using com.ab.domain.price;
 using FFS.Libraries.StaticEcs;
@@ -15,20 +14,6 @@ namespace com.ab.domain.construct
 {
     public class ConstructViewSystem : ViewPresenter<ConstructView>, ISystem
     {
-        [Serializable]
-        public class Settings
-        {
-            public float ZoomSize;
-            public Button Btn;
-            public ConstructView ViewRef;
-            public Transform MovementPoint;
-            public RectTransform[] BeforeShowNeedToHide;
-            public MovementSamePositionMono MainCameraMover;
-            public CameraZoomMono MainCameraZoom;
-
-            public ConstructionMono[] StaticConstructions;
-        }
-
         readonly Settings _def;
         Transform _activeTargetCache;
         float _zoomFromCache;
@@ -42,6 +27,24 @@ namespace com.ab.domain.construct
         public void Init()
         {
             _def.StaticConstructions.ForEach(item => item.Init(true));
+        }
+
+        public void Update()
+        {
+            foreach (var ent in W.Query<All<ConstructionRef, ClickTag>>().Entities())
+            {
+                ent.Apply<PriceBuyTag>(true);
+
+                var construction = ent.Ref<ConstructionRef>().Val;
+                construction.ActiveConstruction(true);
+                construction.ActiveUi(false);
+
+                ent.Apply<ConstructionBuilt>(true);
+                ent.Apply<LevelTransitionAvailableTag>(true);
+
+                ent.Apply<LevelTransitionAvailableTag>(true);
+                ent.Apply<ClickTag>(false);
+            }
         }
 
         protected override void Show()
@@ -97,22 +100,18 @@ namespace com.ab.domain.construct
                 items[i].Active(active);
         }
 
-        public void Update()
+        [Serializable]
+        public class Settings
         {
-            foreach (var ent in W.Query<All<ConstructionRef, ClickTag>>().Entities())
-            {
-                ent.Apply<PriceBuyTag>(true);
+            public float ZoomSize;
+            public Button Btn;
+            public Transform MovementPoint;
+            public RectTransform[] BeforeShowNeedToHide;
+            public MovementSamePositionMono MainCameraMover;
+            public CameraZoomMono MainCameraZoom;
 
-                var construction = ent.Ref<ConstructionRef>().Val;
-                construction.ActiveConstruction(true);
-                construction.ActiveUi(false);
-                
-                ent.Apply<ConstructionBuilt>(true);
-                ent.Apply<LevelTransitionAvailableTag>(true);
-                
-                ent.Apply<LevelTransitionAvailableTag>(true);
-                ent.Apply<ClickTag>(false);
-            }
+            public ConstructionMono[] StaticConstructions;
+            public ConstructView ViewRef;
         }
     }
 }

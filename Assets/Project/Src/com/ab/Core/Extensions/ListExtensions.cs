@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace com.ab.core
 {
@@ -6,13 +7,15 @@ namespace com.ab.core
     {
         public static T RandAndRemove<T>(this List<T> source)
         {
-            var index = UnityEngine.Random.Range(0, source.Count);
-            T item = source[index];
+            var index = Random.Range(0, source.Count);
+            var item = source[index];
             source.RemoveAt(index);
             return item;
         }
 
-        public static T Rand<T>(this List<T> source) => 
-            source[UnityEngine.Random.Range(0, source.Count)];
+        public static T Rand<T>(this List<T> source)
+        {
+            return source[Random.Range(0, source.Count)];
+        }
     }
 }

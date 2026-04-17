@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using com.ab.complexity.core;
-using com.ab.core;
 using com.ab.domain.item;
 using Cysharp.Threading.Tasks;
+using FFS.Libraries.StaticEcs;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -12,28 +12,35 @@ namespace com.ab.common
 {
     public class AtlasService : IDisposable, IPreInitWait
     {
-        [Serializable]
-        public class Settings
-        {
-            public List<string> PrelaodAtals;
-        }
+        readonly AddressableService _addressables;
 
         readonly Settings _def;
-        readonly AddressableService _addressables;
 
         public AtlasService(Settings def)
         {
             _def = def;
             _addressables = W.GetResource<AddressableService>();
             SpriteAtlasManager.atlasRequested += OnAtlasRequested;
-            
+
             IPreInitWaitRegistry.AddPreInit(this);
         }
 
-        public UniTask LoadAtlas(string atlasKey) =>
-            _addressables.LoadAsync<SpriteAtlas>(atlasKey);
+        public void Dispose()
+        {
+            SpriteAtlasManager.atlasRequested -= OnAtlasRequested;
+        }
 
-        public Sprite GetSprite(string atlas, WC.Entity ent)
+        public UniTask PreInitWait(CancellationToken ct)
+        {
+            return InitAsync();
+        }
+
+        public UniTask LoadAtlas(string atlasKey)
+        {
+            return _addressables.LoadAsync<SpriteAtlas>(atlasKey);
+        }
+
+        public Sprite GetSprite(string atlas, World<WCT>.Entity ent)
         {
             var spriteKey = ent.Ref<ItemEntry>().AKSprite;
             return GetSprite(atlas, spriteKey);
@@ -46,13 +53,10 @@ namespace com.ab.common
             return null;
         }
 
-        public UniTask PreInitWait(CancellationToken ct) =>
-            InitAsync();
-
         public async UniTask InitAsync()
         {
             var atlases = _def.PrelaodAtals;
-            
+
             var tasks = new UniTask<SpriteAtlas>[atlases.Count];
             for (var i = 0; i < atlases.Count; i++)
                 tasks[i] = _addressables.LoadAsync<SpriteAtlas>(atlases[i]);
@@ -73,9 +77,10 @@ namespace com.ab.common
                 .Forget();
         }
 
-        public void Dispose()
+        [Serializable]
+        public class Settings
         {
-            SpriteAtlasManager.atlasRequested -= OnAtlasRequested;
+            public List<string> PrelaodAtals;
         }
     }
 }

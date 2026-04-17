@@ -6,7 +6,6 @@ namespace com.ab.common
     {
         public void Update()
         {
-            
         }
     }
 }

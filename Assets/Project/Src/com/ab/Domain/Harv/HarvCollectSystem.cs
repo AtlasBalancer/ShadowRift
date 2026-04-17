@@ -1,27 +1,22 @@
 using System;
 using com.ab.common;
 using com.ab.common.ProgressBar;
-using UnityEngine;
 using com.ab.complexity.core;
-using com.ab.complexity.player;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 using Project.Src.com.ab.Domain.Collect;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace com.ab.domain.harv
 {
     public class HarvCollectSystem : ISystem
     {
-        public HarvCollectSystem(Settings def) =>
-            _def = def;
-
-        [Serializable]
-        public class Settings
-        {
-            public LayerMask Layer;
-        }
-
         readonly Settings _def;
+
+        public HarvCollectSystem(Settings def)
+        {
+            _def = def;
+        }
 
         public void Update()
         {
@@ -42,17 +37,15 @@ namespace com.ab.domain.harv
 
                 if (!harvestrer.Timer.Next(delta))
                     continue;
-                
+
                 var interactionPosition = harvestrer.Ref.InteractionPoint.position;
                 var item = Physics2D.OverlapCircle(interactionPosition, harvestrer.Radius, _def.Layer);
-                bool harvest = item != null;
+                var harvest = item != null;
 
                 if (harvest && item.TryGetComponent<HarvMono>(out var harvRef))
-                {
                     harvRef.Ent.Apply<PlacedSpawnByDropTable>(true);
-                }
 
-                bool hasTool = harvestrer.Ref.WorkingPart.Equiped();
+                var hasTool = harvestrer.Ref.WorkingPart.Equiped();
 
                 animator.SetBool(HarvConst.HAS_TOOL_KEY, hasTool);
                 animator.SetBool(HarvConst.HARVEST_KEY, harvest);
@@ -60,9 +53,9 @@ namespace com.ab.domain.harv
 
             foreach (var ent in W.Query<All<HarvRef, ProgressBarRef, AmountUpdate>>().Entities())
             {
-                int amountUpdate = ent.Ref<AmountUpdate>().Val;
+                var amountUpdate = ent.Ref<AmountUpdate>().Val;
                 ent.Delete<AmountUpdate>();
-                
+
                 var progressBar = ent.Ref<ProgressBarRef>().Val;
                 ref var amountRef = ref ent.Ref<Amount>();
                 amountRef.Val += amountUpdate;
@@ -70,13 +63,19 @@ namespace com.ab.domain.harv
                 if (amountRef.Val <= 0)
                 {
                     var refMono = ent.Ref<HarvRef>().Val;
-                    UnityEngine.Object.Destroy(refMono.gameObject);
+                    Object.Destroy(refMono.gameObject);
                     ent.Destroy();
                     continue;
                 }
-                
+
                 progressBar.UpdateAmount(amountRef.Val);
             }
+        }
+
+        [Serializable]
+        public class Settings
+        {
+            public LayerMask Layer;
         }
     }
 }

@@ -8,14 +8,15 @@ namespace Project.Src.com.ab.Feature.Mine
     public readonly struct HoleRef : IComponent
     {
         public readonly HoleMono Val;
-        public HoleRef(HoleMono val) => Val = val;
+
+        public HoleRef(HoleMono val)
+        {
+            Val = val;
+        }
     }
 
     public class HoleMono : EntityLink
     {
-        protected override void Register() => 
-            Ent.Set(new HoleRef(this));
-
         void OnTriggerEnter2D(Collider2D other)
         {
             if (!Ent.Has<AvailableTag>())
@@ -23,6 +24,11 @@ namespace Project.Src.com.ab.Feature.Mine
 
             if (other.TryGetComponent<PlayerMono>(out _))
                 Ent.Apply<TriggerEnterTag>(true);
+        }
+
+        protected override void Register()
+        {
+            Ent.Set(new HoleRef(this));
         }
     }
 }

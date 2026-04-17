@@ -2,19 +2,24 @@ using System;
 using System.Threading;
 using com.ab.common;
 using com.ab.complexity.core;
-using com.ab.core;
 using com.ab.domain.item;
 using com.ab.domain.price;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.UI;
 using FFS.Libraries.StaticEcs;
 using Project.Src.com.ab.Domain.Inventory;
+using UnityEngine;
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace com.ab.domain.craft
 {
     public class CraftViewSystem : ViewPresenter<CraftMono>, IPreInitWait, ISystem
     {
+        readonly AtlasService _atlas;
+
+        readonly Settings _def;
+        readonly LocalizationService _localization;
+
         public CraftViewSystem(Settings def)
         {
             _def = def;
@@ -23,12 +28,10 @@ namespace com.ab.domain.craft
             IPreInitWaitRegistry.AddPreInit(this);
         }
 
-        readonly Settings _def;
-        readonly AtlasService _atlas;
-        readonly LocalizationService _localization;
-
-        public UniTask PreInitWait(CancellationToken ct) =>
-            _atlas.LoadAtlas(_def.AtlasKey);
+        public UniTask PreInitWait(CancellationToken ct)
+        {
+            return _atlas.LoadAtlas(_def.AtlasKey);
+        }
 
         public void Init()
         {
@@ -36,14 +39,26 @@ namespace com.ab.domain.craft
 
             foreach (var entC in WC.Query<All<CraftEntry>>().Entities())
             {
-                var item = UnityEngine.Object.Instantiate(_def.ItemPrefab);
+                var item = Object.Instantiate(_def.ItemPrefab);
                 var itemDef = entC.Ref<ItemEntry>();
 
-                item.Init(entC,  true);
+                item.Init(entC, true);
                 item.UpdateIcon(_atlas.GetSprite(_def.AtlasKey, itemDef.AKSprite));
                 item.UpdateTile(_localization.GetString(itemDef.LKTitle, _def.LocalizationTable));
                 item.UpdateDescription(_localization.GetString(itemDef.LKDescription, _def.LocalizationTable));
                 View.AddItem(item.transform);
+            }
+        }
+
+        public void Update()
+        {
+            if (!IsActive())
+                return;
+
+            foreach (var ent in W.Query<All<CraftItemRef, ClickTag>>().Entities())
+            {
+                ent.Apply<InventoryAdd>(true);
+                ent.Apply<ClickTag>(false);
             }
         }
 
@@ -61,20 +76,8 @@ namespace com.ab.domain.craft
 
         void ActiveCraftItems(bool active)
         {
-            foreach (var ent in W.Query<All<CraftItemRef>>().Entities()) 
+            foreach (var ent in W.Query<All<CraftItemRef>>().Entities())
                 ent.Apply<ActiveTag>(active);
-        }
-
-        public void Update()
-        {
-            if (!IsActive())
-                return;
-
-            foreach (var ent in W.Query<All<CraftItemRef, ClickTag>>().Entities())
-            {
-                ent.Apply<InventoryAdd>(true);
-                ent.Apply<ClickTag>(false);
-            }
         }
 
         [Serializable]
@@ -82,11 +85,11 @@ namespace com.ab.domain.craft
         {
             public RectTransform Root;
             public Button CraftBtn;
-            public CraftMono CraftPrefab;
             public PriceItemMono PricePrefab;
             public CraftItemMono ItemPrefab;
             public string AtlasKey = "ItemsAtlas";
             public string LocalizationTable = "ShadowRiftItems";
+            public CraftMono CraftPrefab;
         }
     }
 }

@@ -1,7 +1,5 @@
 using System;
 using com.ab.common;
-using com.ab.complexity.core;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 using Project.Src.com.ab.Domain.Inventory;
 using UnityEngine;
@@ -16,17 +14,12 @@ namespace Project.Src.com.ab.Domain.Collect
 
     public class PlacedToInventorySystem : ISystem
     {
-        [Serializable]
-        public class Settings
-        {
-            public LayerMask Layer;
-            public float FlyDuration = 0.1f;
-        }
-
         readonly Settings _def;
 
-        public PlacedToInventorySystem(Settings def) =>
+        public PlacedToInventorySystem(Settings def)
+        {
             _def = def;
+        }
 
         public void Update()
         {
@@ -50,6 +43,13 @@ namespace Project.Src.com.ab.Domain.Collect
                     collect.Ent.Apply<InventoryAdd>(true);
                 }
             }
+        }
+
+        [Serializable]
+        public class Settings
+        {
+            public LayerMask Layer;
+            public float FlyDuration = 0.1f;
         }
     }
 }

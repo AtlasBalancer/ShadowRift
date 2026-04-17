@@ -6,9 +6,8 @@ namespace com.ab.complexity.core
     {
         // World for configs 
     }
-    
+
     public struct WCT : IWorldType
     {
-        
     }
 }

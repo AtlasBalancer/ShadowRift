@@ -1,6 +1,5 @@
 using System;
-using com.ab.complexity.core;
-using com.ab.core;
+using com.ab.common;
 using Project.Src.com.ab.Domain.Collect;
 
 namespace com.ab.domain.collect
@@ -8,12 +7,13 @@ namespace com.ab.domain.collect
     public class PlacedEntryDef : StaticEntryParamDef<PlacedEntryDef.Settings>,
         IStaticUpdateDef, IStaticCreateProtoEntityDef, IStaticContextSetDef
     {
-        [Serializable]
-        public class Settings
+        public void SetContext()
         {
-            // public ItemTable ItemTable;
-            public PlacedToInventorySystem.Settings CollectToInventorySystem;
-            public PlacedSpawnSystem.Settings CollectSpawnSystem;
+            // W.Context<ItemTable>.Set(Def.ItemTable);
+        }
+
+        public void CreateProtoEntities()
+        {
         }
 
         public void RegisterUpdate()
@@ -22,11 +22,12 @@ namespace com.ab.domain.collect
             Sys.Add(new PlacedSpawnSystem(Def.CollectSpawnSystem));
         }
 
-        public void SetContext()
+        [Serializable]
+        public class Settings
         {
-            // W.Context<ItemTable>.Set(Def.ItemTable);
+            // public ItemTable ItemTable;
+            public PlacedToInventorySystem.Settings CollectToInventorySystem;
+            public PlacedSpawnSystem.Settings CollectSpawnSystem;
         }
-
-        public void CreateProtoEntities() { }
     }
 }

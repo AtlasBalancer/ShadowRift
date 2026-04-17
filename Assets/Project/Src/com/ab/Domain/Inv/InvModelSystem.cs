@@ -1,18 +1,11 @@
 using System;
 using com.ab.common;
-using com.ab.complexity.core;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 
 namespace Project.Src.com.ab.Domain.Inventory
 {
     public class InvModelSystem : ISystem
     {
-        [Serializable]
-        public class Settings
-        {
-        }
-
         Settings _def;
 
         public void Update()
@@ -35,6 +28,11 @@ namespace Project.Src.com.ab.Domain.Inventory
 
                 addEnt.Apply<InventoryAdd>(false);
             }
+        }
+
+        [Serializable]
+        public class Settings
+        {
         }
     }
 }

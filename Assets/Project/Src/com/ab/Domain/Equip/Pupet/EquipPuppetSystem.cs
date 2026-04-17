@@ -1,33 +1,22 @@
 using System;
-using System.Linq;
-using com.ab.core;
-using com.ab.common;
-using UnityEngine.UI;
-using com.ab.domain.item;
-using Sirenix.OdinInspector;
-using com.ab.complexity.core;
-using FFS.Libraries.StaticEcs;
 using System.Collections.Generic;
+using System.Linq;
+using com.ab.common;
+using com.ab.domain.item;
+using FFS.Libraries.StaticEcs;
+using Sirenix.OdinInspector;
+using UnityEngine.UI;
 
 namespace com.ab.domain.equip
 {
     public class EquipPuppetSystem : ViewPresenter<EquipPuppetMono>, ISystem
     {
-        [Serializable]
-        public class Settings
-        {
-            public Button ShowButton;
-            public EquipPuppetMono ViewRef;
-
-            public List<EquipSlotPair> EquipSlots;
-            [ReadOnly] public string ItemAtlas = "ItemsAtlas";
-        }
+        readonly AtlasService _atlas;
 
         readonly Settings _def;
-        readonly AtlasService _atlas;
         readonly EventReceiver<WT, EquipSetEvent> _setReceiver;
-        readonly EventReceiver<WT, EquipUnSetEvent> _unSetReceiver;
         readonly Dictionary<ConfigIDEntSo, EquipSlotPair> _slots;
+        readonly EventReceiver<WT, EquipUnSetEvent> _unSetReceiver;
 
         public EquipPuppetSystem(Settings def)
         {
@@ -50,7 +39,7 @@ namespace com.ab.domain.equip
                 var pair = GetSlot(ent);
                 pair.InvSlot.Image.sprite = _atlas.GetSprite(_def.ItemAtlas, itemEntry.AKSprite);
                 pair.InvSlot.Image.enabled = true;
-                
+
                 pair.PuppetSlot.Image.sprite = _atlas.GetSprite(_def.ItemAtlas, itemEntry.AKSprite);
                 pair.PuppetSlot.Image.enabled = true;
 
@@ -67,7 +56,7 @@ namespace com.ab.domain.equip
 
                 pair.PuppetSlot.Image.sprite = null;
                 pair.PuppetSlot.Image.enabled = false;
-                
+
                 ent.Apply<EquipTag>(false);
             }
         }
@@ -77,7 +66,17 @@ namespace com.ab.domain.equip
             var equip = ent.GetConfigTable<EquipEntry>().Type;
             return _slots[equip];
         }
-        
+
+        [Serializable]
+        public class Settings
+        {
+            public Button ShowButton;
+
+            public List<EquipSlotPair> EquipSlots;
+            [ReadOnly] public string ItemAtlas = "ItemsAtlas";
+            public EquipPuppetMono ViewRef;
+        }
+
         [Serializable]
         public class EquipSlotPair
         {

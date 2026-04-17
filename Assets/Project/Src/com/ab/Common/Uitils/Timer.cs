@@ -16,7 +16,7 @@ namespace com.ab.common
             Max = max;
             Delay = beginningStart ? max : 0f;
         }
-        
+
         public bool Next(float delta, bool repeat = true)
         {
             Delay += delta;
@@ -39,12 +39,13 @@ namespace com.ab.common
             return !timer.Next(deltaTime);
         }
 
-        public static World<WT>.Entity SetTimer(this World<WT>.Entity source, Vector2 rangeDelay, bool beginningStart = false)
+        public static World<WT>.Entity SetTimer(this World<WT>.Entity source, Vector2 rangeDelay,
+            bool beginningStart = false)
         {
             source.Set(new Timer(rangeDelay.Rand(), beginningStart));
             return source;
         }
-        
+
         public static World<WT>.Entity SetTimer(this World<WT>.Entity source, float delay, bool beginningStart = false)
         {
             source.Set(new Timer(delay, beginningStart));

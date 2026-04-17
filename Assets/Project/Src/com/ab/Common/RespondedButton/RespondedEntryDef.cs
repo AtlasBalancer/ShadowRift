@@ -1,15 +1,13 @@
 using System;
-using com.ab.core;
 
 namespace com.ab.common
 {
     public class RespondedEntryDef : StaticEntryParamDef<RespondedEntryDef.Settings>,
         IStaticUpdateDef, IStaticCreateProtoEntityDef
     {
-        [Serializable]
-        public class Settings
+        public void CreateProtoEntities()
         {
-            public ResponseButtonRefMock Ref;
+            Def.Ref.Init();
         }
 
         public void RegisterUpdate()
@@ -17,9 +15,10 @@ namespace com.ab.common
             Sys.Add(new ResponseButtonSystem());
         }
 
-        public void CreateProtoEntities()
+        [Serializable]
+        public class Settings
         {
-          Def.Ref.Init();
+            public ResponseButtonRefMock Ref;
         }
     }
 }

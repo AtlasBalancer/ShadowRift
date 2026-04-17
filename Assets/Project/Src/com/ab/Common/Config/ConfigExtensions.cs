@@ -1,5 +1,4 @@
 using com.ab.complexity.core;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 
 namespace com.ab.common
@@ -18,20 +17,18 @@ namespace com.ab.common
             where TComponent : struct, IComponent
         {
             foreach (var entC in WC.Query<All<ConfigRef, TComponent>>().Entities())
-            {
                 if (entC.Ref<ConfigRef>().Equals(source))
                 {
                     component = entC.Ref<TComponent>();
                     return true;
                 }
-            }
 
             component = default;
             return false;
         }
 
 
-        public static bool TryToFindRuntimeRefByTag<TTag>(this ConfigIDEntSo source, out W.Entity findingEnt,
+        public static bool TryToFindRuntimeRefByTag<TTag>(this ConfigIDEntSo source, out World<WT>.Entity findingEnt,
             out EntityGID gid)
             where TTag : struct, ITag
         {
@@ -41,7 +38,8 @@ namespace com.ab.common
             return TryToFindRuntimeRefByTag<TTag>(@ref, out findingEnt);
         }
 
-        public static bool TryToFindRuntimeRefByTag<TTag>(this W.Entity source, out W.Entity findingEnt, out ConfigRef config)
+        public static bool TryToFindRuntimeRefByTag<TTag>(this World<WT>.Entity source, out World<WT>.Entity findingEnt,
+            out ConfigRef config)
             where TTag : struct, ITag
         {
             config = source.Ref<ConfigRef>();
@@ -49,23 +47,21 @@ namespace com.ab.common
         }
 
 
-        public static bool TryToFindRuntimeRefByTag<TTag>(this ConfigRef source, out W.Entity findingEnt)
+        public static bool TryToFindRuntimeRefByTag<TTag>(this ConfigRef source, out World<WT>.Entity findingEnt)
             where TTag : struct, ITag
         {
             foreach (var ent in W.Query<All<ConfigRef, TTag>>().Entities())
-            {
                 if (ent.Ref<ConfigRef>().Equals(source))
                 {
                     findingEnt = ent;
                     return true;
                 }
-            }
 
             findingEnt = default;
             return false;
         }
 
-        public static bool TryToFindRuntimeRef<TComponent>(this ConfigIDEntSo source, out W.Entity findingEnt,
+        public static bool TryToFindRuntimeRef<TComponent>(this ConfigIDEntSo source, out World<WT>.Entity findingEnt,
             out EntityGID gid)
             where TComponent : struct, IComponent
         {
@@ -75,28 +71,30 @@ namespace com.ab.common
             return TryToFindRuntimeRef<TComponent>(@ref, out findingEnt);
         }
 
-        public static bool TryToFindRuntimeRef<TComponent>(this ConfigRef source, out W.Entity findingEnt)
+        public static bool TryToFindRuntimeRef<TComponent>(this ConfigRef source, out World<WT>.Entity findingEnt)
             where TComponent : struct, IComponent
         {
             foreach (var ent in W.Query<All<ConfigRef, TComponent>>().Entities())
-            {
                 if (ent.Ref<ConfigRef>().Equals(source))
                 {
                     findingEnt = ent;
                     return true;
                 }
-            }
 
             findingEnt = default;
             return false;
         }
 
-        public static TConfigTable GetConfigTable<TConfigTable>(this W.Entity source)
-            where TConfigTable : struct, IComponent =>
-            source.Ref<ConfigRef>().GetConfigTable<TConfigTable>();
+        public static TConfigTable GetConfigTable<TConfigTable>(this World<WT>.Entity source)
+            where TConfigTable : struct, IComponent
+        {
+            return source.Ref<ConfigRef>().GetConfigTable<TConfigTable>();
+        }
 
         public static TConfigTable GetConfigTable<TConfigTable>(this ConfigRef source)
-            where TConfigTable : struct, IComponent =>
-            source.Gid.Unpack<WCT>().Ref<TConfigTable>();
+            where TConfigTable : struct, IComponent
+        {
+            return source.Gid.Unpack<WCT>().Ref<TConfigTable>();
+        }
     }
 }

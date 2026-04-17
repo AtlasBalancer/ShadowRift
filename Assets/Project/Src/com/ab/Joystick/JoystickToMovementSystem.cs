@@ -1,7 +1,7 @@
 using System;
-using com.ab.core;
-using UnityEngine;
+using com.ab.common;
 using FFS.Libraries.StaticEcs;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace com.ab.complexity.core
@@ -25,15 +25,15 @@ namespace com.ab.complexity.core
 
             if (_joystick.InputActive)
             {
-                 dir = new Vector2(
+                dir = new Vector2(
                     _joystick.GetHorizontalAxisRaw(),
                     _joystick.GetVerticalAxisRaw());
 
-                 velocity = new Vector2(
+                velocity = new Vector2(
                     _joystick.GetHorizontalAxis(),
                     _joystick.GetVerticalAxisRaw());
 
-                 magnitude = velocity.magnitude;
+                magnitude = velocity.magnitude;
             }
             else
             {
@@ -41,7 +41,7 @@ namespace com.ab.complexity.core
                 velocity = Vector2.zero;
                 magnitude = 0;
             }
-            
+
             foreach (var item in W.Query<All<Direction, Velocity, JoystickAttachTag>>().Entities())
             {
                 // Debug.Log($"Input raw:{_joystick.GetVerticalAxisRaw()}");

@@ -1,6 +1,5 @@
 using System;
 using com.ab.common;
-using com.ab.core;
 using Project.Src.com.ab.Common.Unity;
 using Sirenix.Utilities;
 
@@ -12,12 +11,14 @@ namespace com.ab.domain.equip
         public void Init()
         {
             _map.ForEach(item => item.Value.Init());
-            
+
             HideAll();
         }
-        
-        public void HideAll() =>
+
+        public void HideAll()
+        {
             _map.ForEach(item => item.Value.Render.enabled = false);
+        }
     }
 
     public class EquipUnitMono : EntityLink

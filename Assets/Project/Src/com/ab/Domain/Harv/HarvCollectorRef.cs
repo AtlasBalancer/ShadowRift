@@ -1,7 +1,6 @@
 using com.ab.common;
 using FFS.Libraries.StaticEcs;
 
-
 namespace com.ab.domain.harv
 {
     public struct HarvCollectorRef : IComponent

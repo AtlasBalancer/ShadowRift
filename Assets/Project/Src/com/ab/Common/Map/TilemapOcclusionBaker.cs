@@ -6,14 +6,7 @@ namespace com.ab.common.Map
 {
     public class TilemapOcclusionBakerService
     {
-        [Serializable]
-        public class Settings
-        {
-            [Tooltip("Tilemaps ordered front-to-back (0 = frontmost layer)")] [SerializeField]
-            public Tilemap[] Layers;
-        }
-
-        Settings _def;
+        readonly Settings _def;
 
         public TilemapOcclusionBakerService(Settings def)
         {
@@ -48,12 +41,17 @@ namespace com.ab.common.Map
         bool IsCovered(Tilemap[] layers, Vector3Int pos, int backIdx)
         {
             for (var frontIdx = 0; frontIdx < backIdx; frontIdx++)
-            {
                 if (layers[frontIdx] != null && layers[frontIdx].GetTile(pos) != null)
                     return true;
-            }
 
             return false;
+        }
+
+        [Serializable]
+        public class Settings
+        {
+            [Tooltip("Tilemaps ordered front-to-back (0 = frontmost layer)")] [SerializeField]
+            public Tilemap[] Layers;
         }
     }
 }

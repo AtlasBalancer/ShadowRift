@@ -1,6 +1,6 @@
-using FFS.Libraries.StaticEcs;
-using com.ab.domain.equip;
 using com.ab.complexity.features.player;
+using com.ab.domain.equip;
+using FFS.Libraries.StaticEcs;
 
 namespace Project.Src.com.ab.Domain.Unit.Items
 {
@@ -25,39 +25,39 @@ namespace Project.Src.com.ab.Domain.Unit.Items
             // foreach (var ent in W.Query.Entities<All<EquipCommand>>())
             // {
 
-                // W.Query.Entities<TagAll<Equip>>().DeleteTagForAll<Equip>();
-                
-                
-                // ItemDefID id = ent.Ref<InventoryItem>().ID;
-                // Image icon = _itemTable.Def.InventoryCards.Items[id].Icon;
+            // W.Query.Entities<TagAll<Equip>>().DeleteTagForAll<Equip>();
 
-                // _puppet.SetTool(icon);
 
-                // var toolPrefab = _itemTable.Def.Equipment.Entrys[id].Prefab;
-                // _player.SetTool(toolPrefab);
+            // ItemDefID id = ent.Ref<InventoryItem>().ID;
+            // Image icon = _itemTable.Def.InventoryCards.Items[id].Icon;
 
-                // if (!_player.Ent.HasAllOf<Tool>())
-                    // _player.Ent.Add<Tool>();
+            // _puppet.SetTool(icon);
 
-                // ent.Apply<Equip>(true);
-                // ent.Delete<EquipCommand>();
-            }
+            // var toolPrefab = _itemTable.Def.Equipment.Entrys[id].Prefab;
+            // _player.SetTool(toolPrefab);
 
-            // foreach (var ent in W.Query.Entities<All<UnEquipCommand>>())
-            // {
-                // foreach (var entEquipped in W.Query.Entities<TagAll<Equip>>())
-                    // entEquipped.DeleteTag<Equip>();
+            // if (!_player.Ent.HasAllOf<Tool>())
+            // _player.Ent.Add<Tool>();
 
-                // _player.RemoveTool();
+            // ent.Apply<Equip>(true);
+            // ent.Delete<EquipCommand>();
+        }
 
-                // if (_player.Ent.HasAllOf<Tool>())
-                    // _player.Ent.Delete<Tool>();
+        // foreach (var ent in W.Query.Entities<All<UnEquipCommand>>())
+        // {
+        // foreach (var entEquipped in W.Query.Entities<TagAll<Equip>>())
+        // entEquipped.DeleteTag<Equip>();
 
-                // _puppet.RemoveTool();
+        // _player.RemoveTool();
 
-                // ent.Apply<Equip>(false);
-                // ent.Delete<UnEquipCommand>();
-            // }
+        // if (_player.Ent.HasAllOf<Tool>())
+        // _player.Ent.Delete<Tool>();
+
+        // _puppet.RemoveTool();
+
+        // ent.Apply<Equip>(false);
+        // ent.Delete<UnEquipCommand>();
+        // }
         // }
     }
 }

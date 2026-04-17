@@ -18,31 +18,34 @@ namespace Project.Src.com.ab.Domain.Inventory
         [Header("Columns")] [SerializeField] public int MinColumns = 1;
         public int MaxColumns = 12;
 
-        void OnEnable() => Rebuild();
+        void OnEnable()
+        {
+            Rebuild();
+        }
 
         [Button]
         public void Rebuild()
         {
             Canvas.ForceUpdateCanvases();
-            int columns = CalcColumns();
+            var columns = CalcColumns();
             ApplyColumns(columns);
-            
+
             RebuildGrid(columns);
             RebuildSelection(columns);
-            
+
             UpdateCanvas();
         }
 
         void RebuildGrid(int columns)
         {
-            int childCount = Grid.transform.childCount;
+            var childCount = Grid.transform.childCount;
 
             if (columns <= 0) columns = 1;
 
-            int rows = Mathf.CeilToInt(childCount / (float)columns);
+            var rows = Mathf.CeilToInt(childCount / (float)columns);
             rows = Mathf.Max(rows, 1);
 
-            float height =
+            var height =
                 Grid.padding.top + Grid.padding.bottom +
                 rows * Grid.cellSize.y +
                 Mathf.Max(0, rows - 1) * Grid.spacing.y;
@@ -52,10 +55,9 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         void RebuildSelection(int columns)
         {
-
-            float gridH = CalcGridHeight(columns);
-            float spacingY = InnerVlg ? InnerVlg.spacing : 0f;
-            float paddingY = InnerVlg ? InnerVlg.padding.top + InnerVlg.padding.bottom : 0f;
+            var gridH = CalcGridHeight(columns);
+            var spacingY = InnerVlg ? InnerVlg.spacing : 0f;
+            var paddingY = InnerVlg ? InnerVlg.padding.top + InnerVlg.padding.bottom : 0f;
 
             sectionLE.preferredHeight = paddingY + TitleLE.preferredHeight + spacingY + gridH;
         }
@@ -69,13 +71,13 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         int CalcColumns()
         {
-            float width = GridRect.rect.width;
+            var width = GridRect.rect.width;
 
-            float available = width - Grid.padding.left - Grid.padding.right;
-            float cellW = Grid.cellSize.x;
-            float spacingX = Grid.spacing.x;
+            var available = width - Grid.padding.left - Grid.padding.right;
+            var cellW = Grid.cellSize.x;
+            var spacingX = Grid.spacing.x;
 
-            int columns = Mathf.FloorToInt((available + spacingX) / (cellW + spacingX));
+            var columns = Mathf.FloorToInt((available + spacingX) / (cellW + spacingX));
             columns = Mathf.Clamp(columns, MinColumns, MaxColumns);
             return Mathf.Max(1, columns);
         }
@@ -89,14 +91,14 @@ namespace Project.Src.com.ab.Domain.Inventory
 
         float CalcGridHeight(int columns)
         {
-            int childCount = Grid.transform.childCount;
+            var childCount = Grid.transform.childCount;
             if (childCount == 0) return Grid.padding.top + Grid.padding.bottom; // или 0
 
-            int rows = Mathf.CeilToInt(childCount / (float)columns);
+            var rows = Mathf.CeilToInt(childCount / (float)columns);
 
             float paddingY = Grid.padding.top + Grid.padding.bottom;
-            float cellH = Grid.cellSize.y;
-            float spacingY = Grid.spacing.y;
+            var cellH = Grid.cellSize.y;
+            var spacingY = Grid.spacing.y;
 
             return paddingY + rows * cellH + Mathf.Max(0, rows - 1) * spacingY;
         }

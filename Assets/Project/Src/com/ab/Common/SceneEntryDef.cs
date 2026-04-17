@@ -1,12 +1,6 @@
 using System;
-using com.ab.common.ProgressBar;
-using UnityEngine;
 using com.ab.complexity.core;
-using com.ab.complexity.features.player;
-using com.ab.core;
-using com.ab.domain.item;
-using com.ab.item;
-using Renderer = com.ab.complexity.core.Renderer;
+using UnityEngine;
 
 namespace com.ab.common
 {
@@ -14,12 +8,6 @@ namespace com.ab.common
     public class SceneEntryDef : StaticEntrySOParamDef<SceneEntryDef.Settings>,
         IStaticInitDef, IStaticUpdateDef
     {
-        [Serializable]
-        public class Settings
-        {
-            
-        }
-        
         public void RegisterInit()
         {
         }
@@ -28,6 +16,11 @@ namespace com.ab.common
         {
             Sys.Add(new DestroyLinkSystem());
             Sys.Add(new MovementVelocitySystem());
+        }
+
+        [Serializable]
+        public class Settings
+        {
         }
     }
 }

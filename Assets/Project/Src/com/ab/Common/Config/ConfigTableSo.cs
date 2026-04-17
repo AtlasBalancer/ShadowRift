@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using com.ab.complexity.core;
 using FFS.Libraries.StaticEcs;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
@@ -10,7 +9,7 @@ namespace com.ab.common
     public class ConfigTableSo<TEntry> : SerializedScriptableObject, IEcsTable
         where TEntry : struct, IComponent
     {
-        [SerializeField, ShowInInspector] public Dictionary<ConfigIDEntSo, TEntry> Entries = new();
+        [SerializeField] [ShowInInspector] public Dictionary<ConfigIDEntSo, TEntry> Entries = new();
 
         public void OpenEcsSession()
         {
@@ -21,7 +20,9 @@ namespace com.ab.common
             }
         }
 
-        public void CloseEcsSession() => 
+        public void CloseEcsSession()
+        {
             Entries.ForEach(item => item.Key.End());
+        }
     }
 }

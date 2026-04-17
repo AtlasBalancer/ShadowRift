@@ -1,29 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using com.ab.common;
-using com.ab.common.ProgressBar;
-using com.ab.complexity.core;
 using com.ab.core;
-using Cysharp.Threading.Tasks;
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using Object = UnityEngine.Object;
 
 namespace com.ab.domain.harv
 {
     public class HarvSpawnSystem : ISystem
     {
+        readonly Settings _def;
+        readonly HarvFactory _factory;
+
         public HarvSpawnSystem(Settings def)
         {
             _def = def;
             _factory = W.GetResource<HarvFactory>();
         }
-
-        readonly Settings _def;
-        readonly HarvFactory _factory;
 
         public void Init()
         {
@@ -46,7 +40,7 @@ namespace com.ab.domain.harv
             var deltaTime = Time.deltaTime;
 
             foreach (var ent in W.Query<
-                         EntityIs<HarvEntity>, 
+                         EntityIs<HarvEntity>,
                          All<UpdateTag>>().Entities())
             {
                 if (ent.Timer(deltaTime))
@@ -56,9 +50,9 @@ namespace com.ab.domain.harv
             }
         }
 
-        void SpawnItem(W.Entity spawnerEnt)
+        void SpawnItem(World<WT>.Entity spawnerEnt)
         {
-            List<Vector3Int> availablePosition = spawnerEnt.Ref<HarvAvailablePositions>().Val;
+            var availablePosition = spawnerEnt.Ref<HarvAvailablePositions>().Val;
             if (availablePosition.Count == 0)
                 return;
 

@@ -1,7 +1,7 @@
 using System;
-using UnityEngine;
 using FFS.Libraries.StaticEcs;
 using FFS.Libraries.StaticPack;
+using UnityEngine;
 
 namespace com.ab.complexity.core
 {
@@ -10,10 +10,13 @@ namespace com.ab.complexity.core
         public Vector2 Val;
 
         public static readonly ComponentTypeConfig<Position> Config = new(
-            guid: new Guid("346a1ca4076a4e6291526c1de698b454")
+            new Guid("346a1ca4076a4e6291526c1de698b454")
         );
 
-        public Position(Vector3 val) => Val = val;
+        public Position(Vector3 val)
+        {
+            Val = val;
+        }
 
         public void Write<TWorld>(ref BinaryPackWriter writer, World<TWorld>.Entity self)
             where TWorld : struct, IWorldType

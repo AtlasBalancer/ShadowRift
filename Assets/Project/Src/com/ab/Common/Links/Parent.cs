@@ -1,4 +1,5 @@
 using FFS.Libraries.StaticEcs;
+using UnityEngine;
 
 namespace com.ab.common
 {
@@ -9,16 +10,15 @@ namespace com.ab.common
             if (link.TryUnpack<WT>(out var parent))
             {
                 ref var children = ref parent.Add<World<WT>.Links<Child>>();
-                children.TryAdd(self.AsLink<Child>());
+
+                if (!children.TryAdd(self.AsLink<Child>())) Debug.Log($"{nameof(Parent)}::Can't add child");
             }
         }
 
         public void OnDelete<WT>(World<WT>.Entity self, EntityGID link, HookReason reason) where WT : struct, IWorldType
         {
             if (link.TryUnpack<WT>(out var parent) && parent.Has<World<WT>.Links<Child>>())
-            {
                 parent.Ref<World<WT>.Links<Child>>().TryRemove(self.AsLink<Child>());
-            }
         }
     }
 }

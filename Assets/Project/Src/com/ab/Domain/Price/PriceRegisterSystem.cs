@@ -1,10 +1,9 @@
 using System;
 using com.ab.common;
-using com.ab.complexity.core;
-using com.ab.core;
 using com.ab.domain.item;
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace com.ab.domain.price
 {
@@ -49,7 +48,7 @@ namespace com.ab.domain.price
                 throw new ArgumentException($"{nameof(PriceRegisterSystem)}::{nameof(CreteItem)}:: " +
                                             $"Can't find {def.Item.RuntimeID} in WC.{nameof(ItemEntry)}");
 
-            var itemRef = UnityEngine.Object.Instantiate(_def.ItemPrefab);
+            var itemRef = Object.Instantiate(_def.ItemPrefab);
             var sprite = _atlas.GetSprite(_def.ItemAtlasKey, itemEntry.AKSprite);
             itemRef.UpdateData(sprite, def.Amount, parent);
 

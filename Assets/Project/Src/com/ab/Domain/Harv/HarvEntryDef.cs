@@ -1,6 +1,4 @@
 using System;
-using com.ab.complexity.core;
-using com.ab.core;
 using Sirenix.OdinInspector;
 
 namespace com.ab.domain.harv
@@ -8,15 +6,6 @@ namespace com.ab.domain.harv
     public class HarvEntryDef : StaticEntryParamDef<HarvEntryDef.Settings>,
         IStaticUpdateDef, IStaticContextSetDef
     {
-        [Serializable]
-        public class Settings
-        {
-            public HarvLoadSystem.Settings HarvLoadSystem;
-            public HarvSpawnSystem.Settings HarvesterSpawnSystem;
-            public HarvCollectSystem.Settings HarvestCollectSystem;
-            public HarvFactory.Settings HarvFactory;
-        }
-
         HarvLoadSystem load;
 
         public void RegisterUpdate()
@@ -33,6 +22,12 @@ namespace com.ab.domain.harv
         }
 
         [Button]
+        public void Report()
+        {
+            load.Report();
+        }
+
+        [Button]
         public void Save()
         {
             load.Save();
@@ -42,6 +37,15 @@ namespace com.ab.domain.harv
         public void Load()
         {
             load.Load();
+        }
+
+        [Serializable]
+        public class Settings
+        {
+            public HarvLoadSystem.Settings HarvLoadSystem;
+            public HarvSpawnSystem.Settings HarvesterSpawnSystem;
+            public HarvCollectSystem.Settings HarvestCollectSystem;
+            public HarvFactory.Settings HarvFactory;
         }
     }
 }

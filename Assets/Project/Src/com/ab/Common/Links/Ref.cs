@@ -6,6 +6,10 @@ namespace com.ab.common
     public readonly struct Ref : IComponent
     {
         public readonly Transform Val;
-        public Ref(Transform val) => Val = val;
+
+        public Ref(Transform val)
+        {
+            Val = val;
+        }
     }
 }

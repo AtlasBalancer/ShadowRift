@@ -1,6 +1,5 @@
 using System;
 using com.ab.common;
-using com.ab.complexity.core;
 using com.ab.core;
 using com.ab.domain.harv;
 using FFS.Libraries.StaticEcs;
@@ -11,19 +10,19 @@ namespace Project.Src.com.ab.Feature.Mine
 {
     public class MineEntryDef : StaticEntryParamDef<MineEntryDef.Settings>, IStaticUpdateDef
     {
+        public void RegisterUpdate()
+        {
+            Sys.Add(new MineInitLayerSystem(Def.MineInitLayerSystem));
+            Sys.Add(new MineHoleOpenSystem(Def.MineHoleOpenSystem));
+            Sys.Add(new MineTransitionSystem(Def.MineTransitionSystem));
+        }
+
         [Serializable]
         public class Settings
         {
             public MineInitLayerSystem.Settings MineInitLayerSystem;
             public MineHoleOpenSystem.Settings MineHoleOpenSystem;
             public MineTransitionSystem.Settings MineTransitionSystem;
-        }
-
-        public void RegisterUpdate()
-        {
-            Sys.Add(new MineInitLayerSystem(Def.MineInitLayerSystem));
-            Sys.Add(new MineHoleOpenSystem(Def.MineHoleOpenSystem));
-            Sys.Add(new MineTransitionSystem(Def.MineTransitionSystem));
         }
     }
 
@@ -36,12 +35,15 @@ namespace Project.Src.com.ab.Feature.Mine
         }
 
         readonly Settings _def;
-        
-        public MineTransitionSystem(Settings def) => _def = def;
-        
+
+        public MineTransitionSystem(Settings def)
+        {
+            _def = def;
+        }
+
         public void Update()
         {
-            foreach (var ent in W.Query<All<HoleRef, AvailableTag, TriggerEnterTag>>().Entities()) 
+            foreach (var ent in W.Query<All<HoleRef, AvailableTag, TriggerEnterTag>>().Entities())
                 SceneManager.LoadScene(_def.SceneName);
         }
     }
@@ -56,10 +58,15 @@ namespace Project.Src.com.ab.Feature.Mine
 
         readonly Settings _def;
 
-        public MineHoleOpenSystem(Settings def) => _def = def;
+        public MineHoleOpenSystem(Settings def)
+        {
+            _def = def;
+        }
 
-        public void Init() =>
+        public void Init()
+        {
             _def.Hole.Init();
+        }
 
         public void Update()
         {
@@ -76,14 +83,12 @@ namespace Project.Src.com.ab.Feature.Mine
 
     public class MineInitLayerSystem : ISystem
     {
-        [Serializable]
-        public class Settings
-        {
-            public Grid GridRoot;
-        }
-
         readonly Settings _def;
-        public MineInitLayerSystem(Settings def) => _def = def;
+
+        public MineInitLayerSystem(Settings def)
+        {
+            _def = def;
+        }
 
         public void Init()
         {
@@ -91,6 +96,12 @@ namespace Project.Src.com.ab.Feature.Mine
 
         public void Update()
         {
+        }
+
+        [Serializable]
+        public class Settings
+        {
+            public Grid GridRoot;
         }
     }
 }

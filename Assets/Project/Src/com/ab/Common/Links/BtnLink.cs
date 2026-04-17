@@ -8,9 +8,12 @@ namespace com.ab.common
     {
         public readonly BtnLink Val;
 
-        public BtnRef(BtnLink val) => Val = val;
+        public BtnRef(BtnLink val)
+        {
+            Val = val;
+        }
     }
-    
+
     public class BtnLink : EntityLink
     {
         public Button Btn;
@@ -20,11 +23,15 @@ namespace com.ab.common
             Ent.Set(new BtnRef(this));
         }
 
-        protected override void Subscribe() => 
+        protected override void Subscribe()
+        {
             Btn.onClick.AddListener(Press);
+        }
 
-        protected override void UnSubscribe() => 
+        protected override void UnSubscribe()
+        {
             Btn.onClick.RemoveListener(Press);
+        }
 
         public void Press()
         {
@@ -32,7 +39,7 @@ namespace com.ab.common
                 return;
 
             OnClick();
-            
+
             Btn.interactable = false;
             Btn.transform.DOScale(0.95f, 0.1f)
                 .OnComplete(() =>

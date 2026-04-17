@@ -1,6 +1,4 @@
 using System;
-using com.ab.complexity.core;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 using UnityEngine.SceneManagement;
 
@@ -8,15 +6,15 @@ namespace com.ab.common.LevelTransition
 {
     public class LevelTransitionEntryDef : StaticEntryParamDef<LevelTransitionEntryDef.Settings>, IStaticUpdateDef
     {
+        public void RegisterUpdate()
+        {
+            Sys.Add(new LevelTransitionSystem(Def.LevelTransitionSystem));
+        }
+
         [Serializable]
         public class Settings
         {
             public LevelTransitionSystem.Settings LevelTransitionSystem;
-        }
-
-        public void RegisterUpdate()
-        {
-            Sys.Add(new LevelTransitionSystem(Def.LevelTransitionSystem));
         }
     }
 
@@ -29,13 +27,16 @@ namespace com.ab.common.LevelTransition
 
         readonly Settings _def;
 
-        public LevelTransitionSystem(Settings def) => _def = def;
+        public LevelTransitionSystem(Settings def)
+        {
+            _def = def;
+        }
 
         public void Update()
         {
             foreach (var ent in W.Query<All<
-                             LevelTransitionRef, 
-                             LevelTransitionAvailableTag, 
+                             LevelTransitionRef,
+                             LevelTransitionAvailableTag,
                              LevelTransitionTag>>()
                          .Entities())
             {

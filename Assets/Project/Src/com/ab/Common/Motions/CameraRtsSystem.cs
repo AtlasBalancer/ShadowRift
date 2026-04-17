@@ -1,5 +1,4 @@
 using System;
-using com.ab.core;
 using FFS.Libraries.StaticEcs;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,16 +6,19 @@ using UnityEngine.EventSystems;
 namespace com.ab.domain.camera
 {
     /// <summary>
-    /// RTS-управление для любого Transform:
-    ///   — 1 палец / ПКМ (editor) → панорамирование
-    ///   — 2 пальца / колесо (editor) → масштаб (только если Camera != null)
+    ///     RTS-управление для любого Transform:
+    ///     — 1 палец / ПКМ (editor) → панорамирование
+    ///     — 2 пальца / колесо (editor) → масштаб (только если Camera != null)
     /// </summary>
     public class CameraRtsSystem : ISystem
     {
         readonly Settings _settings;
         float _prevPinchDistance;
 
-        public CameraRtsSystem(Settings settings) => _settings = settings;
+        public CameraRtsSystem(Settings settings)
+        {
+            _settings = settings;
+        }
 
         public void Update()
         {
@@ -118,8 +120,10 @@ namespace com.ab.domain.camera
             return pos;
         }
 
-        static float GetAspect(CameraService service) =>
-            service.Camera != null ? service.Camera.aspect : (float)Screen.width / Screen.height;
+        static float GetAspect(CameraService service)
+        {
+            return service.Camera != null ? service.Camera.aspect : (float)Screen.width / Screen.height;
+        }
 
         // ──────────────────────────────────────────────────────────────────── settings
 

@@ -4,16 +4,19 @@ using UnityEngine.Tilemaps;
 namespace ab.Mono
 {
     /// <summary>
-    /// Removes tiles in back layers that are fully occluded by front layers.
-    /// Assign layers in front-to-back order (index 0 = frontmost).
-    /// Call BakeOcclusion() once after the map is loaded.
+    ///     Removes tiles in back layers that are fully occluded by front layers.
+    ///     Assign layers in front-to-back order (index 0 = frontmost).
+    ///     Call BakeOcclusion() once after the map is loaded.
     /// </summary>
     public class TilemapOcclusionBaker : MonoBehaviour
     {
-        [Tooltip("Tilemaps ordered front-to-back (0 = frontmost layer)")]
-        [SerializeField] private Tilemap[] _layers;
+        [Tooltip("Tilemaps ordered front-to-back (0 = frontmost layer)")] [SerializeField]
+        Tilemap[] _layers;
 
-        private void Start() => BakeOcclusion();
+        void Start()
+        {
+            BakeOcclusion();
+        }
 
         public void BakeOcclusion()
         {
@@ -38,13 +41,11 @@ namespace ab.Mono
             }
         }
 
-        private bool IsCovered(Vector3Int pos, int backIdx)
+        bool IsCovered(Vector3Int pos, int backIdx)
         {
             for (var frontIdx = 0; frontIdx < backIdx; frontIdx++)
-            {
                 if (_layers[frontIdx] != null && _layers[frontIdx].GetTile(pos) != null)
                     return true;
-            }
             return false;
         }
     }

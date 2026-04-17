@@ -6,7 +6,9 @@ namespace Project.Src.com.ab.Domain.Inventory
     {
         public InvItemMono Ref;
 
-        public InvItemRef(InvItemMono @ref) =>
+        public InvItemRef(InvItemMono @ref)
+        {
             Ref = @ref;
+        }
     }
 }
