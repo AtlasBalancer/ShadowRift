@@ -1,11 +1,13 @@
 using com.ab.core;
 using FFS.Libraries.StaticEcs;
+using FFS.Libraries.StaticPack;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace com.ab.common
 {
+    // View ref — transient, not persisted. Recreated when view is rebuilt after load.
     public readonly struct ProgressBarRef : IComponent
     {
         public readonly ProgressBarMono Val;
@@ -14,6 +16,9 @@ namespace com.ab.common
         {
             Val = val;
         }
+
+        public void Write<TWorld>(ref BinaryPackWriter writer, World<TWorld>.Entity self) where TWorld : struct, IWorldType { }
+        public void Read<TWorld>(ref BinaryPackReader reader, World<TWorld>.Entity self, byte version, bool disabled) where TWorld : struct, IWorldType { }
     }
 
     public class ProgressBarMono : EntityLink

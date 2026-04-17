@@ -13,9 +13,170 @@ MonoBehaviour:
   m_Name: StaticEcsViewConfig
   m_EditorClassIdentifier: FFS.StaticEcs.Unity.Editor::FFS.Libraries.StaticEcs.Unity.Editor.StaticEcsViewConfig
   worlds:
-  - worldTypeFullName: WT
+  - worldTypeFullName: com.ab.common.WT
     main:
       selectedTabName: 
+      drawRate: 0.5
+      drawFrames: 2
+    entities:
+      selectedTab: 0
+      componentColumns:
+      - Project/Src/com/ab/Feature/Mine/HoleRef
+      - Project/Src/com/ab/Domain/Collect/PlacedToInventory
+      - Project/Src/com/ab/Domain/Inventory/InvCategoryRef
+      - Project/Src/com/ab/Domain/Inventory/InvCategoryEntry
+      - Project/Src/com/ab/Domain/Inventory/InventoryItem
+      - Project/Src/com/ab/Domain/Inventory/InvItemRef
+      - com/ab/feature/mine/MineEntry
+      - com/ab/item/DropEntry
+      - com/ab/domain/price/PriceRef
+      - com/ab/domain/price/PriceEntry
+      - com/ab/domain/item/ItemEntry
+      - com/ab/domain/inventory/InvItemEntry
+      - com/ab/domain/harv/HarvAvailablePositions
+      - com/ab/domain/harv/HarvCollectorRef
+      - com/ab/domain/harv/HarvItemEntry
+      - com/ab/domain/harv/HarvRef
+      - com/ab/domain/harv/HarvSpawnerDef
+      - com/ab/domain/equip/EquipEntry
+      - com/ab/domain/equip/EquipPuppetRef
+      - com/ab/domain/equip/EquipUnitRef
+      - com/ab/domain/craft/CraftItemRef
+      - com/ab/domain/craft/CraftEntry
+      - com/ab/domain/construct/ConstructionRef
+      - com/ab/complexity/player/Tool
+      - com/ab/complexity/features/player/PlayerRef
+      - com/ab/common/ConfigRef
+      - com/ab/common/Amount
+      - com/ab/common/AmountUpdate
+      - com/ab/common/BtnRef
+      - com/ab/common/Destroy
+      - com/ab/common/EntRef
+      - com/ab/common/Ref
+      - com/ab/common/MovementEntry
+      - com/ab/common/MovementSamePosition
+      - com/ab/common/MovementSamePositionSmoothChangeTarget
+      - com/ab/common/ProgressBarRef
+      - com/ab/common/AttachRef
+      - com/ab/common/ResponseButtonRef
+      - com/ab/common/Timer
+      - com/ab/common/AnimatorRef
+      - com/ab/common/Direction
+      - com/ab/common/LogicRender
+      - com/ab/common/Position
+      - com/ab/common/Renderer
+      - com/ab/common/Velocity
+      - com/ab/common/LevelTransition/LevelTransitionRef
+      - com/ab/common/Camera/CameraRef
+      - com/ab/common/Camera/CameraZoom
+      - com/ab/common/Link<Parent>
+      - com/ab/common/Links<Child>
+      tagColumns:
+      - Project/Src/com/ab/Domain/Collect/PlacedSpawnByDropTable
+      - Project/Src/com/ab/Domain/Inventory/InventoryAdd
+      - Project/Src/com/ab/Domain/Inventory/InvTag
+      - Project/Src/com/ab/Domain/Inventory/InvToUpdateTag
+      - com/ab/domain/price/PriceAvailableTag
+      - com/ab/domain/price/PriceBuyTag
+      - com/ab/domain/price/PriceRegisterTag
+      - com/ab/domain/joystick/JoystickAttachTag
+      - com/ab/domain/equip/EquipTag
+      - com/ab/domain/construct/ConstructionBuilt
+      - com/ab/complexity/features/player/PlayerTag
+      - com/ab/complexity/core/Movement
+      - com/ab/common/UpdateTag
+      - com/ab/common/ActiveTag
+      - com/ab/common/AvailableTag
+      - com/ab/common/ClickTag
+      - com/ab/common/TriggerEnterTag
+      - com/ab/common/ResponseClick
+      - com/ab/common/ViewActive
+      - com/ab/common/LevelTransition/LevelTransitionTag
+      - com/ab/common/LevelTransition/LevelTransitionAvailableTag
+      showTableDataTypes:
+      - Project/Src/com/ab/Feature/Mine/HoleRef
+      - Project/Src/com/ab/Domain/Collect/PlacedToInventory
+      - Project/Src/com/ab/Domain/Inventory/InvCategoryRef
+      - Project/Src/com/ab/Domain/Inventory/InvCategoryEntry
+      - Project/Src/com/ab/Domain/Inventory/InventoryItem
+      - Project/Src/com/ab/Domain/Inventory/InvItemRef
+      - com/ab/feature/mine/MineEntry
+      - com/ab/item/DropEntry
+      - com/ab/domain/price/PriceRef
+      - com/ab/domain/price/PriceEntry
+      - com/ab/domain/item/ItemEntry
+      - com/ab/domain/inventory/InvItemEntry
+      - com/ab/domain/harv/HarvAvailablePositions
+      - com/ab/domain/harv/HarvCollectorRef
+      - com/ab/domain/harv/HarvItemEntry
+      - com/ab/domain/harv/HarvRef
+      - com/ab/domain/harv/HarvSpawnerDef
+      - com/ab/domain/equip/EquipEntry
+      - com/ab/domain/equip/EquipPuppetRef
+      - com/ab/domain/equip/EquipUnitRef
+      - com/ab/domain/craft/CraftItemRef
+      - com/ab/domain/craft/CraftEntry
+      - com/ab/domain/construct/ConstructionRef
+      - com/ab/complexity/player/Tool
+      - com/ab/complexity/features/player/PlayerRef
+      - com/ab/common/ConfigRef
+      - com/ab/common/Amount
+      - com/ab/common/AmountUpdate
+      - com/ab/common/BtnRef
+      - com/ab/common/Destroy
+      - com/ab/common/EntRef
+      - com/ab/common/Ref
+      - com/ab/common/MovementEntry
+      - com/ab/common/MovementSamePosition
+      - com/ab/common/MovementSamePositionSmoothChangeTarget
+      - com/ab/common/ProgressBarRef
+      - com/ab/common/AttachRef
+      - com/ab/common/ResponseButtonRef
+      - com/ab/common/Timer
+      - com/ab/common/AnimatorRef
+      - com/ab/common/Direction
+      - com/ab/common/LogicRender
+      - com/ab/common/Position
+      - com/ab/common/Renderer
+      - com/ab/common/Velocity
+      - com/ab/common/LevelTransition/LevelTransitionRef
+      - com/ab/common/Camera/CameraRef
+      - com/ab/common/Camera/CameraZoom
+      - com/ab/common/Link<Parent>
+      - com/ab/common/Links<Child>
+      sortByType: 
+      maxEntityResult: 100
+      pinnedEntities: 
+      filterActive: 1
+      gidFilterActive: 0
+      gidFilterValue: 0
+      filterAll:
+      - com/ab/domain/harv/HarvRef
+      filterAllOnlyDisabled: []
+      filterAllWithDisabled: []
+      filterNone: []
+      filterNoneWithDisabled: []
+      filterAny: []
+      filterAnyOnlyDisabled: []
+      filterAnyWithDisabled: []
+      foldoutMode: 1
+      autoExpandComponentTypes: []
+    events:
+      selectedTab: 0
+      latest: 1
+      filterTypeNames: []
+    stats:
+      showNotRegistered: 0
+      fragmentationThreshold: 512
+      foldoutEntityTypes: 1
+      foldoutEvents: 1
+      foldoutComponents: 1
+      foldoutTags: 1
+    systems:
+      drawLevel: 10
+  - worldTypeFullName: com.ab.common.WC
+    main:
+      selectedTabName: Entities
       drawRate: 0.5
       drawFrames: 2
     entities:

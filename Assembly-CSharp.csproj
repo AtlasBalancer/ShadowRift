@@ -137,7 +137,6 @@
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\InvTag.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\StaticIntegration\Providers\Events\GUI\WTDragEntityGID.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Craft\CraftViewSystem.cs" />
-    <Compile Include="Assets\Project\Src\com\ab\Common\Config\WC.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\StaticIntegration\Defs\IStaticLastInitStageDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\ServiceEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\RespondedButton\RespondedEntryDef.cs" />
@@ -251,6 +250,7 @@
     <Compile Include="Assets\Project\Src\com\ab\Core\Extensions\Vector2IntExtensions.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Harv\HarvLoadSystem.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\StaticIntegration\Providers\Events\Animation\WTAnimationEvent.cs" />
+    <Compile Include="Assets\Project\Src\com\ab\Common\StaticIntegration\Integrations\WC.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Common\Motions\CameraEntryDef.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Inv\GridAutoCellSizeMono.cs" />
     <Compile Include="Assets\Project\Src\com\ab\Domain\Construct\ConstructView.cs" />

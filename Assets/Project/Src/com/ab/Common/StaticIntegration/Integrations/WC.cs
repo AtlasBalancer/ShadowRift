@@ -1,6 +1,6 @@
 using FFS.Libraries.StaticEcs;
 
-namespace com.ab.complexity.core
+namespace com.ab.common
 {
     public abstract class WC : World<WCT>
     {
