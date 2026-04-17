@@ -1,0 +1,43 @@
+{
+  "name": "FFS.StaticEcs.Unity",
+  "rootNamespace": "FFS.StaticEcs.Unity",
+  "references": [
+    "FFS.StaticEcs",
+    "Unity.TextMeshPro"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [
+    {
+      "name": "com.unity.modules.physics",
+      "expression": "",
+      "define": "FFS_ECS_PHYSICS"
+    },
+    {
+      "name": "com.unity.modules.physics2d",
+      "expression": "",
+      "define": "FFS_ECS_PHYSICS2D"
+    },
+    {
+      "name": "com.unity.textmeshpro",
+      "expression": "",
+      "define": "FFS_ECS_TMP"
+    },
+    {
+      "name": "com.unity.ugui",
+      "expression": "[2.0.0]",
+      "define": "FFS_ECS_TMP"
+    },
+    {
+      "name": "com.unity.modules.animation",
+      "expression": "",
+      "define": "FFS_ECS_ANIMATION"
+    }
+  ],
+  "noEngineReferences": false
+}
